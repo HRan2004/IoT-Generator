@@ -1,6 +1,7 @@
 import json
 import os
 import time
+import traceback
 
 import datetime
 from watchdog.observers import Observer
@@ -15,9 +16,11 @@ from selenium.webdriver.common.by import By
 import requests
 import zipfile
 
-path = './app'
+name = 'smart-work-place'
 pid = '0188526d-3dca-c901-bb7e-d2dc594ad84d'
-token = '01h19ef1cbw0ez331ejtnqkdtr'
+token = '01h1wqgq39jjtxk3v0zcrq7qwm'
+path = './' + name
+second_prevent = True
 
 
 chrome_options = Options()
@@ -33,7 +36,7 @@ def make_zip(base_dir, zip_name):
             if file_name[-1] == '~':
                 continue
             p = os.path.join(dir_path, file_name)
-            zp.write(p, p.replace('/app/', '/'))
+            zp.write(p, p.replace('\\', '/').replace(f'/{name}/', '/'))
     zp.close()
 
 running = False
@@ -53,7 +56,7 @@ def main():
     url = "https://gateway.jeejio.com/developer/apps/file"
     payload = {}
     files = [
-        ('file', ('app.zip', open('C:/Projects/IoT-Ci/app.zip', 'rb'), 'application/zip'))
+        ('file', ('app.zip', open('./app.zip', 'rb'), 'application/zip'))
     ]
     result = requests.request("POST", url, headers=headers, data=payload, files=files).json()
     # print(json.dumps(result, indent=4))
@@ -64,6 +67,7 @@ def main():
         'Content-Type': 'application/json',
     }
     url = 'https://gateway.jeejio.com/developer/apps/' + pid
+    print(result)
     r = result['result']
     payload = json.dumps({
         'id': pid,
@@ -96,7 +100,22 @@ def main():
             time.sleep(0.1)
 
 
+modified_time = -1
+
+
+def try_main():
+    try:
+        main()
+    except Exception as e:
+        traceback.print_exc()
+        time.sleep(0.5)
+        print('\n')
+        global modified_time
+        modified_time = -1
+
+
 class FileEventHandler(FileSystemEventHandler):
+
     def __init__(self):
         FileSystemEventHandler.__init__(self)
 
@@ -105,7 +124,7 @@ class FileEventHandler(FileSystemEventHandler):
             print("Directory moved from {0} to {1}".format(event.src_path, event.dest_path))
         else:
             print("File moved from {0} to {1}".format(event.src_path, event.dest_path))
-        main()
+        try_main()
 
     def on_created(self, event):
         if event.src_path[-1] == '~':
@@ -114,7 +133,7 @@ class FileEventHandler(FileSystemEventHandler):
             print("Directory created:{0}".format(event.src_path))
         else:
             print("File created:{0}".format(event.src_path))
-        main()
+        try_main()
 
     def on_deleted(self, event):
         if event.src_path[-1] == '~':
@@ -123,16 +142,22 @@ class FileEventHandler(FileSystemEventHandler):
             print("Directory deleted:{0}".format(event.src_path))
         else:
             print("File deleted:{0}".format(event.src_path))
-        main()
+        try_main()
 
     def on_modified(self, event):
+        global modified_time
         if event.src_path[-1] == '~':
             return
         if event.is_directory:
             print("Directory modified:{0}".format(event.src_path))
         else:
             print("File modified:{0}".format(event.src_path))
-        main()
+        if second_prevent and time.time() - modified_time < 5:
+            modified_time = -1
+            print('\n')
+            return
+        modified_time = time.time()
+        try_main()
 
 
 if __name__ == '__main__':
