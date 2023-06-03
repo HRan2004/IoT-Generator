@@ -18,7 +18,7 @@ import zipfile
 
 name = 'smart-work-place'
 pid = '0188526d-3dca-c901-bb7e-d2dc594ad84d'
-token = '01h1wqgq39jjtxk3v0zcrq7qwm'
+token = '01h1xv7c2y5nhr1e0gvvvs91wh'
 path = './' + name
 second_prevent = True
 
@@ -47,7 +47,7 @@ def main():
         return
     running = True
     print('Making Zip...')
-    make_zip(path, 'app.zip')
+    make_zip(path, 'upload.zip')
 
     print('Upload...')
     headers = {
@@ -56,7 +56,7 @@ def main():
     url = "https://gateway.jeejio.com/developer/apps/file"
     payload = {}
     files = [
-        ('file', ('app.zip', open('./app.zip', 'rb'), 'application/zip'))
+        ('file', ('upload.zip', open('./upload.zip', 'rb'), 'application/zip'))
     ]
     result = requests.request("POST", url, headers=headers, data=payload, files=files).json()
     # print(json.dumps(result, indent=4))
@@ -152,7 +152,7 @@ class FileEventHandler(FileSystemEventHandler):
             print("Directory modified:{0}".format(event.src_path))
         else:
             print("File modified:{0}".format(event.src_path))
-        if second_prevent and time.time() - modified_time < 5:
+        if second_prevent and time.time() - modified_time < 10:
             modified_time = -1
             print('\n')
             return

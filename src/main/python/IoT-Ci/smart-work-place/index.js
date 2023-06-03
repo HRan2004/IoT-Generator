@@ -6,12 +6,18 @@ let householdHumidifier;
 
 window.methods = {
   onloadSdk(deviceArr) {
-    console.log('onloadSdk')
+    console.log('onloadSdk', 3)
     deviceManager = new DeviceManager(deviceArr)
     humanSensor = deviceManager.getHumanSensor_1('人体存在传感器')
     temperatureHumiditysSensor = deviceManager.getTemperatureHumiditysSensor('温湿度传感器')
     householdHumidifier = deviceManager.getHouseholdHumidifier('家用加湿器')
-    main()
+
+    try {
+      main()
+    } catch (e) {
+      console.error('Run Error')
+      console.warn(e)
+    }
   },
 }
 
@@ -42,7 +48,7 @@ async function main() {
     let existStatus = res.value === 'OCCUPIED'
     if (existStatus) {
       let res = await temperatureHumiditysSensor.getHumidity()
-      console.log('Humidity:', res) 
+      console.log('Humidity:', res)
       let humidity = res.value
       if (humidity > 60) {
         setMode(0)
@@ -58,14 +64,13 @@ async function main() {
     }
   }
 
-  while (true) {
+  setInterval(() => {
     try {
-      await check()
-      await sleep(120 * 1000)
+      check()
     } catch (e) {
-      console.error(e)
+      console.warn(e)
     }
-  }
+  }, 120 * 1000)
 }
 
 function sleep(time) {
