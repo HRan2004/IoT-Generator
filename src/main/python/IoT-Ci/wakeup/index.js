@@ -70,7 +70,7 @@ function main() {
     await aromatherapyMachine.setOnOff(false)
     let temperature = await temperatureHumiditysSensor.getTemperature()
     console.log('Temperature:', temperature)
-    if (temperature.value > 36) {
+    if (temperature.value > 26) {
       await floorFan.setOnOff(true)
       await floorFan.setWindSpeed(30)
       await floorFan.setHorizontalSweepingOnOff(true)
