@@ -16,12 +16,17 @@ from selenium.webdriver.common.by import By
 import requests
 import zipfile
 
-name = 'smart-work-place'
+name = 'wakeup'
 pid = '0188526d-3dca-c901-bb7e-d2dc594ad84d'
-token = '01h1xv7c2y5nhr1e0gvvvs91wh'
+token = '01h24c5e9r4qavfa354xt47m6e'
 path = './' + name
 second_prevent = True
 
+up = '''
+10281991589
+2486vbnm
+C:\Projects\IoT-Generator\src\main\python\IoT-Ci
+'''
 
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", True)
@@ -68,6 +73,10 @@ def main():
     }
     url = 'https://gateway.jeejio.com/developer/apps/' + pid
     print(result)
+    if 'result' not in result:
+        print('Upload Error')
+        running = False
+        return
     r = result['result']
     payload = json.dumps({
         'id': pid,
@@ -111,6 +120,8 @@ def try_main():
         time.sleep(0.5)
         print('\n')
         global modified_time
+        global running
+        running = False
         modified_time = -1
 
 
