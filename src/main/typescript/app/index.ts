@@ -1,4 +1,4 @@
-import Manager from "./manager";
+import Manager, {Trigger} from "./manager";
 
 let deviceManager
 let humanSensor
@@ -28,6 +28,6 @@ async function main(): Promise<void> {
     }
   }
   
-  Manager.interval(printHumanExist, 1000)
+  Trigger.interval(printHumanExist, 1000)
 }
 
