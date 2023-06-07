@@ -1,12 +1,13 @@
+import Manager from "./manager";
+
 let deviceManager
 let humanSensor
 
-(window as any).methods = {
+window.methods = {
   onloadSdk(deviceArr) {
-    console.log('OnLoadSdk', 10)
-    // @ts-ignore
     deviceManager = new DeviceManager(deviceArr)
     humanSensor = deviceManager.getHumanSensor_1('人体存在传感器')
+    console.log('Device sdks loaded')
     
     try {
       main()
@@ -27,21 +28,6 @@ async function main(): Promise<void> {
     }
   }
   
-  setInterval(() => {
-    printHumanExist()
-  }, 2 * 1000)
+  Manager.interval(printHumanExist, 1000)
 }
 
-
-declare class TalResponse {
-  value: any
-}
-
-declare class HumanSensor_1 {
-  getExistStatus(): Promise<TalResponse>
-}
-
-declare class DeviceManager {
-  constructor(deviceArr: any[])
-  getHumanSensor_1(name: string): HumanSensor_1
-}

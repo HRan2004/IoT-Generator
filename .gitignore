@@ -33,5 +33,5 @@ build/
 .vscode/
 
 src/main/python/IoT-Ci/upload/app.zip
-src/main/python/IoT-Ci/upload/app.zip
+src/main/typescript/node_modules
 src/main/python/IoT-Ci/zips

@@ -18,7 +18,7 @@ import zipfile
 name = 'dist'
 pid = '0188526d-3dca-c901-bb7e-d2dc594ad84d'
 token = '01h29jr15p2xt1md6z52qnf1ja'
-path = '../../typescript' + name
+path = '../../typescript/' + name
 second_prevent = True
 use_zip = False
 fresh = './upload'
@@ -38,9 +38,7 @@ def make_zip(base_dir, zip_name, mn):
                 continue
             p = os.path.join(dir_path, file_name)
             tp = p.replace('\\', '/').replace(mn, '/')
-            print(p)
-            print(tp)
-            print()
+            # print(f'Zip: {p} -> {tp}\n')
             zp.write(p, tp)
     zp.close()
 
@@ -55,7 +53,7 @@ def main():
     running = True
     if use_zip:
         print('Making Zip...')
-        make_zip(path, 'upload.zip', f'/{name}/')
+        make_zip(path, 'upload.zip', path + '/')
 
     print('Upload...')
     headers = {
