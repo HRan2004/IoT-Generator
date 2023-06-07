@@ -3,7 +3,6 @@ import os
 import time
 import traceback
 
-import datetime
 from watchdog.observers import Observer
 from watchdog.events import *
 
@@ -19,9 +18,10 @@ import zipfile
 name = 'dist'
 pid = '0188526d-3dca-c901-bb7e-d2dc594ad84d'
 token = '01h29jr15p2xt1md6z52qnf1ja'
-path = 'C:\\Projects\\IoT-Generator\\src\\main\\typescript\\' + name
+path = '../../typescript' + name
 second_prevent = True
-fresh = 'C:\\Projects\\IoT-Generator\\src\\main\\typescript\\fresh'
+use_zip = False
+fresh = './upload.zip'
 
 up = '''
 10281991589
@@ -29,33 +29,29 @@ up = '''
 C:\Projects\IoT-Generator\src\main\python\IoT-Ci
 '''
 
-chrome_options = Options()
-chrome_options.add_experimental_option("detach", True)
-driver = webdriver.Chrome(service=Service('chromedriver.exe'), options=chrome_options)
-driver.get('https://developer.jeejio.com/#/application/debugger?id=%s&appName=Test' % pid)
 
-
-def make_zip(base_dir, zip_name):
+def make_zip(base_dir, zip_name, mn):
     zp = zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED)
     for dir_path, dir_name, file_names in os.walk(base_dir):
         for file_name in file_names:
             if file_name[-1] == '~':
                 continue
             p = os.path.join(dir_path, file_name)
-            zp.write(p, p.replace('\\', '/').replace(f'/{name}/', '/'))
+            zp.write(p, p.replace('\\', '/').replace(f'/{mn}/', '/'))
     zp.close()
 
 
 running = False
-
+driver = None
 
 def main():
     global running
     if running:
         return
     running = True
-    print('Making Zip...')
-    make_zip(path, 'upload.zip')
+    if use_zip:
+        print('Making Zip...')
+        make_zip(path, 'upload.zip', name)
 
     print('Upload...')
     headers = {
@@ -116,6 +112,10 @@ modified_time = -1
 
 
 def try_main():
+    chrome_options = Options()
+    chrome_options.add_experimental_option("detach", True)
+    driver = webdriver.Chrome(service=Service('chromedriver.exe'), options=chrome_options)
+    driver.get('https://developer.jeejio.com/#/application/debugger?id=%s&appName=Test' % pid)
     try:
         main()
     except Exception as e:
