@@ -20,4 +20,8 @@ object DeviceAndPortMap {
             ),
         )
     }
+
+    fun getItem(name: String): DapmItem? {
+        return data.find { it.name == name }
+    }
 }
