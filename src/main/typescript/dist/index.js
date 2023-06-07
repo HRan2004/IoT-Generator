@@ -11,7 +11,7 @@ var deviceManager;
 let humanSensor;
 window.methods = {
     onloadSdk(deviceArr) {
-        console.log('onloadSdk', 3);
+        console.log('OnLoadSdk', 2);
         deviceManager = new DeviceManager(deviceArr);
         humanSensor = deviceManager.getHumanSensor_1('人体存在传感器');
         try {

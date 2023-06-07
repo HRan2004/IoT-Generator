@@ -16,11 +16,12 @@ from selenium.webdriver.common.by import By
 import requests
 import zipfile
 
-name = 'wakeup'
+name = 'dist'
 pid = '0188526d-3dca-c901-bb7e-d2dc594ad84d'
-token = '01h24c5e9r4qavfa354xt47m6e'
-path = './' + name
+token = '01h29jr15p2xt1md6z52qnf1ja'
+path = 'C:\\Projects\\IoT-Generator\\src\\main\\typescript\\' + name
 second_prevent = True
+fresh = 'C:\\Projects\\IoT-Generator\\src\\main\\typescript\\fresh'
 
 up = '''
 10281991589
@@ -44,7 +45,9 @@ def make_zip(base_dir, zip_name):
             zp.write(p, p.replace('\\', '/').replace(f'/{name}/', '/'))
     zp.close()
 
+
 running = False
+
 
 def main():
     global running
@@ -174,6 +177,8 @@ class FileEventHandler(FileSystemEventHandler):
 if __name__ == '__main__':
     observer = Observer()
     event_handler = FileEventHandler()
-    observer.schedule(event_handler, path, True)
+    if fresh == None:
+        fresh = path
+    observer.schedule(event_handler, fresh, True)
     observer.start()
     observer.join()
