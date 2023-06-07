@@ -17,9 +17,10 @@ import zipfile
 
 name = 'dist'
 pid = '0188526d-3dca-c901-bb7e-d2dc594ad84d'
-token = '01h29jr15p2xt1md6z52qnf1ja'
+token = '01h2atzwrrkfd7xyn4352amj3g'
 path = '../../typescript/' + name
 second_prevent = True
+
 use_zip = False
 fresh = './upload'
 

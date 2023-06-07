@@ -69,7 +69,7 @@ async function main() {
     } catch (e) {
       console.warn(e)
     }
-  }, 120 * 1000)
+  }, 2 * 1000)
 }
 
 function sleep(time) {
