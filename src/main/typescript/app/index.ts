@@ -1,9 +1,9 @@
-var deviceManager;
-let humanSensor;
+let deviceManager
+let humanSensor
 
 (window as any).methods = {
   onloadSdk(deviceArr) {
-    console.log('OnLoadSdk', 5)
+    console.log('OnLoadSdk', 10)
     // @ts-ignore
     deviceManager = new DeviceManager(deviceArr)
     humanSensor = deviceManager.getHumanSensor_1('人体存在传感器')
@@ -29,7 +29,7 @@ async function main(): Promise<void> {
   
   setInterval(() => {
     printHumanExist()
-  }, 120 * 1000)
+  }, 2 * 1000)
 }
 
 

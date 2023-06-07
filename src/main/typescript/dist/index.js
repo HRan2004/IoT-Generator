@@ -7,11 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var deviceManager;
+let deviceManager;
 let humanSensor;
 window.methods = {
     onloadSdk(deviceArr) {
-        console.log('OnLoadSdk', 5);
+        console.log('OnLoadSdk', 10);
         deviceManager = new DeviceManager(deviceArr);
         humanSensor = deviceManager.getHumanSensor_1('人体存在传感器');
         try {
@@ -36,6 +36,6 @@ function main() {
         });
         setInterval(() => {
             printHumanExist();
-        }, 120 * 1000);
+        }, 2 * 1000);
     });
 }

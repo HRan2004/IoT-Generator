@@ -32,6 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-src/main/python/IoT-Ci/app.zip
-src/main/python/IoT-Ci/upload.zip
+src/main/python/IoT-Ci/upload/app.zip
+src/main/python/IoT-Ci/upload/app.zip
 src/main/python/IoT-Ci/zips

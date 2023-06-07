@@ -21,7 +21,7 @@ token = '01h29jr15p2xt1md6z52qnf1ja'
 path = '../../typescript' + name
 second_prevent = True
 use_zip = False
-fresh = './upload.zip'
+fresh = './upload'
 
 up = '''
 10281991589
@@ -37,7 +37,11 @@ def make_zip(base_dir, zip_name, mn):
             if file_name[-1] == '~':
                 continue
             p = os.path.join(dir_path, file_name)
-            zp.write(p, p.replace('\\', '/').replace(f'/{mn}/', '/'))
+            tp = p.replace('\\', '/').replace(mn, '/')
+            print(p)
+            print(tp)
+            print()
+            zp.write(p, tp)
     zp.close()
 
 
@@ -51,7 +55,7 @@ def main():
     running = True
     if use_zip:
         print('Making Zip...')
-        make_zip(path, 'upload.zip', name)
+        make_zip(path, 'upload.zip', f'/{name}/')
 
     print('Upload...')
     headers = {
@@ -60,7 +64,7 @@ def main():
     url = "https://gateway.jeejio.com/developer/apps/file"
     payload = {}
     files = [
-        ('file', ('upload.zip', open('./upload.zip', 'rb'), 'application/zip'))
+        ('file', ('app.zip', open('upload/app.zip', 'rb'), 'application/zip'))
     ]
     result = requests.request("POST", url, headers=headers, data=payload, files=files).json()
     # print(json.dumps(result, indent=4))
@@ -112,10 +116,6 @@ modified_time = -1
 
 
 def try_main():
-    chrome_options = Options()
-    chrome_options.add_experimental_option("detach", True)
-    driver = webdriver.Chrome(service=Service('chromedriver.exe'), options=chrome_options)
-    driver.get('https://developer.jeejio.com/#/application/debugger?id=%s&appName=Test' % pid)
     try:
         main()
     except Exception as e:
@@ -175,6 +175,10 @@ class FileEventHandler(FileSystemEventHandler):
 
 
 if __name__ == '__main__':
+    chrome_options = Options()
+    chrome_options.add_experimental_option("detach", True)
+    driver = webdriver.Chrome(service=Service('chromedriver.exe'), options=chrome_options)
+    driver.get('https://developer.jeejio.com/#/application/debugger?id=%s&appName=Test' % pid)
     observer = Observer()
     event_handler = FileEventHandler()
     if fresh == None:
