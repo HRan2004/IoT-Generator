@@ -2,9 +2,7 @@ package com.hraps.iotgenerator.service.generate
 
 import com.alibaba.fastjson2.JSONArray
 import com.alibaba.fastjson2.JSONObject
-import com.hraps.iotgenerator.service.generate.classes.Device
-import com.hraps.iotgenerator.service.generate.classes.Edge
-import com.hraps.iotgenerator.service.generate.classes.Logic
+import com.hraps.iotgenerator.service.generate.classes.*
 
 class TaskData(json: JSONObject) {
     private var name: String = ""
@@ -21,23 +19,39 @@ class TaskData(json: JSONObject) {
             if (!cell.containsKey("id")) return@map
             val id = cell.getString("id")
             if (cell.containsKey("source") && cell.containsKey("target")) {
-                val source = cell["source"] as JSONObject
-                val target = cell["target"] as JSONObject
-                val sourceCell = source["cell"] as String
-                val targetCell = target["cell"] as String
-                val sourcePort = source["port"] as String
-                val targetPort = target["port"] as String
+                val source = cell.getJSONObject("source")
+                val target = cell.getJSONObject("target")
+                val sourceCell = source.getString("cell")
+                val targetCell = target.getString("cell")
+                val sourcePort = source.getString("port")
+                val targetPort = target.getString("port")
                 val edge = Edge(id, sourceCell, targetCell, sourcePort, targetPort)
                 edges.plus(edge)
             } else if (cell.containsKey("shape")) {
-                val shape = cell["shape"] as String
-                val ports = cell["item"] as JSONArray
+                val shape = cell.getString("shape")
+                val ports = cell.getJSONObject("ports").getJSONArray("items")
+                val data = cell.getJSONObject("data")
+                lateinit var node: Node
                 if (shape == "device-node") {
-                    val device = Device(id)
-                    devices.plus(device)
+                    node = Device()
+                    devices.plus(node)
                 } else if (shape == "logic-node") {
-                    val logic = Logic(id)
-                    logics.plus(logic)
+                    node = Logic()
+                    logics.plus(node)
+                } else {
+                    return@map
+                }
+                node.id = id
+                ports.map {
+                    val port = it as JSONObject
+                    val pid = port.getString("id")
+                    val name = port.getString("text")
+                    val left = port.getString("group") == "left"
+                    var disable = false
+                    try {
+                        disable = port.getJSONObject("attrs").getJSONObject("data").getBoolean("disable")
+                    } catch (_: Exception) {}
+                    node.ports.plus(Port(pid, name, left, disable))
                 }
             }
         }
