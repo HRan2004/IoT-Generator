@@ -23,14 +23,13 @@ window.methods = {
 
 async function main() {
   let state = false
-  let mode = 0
+  let mode = ''
 
   const setMode = async (value) => {
     console.log('SetHumidifierMode:', value)
-    if (value === 0) {
+    if (value === 'OFF') {
       if (!state) return
       state = false
-      mode = 0
       await householdHumidifier.setOnOff(false)
     } else {
       if (state) return
@@ -38,7 +37,7 @@ async function main() {
       await householdHumidifier.setOnOff(true)
       if (value === mode) return
       mode = value
-      await householdHumidifier.setSprayVolumePercentage(mode)
+      await householdHumidifier.setSprayVolume(mode)
     }
   }
 
@@ -51,16 +50,16 @@ async function main() {
       console.log('Humidity:', res)
       let humidity = res.value
       if (humidity > 60) {
-        setMode(0)
+        setMode('OFF')
       } else if (humidity > 50) {
-        setMode(33)
+        setMode('SMALL')
       } else if (humidity > 30) {
-        setMode(67)
+        setMode('MIDDLE')
       } else {
-        setMode(100)
+        setMode('LARGE')
       }
     } else {
-      setMode(0)
+      setMode('OFF')
     }
   }
 
