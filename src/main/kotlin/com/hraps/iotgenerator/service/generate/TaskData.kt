@@ -31,9 +31,14 @@ class TaskData(json: JSONObject) {
                 val shape = cell.getString("shape")
                 val ports = cell.getJSONObject("ports").getJSONArray("items")
                 val data = cell.getJSONObject("data")
+                var disable = false
+                try {
+                    disable = data.getBoolean("disable")
+                } catch (_: Exception) {}
                 lateinit var node: Node
                 if (shape == "device-node") {
                     node = Device()
+                    node.name = data.getString("device")
                     devices.plus(node)
                 } else if (shape == "logic-node") {
                     node = Logic()
@@ -42,6 +47,7 @@ class TaskData(json: JSONObject) {
                     return@map
                 }
                 node.id = id
+                node.disable = disable
                 ports.map {
                     val port = it as JSONObject
                     val pid = port.getString("id")

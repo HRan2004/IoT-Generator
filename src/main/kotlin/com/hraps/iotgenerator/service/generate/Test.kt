@@ -8,7 +8,7 @@ fun main() {
             "name": "test",
             "cells": [
                 {
-                    "id": "b84eaac9-4f63-45e1-9c6d-28f0ce0ed830",
+                    "id": "83905d74-6a26-4a50-951f-cb190dba1dc8",
                     "source": {
                         "cell": "N1",
                         "port": "1-OUT-1"
@@ -20,8 +20,8 @@ fun main() {
                 },
                 {
                     "position": {
-                        "x": 180,
-                        "y": 240
+                        "x": 228.01040649414062,
+                        "y": 445
                     },
                     "size": {
                         "width": 208,
@@ -79,7 +79,7 @@ fun main() {
                             {
                                 "id": "1-OUT-1",
                                 "group": "right",
-                                "text": "按压状态",
+                                "text": "是否有人",
                                 "attrs": {
                                     "circle": {
                                         "r": 10
@@ -107,16 +107,16 @@ fun main() {
                     },
                     "id": "N1",
                     "data": {
-                        "device": "SingleKeySwitch",
-                        "update": 4,
+                        "device": "HumanMotionSensor",
+                        "update": 3,
                         "connecting": null
                     },
                     "zIndex": 1
                 },
                 {
                     "position": {
-                        "x": 610,
-                        "y": 440
+                        "x": 700.0103759765625,
+                        "y": 600
                     },
                     "size": {
                         "width": 208,
