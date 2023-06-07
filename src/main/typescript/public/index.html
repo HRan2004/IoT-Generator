@@ -14,6 +14,7 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     .index{
       width: 100%;
       /* background: linear-gradient(173deg,#54cfff 0%, #fff 100%, #fff 100%); */
@@ -42,7 +43,7 @@
     .title{
       height: 0.88rem;
       font-size: 0.34rem;
-      font-family: PingFang SC, PingFang SC-Medium;
+      font-family: PingFang SC, PingFang SC-Medium, serif;
       font-weight: 600;
       text-align: center;
       color: #fff;
@@ -54,22 +55,30 @@
       align-items: center;
       flex-direction: column;
     }
+    .container >img{
+      width: 4.92rem;
+      height: 4.92rem;
+      margin: 0.25rem 0;
+    }
   </style>
 </head>
 
 <body>
   <div class="index ">
     <div class="title-wrap">
-      <div class="title">智能工位 Demo</div>
+      <div class="title">测试项目</div>
     </div>
     <div class="container">
     </div>
+  </div>
+
+
   </div>
 </body>
 
 <body>
   <!-- 传感器 -->
-  <script src="./dist/deviceManager.js"></script>
+  <script src="./lib/deviceManager.js"></script>
   <script src="./index.js"></script>
 </body>
 

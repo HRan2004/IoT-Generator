@@ -14,7 +14,6 @@
       padding: 0;
       box-sizing: border-box;
     }
-
     .index{
       width: 100%;
       /* background: linear-gradient(173deg,#54cfff 0%, #fff 100%, #fff 100%); */
@@ -55,77 +54,23 @@
       align-items: center;
       flex-direction: column;
     }
-    .container >img{
-      width: 4.92rem;
-      height: 4.92rem;
-      margin: 0.25rem 0;
-    }
-    .switch{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 0.4rem;
-      width: 6.96rem;
-      height: 1.78rem;
-      background: rgba(255,255,255);
-      border-radius: 0.32rem;
-      backdrop-filter: blur(0.136rem);
-      font-size: 0.36rem;
-      font-family: PingFang HK, PingFang HK-Regular;
-      font-weight: 400;
-      color: #000000;
-    }
-    .switch >.on{
-      display: block;
-    }
-    .switch >.off{
-      display: none;
-    }
-    .switch-icon{
-      width: 1rem;
-      height: 1rem;
-      background: #2bb3f0;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .switch-icon >img{
-      width: 0.48rem;
-      height: 0.48rem;
-    }
-
   </style>
 </head>
 
 <body>
   <div class="index ">
     <div class="title-wrap">
-      <div class="title">加湿器AAA</div>
+      <div class="title">厨房安全 Demo</div>
     </div>
     <div class="container">
-       <img src="./image/device-pic.png" alt="">
-       <div class="switch">
-        <span class="on">已开启</span>
-        <span class="off">关闭</span>
-        <div class="switch-icon " onclick="switchDevice()" >
-          <img src="./image/switch.png" alt="">
-        </div>
-       </div>
     </div>
-    <!-- <button type="button" onclick=" buttonCodes()">1.获取按键信息。 </button>
-    <button type="button" onclick="getHeartRate()">2.获取按键模式。</button> -->
-  </div>
-
-
-
   </div>
 </body>
 
 <body>
   <!-- 传感器 -->
-  <script src="./dist/deviceManager.js"></script>
-  <script src="./index.js"></script>
+  <script src="dist/deviceManager.js"></script>
+  <script src="index.js"></script>
 </body>
 
 </html>
