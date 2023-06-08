@@ -34,6 +34,9 @@ object DoGenerate {
         template.listFiles()?.map {
             val file = it
             val fileName = file.name
+            if (fileName.split(".").size >= 3 && fileName.split(".")[2] == "txt") {
+                fileName.split(".").dropLast(1).joinToString(".")
+            }
             val workFile = File(workPath + "\\" + fileName)
             if (workFile.exists()) {
                 workFile.delete()

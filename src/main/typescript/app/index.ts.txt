@@ -7,10 +7,10 @@ let switch1: MultiKeySwitch
 window.methods = {
   onloadSdk(deviceArr) {
     deviceManager = new DeviceManager(deviceArr)
-    humanSensor = deviceManager.getHumanSensor_1('人体存在传感器')
+    humanSensor = deviceManager.getHumanSensor_1('人体存在传感器3')
     // switch1 = deviceManager.getSwitch('开关')
     console.log('Device sdks loaded')
-    
+
     try {
       main()
     } catch (e) {
@@ -28,7 +28,7 @@ async function main(): Promise<void> {
       console.warn(e)
     }
   }
-  
+
   Trigger.interval(printHumanExist, 1000)
 }
 
