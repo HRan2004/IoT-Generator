@@ -28,14 +28,14 @@ async function main() {
   const setMode = async (value) => {
     console.log('SetHumidifierMode:', value)
     if (value === 'OFF') {
-      if (!state) return
+      // if (!state) return
       state = false
       await householdHumidifier.setOnOff(false)
     } else {
-      if (state) return
+      // if (state) return
       state = true
       await householdHumidifier.setOnOff(true)
-      if (value === mode) return
+      // if (value === mode) return
       mode = value
       await householdHumidifier.setSprayVolume(mode)
     }
