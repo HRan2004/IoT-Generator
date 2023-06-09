@@ -1,5 +1,5 @@
 import Manager, {Trigger} from "./manager"
-import data from "./data"
+import {data} from "./data"
 
 let deviceManager: DeviceManager
 let humanSensor0: HumanSensor_1

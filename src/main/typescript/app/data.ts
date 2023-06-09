@@ -1,5 +1,5 @@
 
-export default const data = {
+export const data = {
   "name": "test",
   "devices": [
     {
