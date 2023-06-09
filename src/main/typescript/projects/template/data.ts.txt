@@ -1,2 +1,2 @@
 
-export const data = null
+export default const data = null

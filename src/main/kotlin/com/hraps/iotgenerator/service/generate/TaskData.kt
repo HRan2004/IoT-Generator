@@ -12,6 +12,8 @@ class TaskData(json: JSONObject) {
     private var edges: Array<Edge> = emptyArray()
     private var logics: Array<Logic> = emptyArray()
 
+    private var counter: HashMap<String, Int> = hashMapOf()
+
     init {
         name = json["name"] as String
         val cells = json.getJSONArray("cells")
@@ -41,6 +43,18 @@ class TaskData(json: JSONObject) {
                 if (shape == "device-node") {
                     node = Device()
                     node.name = data.getString("device")
+                    if (counter.containsKey(node.name)) {
+                        counter[node.name] = counter[node.name]!! + 1
+                    } else {
+                        counter[node.name] = 0
+                    }
+                    node.index = counter[node.name]!!
+                    node.vn = node.name
+                        .replace("(", "")
+                        .replace(")", "")
+                        .replace(" ", "")
+                        .replace("-", "")
+                    node.vn = node.vn[0].lowercaseChar() + node.vn.substring(1) + node.index
                     talItem = DeviceAndPortMap.getItem(node.name)
                     if (talItem != null) {
                         node.tal = talItem.tal

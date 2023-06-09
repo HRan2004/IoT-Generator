@@ -5,6 +5,8 @@ class Device (
     override var ports: Array<Port> = emptyArray(),
     override var disable: Boolean = false,
     var name: String = "",
+    var vn: String = "",
+    var index: Int = 0,
     var tal: String = "",
     var model: String = "",
 ): Node {
