@@ -59,8 +59,8 @@ class TaskData(json: JSONObject) {
                             .replace(")", "")
                             .replace("_1", "")
                         node.vn = node.vn[0].lowercaseChar() + node.vn.substring(1) + node.index
+                        devices += node
                     }
-                    devices += node
                 } else if (shape == "logic-node") {
                     node = Logic()
                     logics += node
@@ -82,8 +82,8 @@ class TaskData(json: JSONObject) {
                     var tal = ""
                     if (talItem != null) {
                         tal = talItem.ports[name] ?: ""
+                        node.ports += Port(pid, name, left, pd, tal)
                     }
-                    node.ports += Port(pid, name, left, pd, tal)
                 }
             }
         }

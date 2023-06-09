@@ -22,6 +22,6 @@ window.methods = {
 }
 
 async function main(): Promise<void> {
-
+  
 }
 
