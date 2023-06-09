@@ -12,7 +12,8 @@ class TaskData(json: JSONObject) {
     var edges: Array<Edge> = emptyArray()
     var logics: Array<Logic> = emptyArray()
 
-    private var counter: HashMap<String, Int> = hashMapOf()
+    // private var counter: HashMap<String, Int> = hashMapOf()
+    private var counter = 0
 
     init {
         name = json["name"] as String
@@ -43,21 +44,21 @@ class TaskData(json: JSONObject) {
                 if (shape == "device-node") {
                     node = Device()
                     node.name = data.getString("device")
-                    if (counter.containsKey(node.name)) {
-                        counter[node.name] = counter[node.name]!! + 1
-                    } else {
-                        counter[node.name] = 0
-                    }
-                    node.index = counter[node.name]!!
-                    node.vn = node.name
-                        .replace("(", "")
-                        .replace(")", "")
-                        .replace(" ", "")
-                        .replace("-", "")
-                    node.vn = node.vn[0].lowercaseChar() + node.vn.substring(1) + node.index
+                    // if (counter.containsKey(node.name)) {
+                    //     counter[node.name] = counter[node.name]!! + 1
+                    // } else {
+                    //     counter[node.name] = 0
+                    // }
+                    // node.index = counter[node.name]!!
+                    node.index = counter++
                     talItem = DeviceAndPortMap.getItem(node.name)
                     if (talItem != null) {
                         node.tal = talItem.tal
+                        node.vn = node.tal
+                            .replace("(", "")
+                            .replace(")", "")
+                            .replace("_1", "")
+                        node.vn = node.vn[0].lowercaseChar() + node.vn.substring(1) + node.index
                     }
                     devices += node
                 } else if (shape == "logic-node") {

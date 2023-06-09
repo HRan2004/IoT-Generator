@@ -2,14 +2,14 @@ import Manager, {Trigger} from "./manager"
 import data from "./data"
 
 let deviceManager: DeviceManager
-let humanMotionSensor0: HumanSensor_1
-let lampHome0: Light
+let humanSensor0: HumanSensor_1
+let light1: Light
 
 window.methods = {
   onloadSdk(deviceArr) {
     deviceManager = new DeviceManager(deviceArr)
-    humanMotionSensor0 = deviceManager.getHumanSensor_1('HumanMotionSensor_0')
-    lampHome0 = deviceManager.getLight('Lamp(Home)_0')
+    humanSensor0 = deviceManager.getHumanSensor_1('HumanMotionSensor_0')
+    light1 = deviceManager.getLight('Lamp(Home)_1')
     console.log('Device sdks loaded.\n')
 
     try {
@@ -22,5 +22,6 @@ window.methods = {
 }
 
 async function main(): Promise<void> {
-  }
+
+}
 

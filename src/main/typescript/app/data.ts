@@ -15,7 +15,7 @@ export default const data = {
       ],
       "disable": false,
       "name": "HumanMotionSensor",
-      "vn": "humanMotionSensor0",
+      "vn": "humanSensor0",
       "index": 0,
       "tal": "HumanSensor_1",
       "model": ""
@@ -33,8 +33,8 @@ export default const data = {
       ],
       "disable": false,
       "name": "Lamp(Home)",
-      "vn": "lampHome0",
-      "index": 0,
+      "vn": "light1",
+      "index": 1,
       "tal": "Light",
       "model": ""
     }
@@ -50,8 +50,5 @@ export default const data = {
     }
   ],
   "logics": [],
-  "counter": {
-    "HumanMotionSensor": 0,
-    "Lamp(Home)": 0
-  }
+  "counter": 2
 }

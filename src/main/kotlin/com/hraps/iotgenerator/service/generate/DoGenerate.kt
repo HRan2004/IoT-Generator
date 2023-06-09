@@ -42,7 +42,7 @@ object DoGenerate {
         text = text.replace("/* GENERATE DEVICE VAR CREATE */", deviceVarCreate.joinToString("\n"))
         text = text.replace("/* GENERATE DEVICE INIT */", deviceInit.joinToString("\n    "))
         val mainCode = ""
-        text = text.replace("/* GENERATE MAIN CODE */\n", mainCode)
+        text = text.replace("/* GENERATE MAIN CODE */", mainCode)
         return text
     }
 
