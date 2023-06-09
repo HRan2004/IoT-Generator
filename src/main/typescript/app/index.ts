@@ -1,4 +1,5 @@
 import Property, {From} from "./property";
+import Parser from "./parser";
 
 let deviceManager: DeviceManager // Device Manager
 let DSM: any = {}// Double State Manager
@@ -15,13 +16,13 @@ window.methods = {
     humanSensor1 = deviceManager.getHumanSensor_1('HumanMotionSensor_1')
     householdHumidifier2 = deviceManager.getHouseholdHumidifier('HouseholdHumidifier_2')
     DSM.light0 = {
-      onOff: new Property("light0", "onOff", light0.setOnOff),
+      onOff: new Property("light0", "onOff", v => light0.setOnOff(Parser.parseToRemote(v))),
     }
     DSM.humanSensor1 = {
       existStatus: new Property("humanSensor1", "existStatus")
     }
     DSM.householdHumidifier2 = {
-      onOff: new Property("householdHumidifier2", "onOff", householdHumidifier2.setOnOff),
+      onOff: new Property("householdHumidifier2", "onOff", v => householdHumidifier2.setOnOff(Parser.parseToRemote(v))),
     }
     console.log('Devices sdk loaded.\n')
     
@@ -50,13 +51,15 @@ async function init(): Promise<void> {
   DSM.householdHumidifier2.onOff.setRemoteValue((await householdHumidifier2.getOnOff()).value, From.Remote)
   // Init remote receive
   humanSensor1.onReceive(data => {
+    data.existStatus = Parser.parseFromRemote(data.existStatus)
     DSM.humanSensor1.existStatus.setRemoteValue(data.existStatus, From.Device)
   })
   light0.onReceive(data => {
+    data.onOff = Parser.parseFromRemote(data.onOff)
     DSM.light0.onOff.setRemoteValue(data.onOff, From.Device)
   })
   householdHumidifier2.onReceive(data => {
-    console.log('flag1', data)
+    data.onOff = Parser.parseFromRemote(data.onOff)
     DSM.householdHumidifier2.onOff.setRemoteValue(data.onOff, From.Device)
   })
 }
