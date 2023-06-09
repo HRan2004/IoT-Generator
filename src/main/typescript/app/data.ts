@@ -10,14 +10,14 @@ export const data = {
           "name": "开关",
           "left": true,
           "disable": true,
-          "tal": "OnOff"
+          "tal": "onOff"
         },
         {
           "id": "1-OUT-1",
           "name": "开关",
           "left": false,
           "disable": true,
-          "tal": "OnOff"
+          "tal": "onOff"
         }
       ],
       "disable": false,
@@ -32,10 +32,10 @@ export const data = {
       "ports": [
         {
           "id": "2-OUT-1",
-          "name": "开关",
+          "name": "是否有人",
           "left": false,
           "disable": true,
-          "tal": ""
+          "tal": "existStatus"
         }
       ],
       "disable": false,
@@ -53,7 +53,7 @@ export const data = {
           "name": "开关",
           "left": true,
           "disable": true,
-          "tal": "OnOff"
+          "tal": "onOff"
         }
       ],
       "disable": false,

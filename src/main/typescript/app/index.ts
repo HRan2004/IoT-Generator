@@ -1,9 +1,8 @@
-import Manager, {Trigger} from "./manager"
-import {data} from "./data"
-import {UNKNOWN} from "./const";
-import Property from "./property";
+import Property, {From} from "./property";
 
-let deviceManager: DeviceManager
+let deviceManager: DeviceManager // Device Manager
+let DSM: any = {}// Double State Manager
+
 let light0: Light
 let humanSensor1: HumanSensor_1
 let householdHumidifier2: HouseholdHumidifier
@@ -11,30 +10,65 @@ let householdHumidifier2: HouseholdHumidifier
 window.methods = {
   onloadSdk(deviceArr) {
     deviceManager = new DeviceManager(deviceArr)
+    // Load devices sdk
     light0 = deviceManager.getLight('Lamp(Home)_0')
     humanSensor1 = deviceManager.getHumanSensor_1('HumanMotionSensor_1')
     householdHumidifier2 = deviceManager.getHouseholdHumidifier('HouseholdHumidifier_2')
-    console.log('Device sdks loaded.\n')
-  
+    DSM.light0 = {
+      onOff: new Property("light0", "onOff", light0.setOnOff),
+    }
+    DSM.humanSensor1 = {
+      existStatus: new Property("humanSensor1", "existStatus")
+    }
+    DSM.householdHumidifier2 = {
+      onOff: new Property("householdHumidifier2", "onOff", householdHumidifier2.setOnOff),
+    }
+    console.log('Devices sdk loaded.\n')
+    
     try {
-      main().then(r => {})
+      init().then(r => {
+        console.log('Init Success.')
+        try {
+          main().then(r => {})
+        } catch (e) {
+          console.error('Run Error.')
+          console.error(e)
+        }
+      })
     } catch (e) {
-      console.error('Run Error')
+      console.error('Init Error.')
       console.error(e)
     }
   },
 }
 
-let state: any = {
-  humanSensor1: {
-    existStatus: new Property("humanSensor1", "existStatus")
-  }
+// Init function
+async function init(): Promise<void> {
+  // Init properties
+  DSM.humanSensor1.existStatus.setRemoteValue((await humanSensor1.getExistStatus()).value, From.Remote)
+  DSM.light0.onOff.setRemoteValue((await light0.getOnOff()).value, From.Remote)
+  DSM.householdHumidifier2.onOff.setRemoteValue((await householdHumidifier2.getOnOff()).value, From.Remote)
+  // Init remote receive
+  humanSensor1.onReceive(data => {
+    DSM.humanSensor1.existStatus.setRemoteValue(data.existStatus, From.Device)
+  })
+  light0.onReceive(data => {
+    DSM.light0.onOff.setRemoteValue(data.onOff, From.Device)
+  })
+  householdHumidifier2.onReceive(data => {
+    console.log('flag1', data)
+    DSM.householdHumidifier2.onOff.setRemoteValue(data.onOff, From.Device)
+  })
 }
 
+// Main function
 async function main(): Promise<void> {
-  state.humanSensor1.existStatus = (await humanSensor1.getExistStatus()).value
-  humanSensor1.onReceive(data => {
-    state.humanSensor1.existStatus = data.existStatus
+  // Edges property bind
+  DSM.humanSensor1.existStatus.addListener(value => {
+    DSM.light0.onOff.setLocalValue(value, From.Local)
+  })
+  DSM.light0.onOff.addListener(value => {
+    DSM.householdHumidifier2.onOff.setLocalValue(value, From.Local)
   })
 }
 
