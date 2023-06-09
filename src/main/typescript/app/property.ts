@@ -1,12 +1,15 @@
 import {UNKNOWN} from "./const";
 
 export default class Property {
-  
+  device: string
   key: string
-  value: any = UNKNOWN
-  remoteValue: any = UNKNOWN
   
-  constructor(key: string) {
+  localValue: any = UNKNOWN
+  remoteValue: any = UNKNOWN
+  update: (value: any) => TalPromise
+  
+  constructor(device: string, key: string) {
+    this.device = device
     this.key = key
   }
   
@@ -21,12 +24,11 @@ export default class Property {
     this.listeners = []
   }
   
-  setValue(value: any, from: From = From.Local): boolean {
-    this.value = value
+  setLocalValue(value: any, from: From = From.Local): boolean {
+    this.localValue = value
     this.listeners.forEach(l => l(value))
     return true
   }
-  
   setRemoteValue(value: any, from: From = From.Local): boolean {
     if (this.remoteValue === value) return false
     this.remoteValue = value

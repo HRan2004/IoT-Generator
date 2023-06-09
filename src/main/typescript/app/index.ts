@@ -1,6 +1,7 @@
 import Manager, {Trigger} from "./manager"
 import {data} from "./data"
 import {UNKNOWN} from "./const";
+import Property from "./property";
 
 let deviceManager: DeviceManager
 let light0: Light
@@ -26,7 +27,7 @@ window.methods = {
 
 let state: any = {
   humanSensor1: {
-    existStatus: UNKNOWN
+    existStatus: new Property("humanSensor1", "existStatus")
   }
 }
 

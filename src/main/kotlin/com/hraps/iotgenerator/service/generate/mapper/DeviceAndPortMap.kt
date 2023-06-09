@@ -9,38 +9,38 @@ object DeviceAndPortMap {
             "Lamp(Home)",
             "Light",
             hashMapOf(
-                "开关" to "OnOff",
-                "光照强度" to "RelativeBrightness",
-                "色温" to "Temperature",
-                "亮度挡位" to "RelativeBrightness",
+                "开关" to "onOff",
+                "光照强度" to "relativeBrightness",
+                "色温" to "temperature",
+                "亮度挡位" to "relativeBrightness",
                 "RGB值" to "RGB",
             ),
         )
         data += DapmItem(
-            "HumanMotionSensor",
-            "HumanSensor_1",
+            "humanMotionSensor",
+            "humanSensor_1",
             hashMapOf(
-                "是否有人" to "ExistStatus",
+                "是否有人" to "existStatus",
             ),
         )
         data += DapmItem(
             "DoorAndWindowSensor",
             "DoorWindowSensor",
             hashMapOf(
-                "门窗状态" to "Status",
-                "设备电量" to "Temperature",
+                "门窗状态" to "status",
+                "设备电量" to "t emperature",
             ),
         )
         data += DapmItem(
             "HouseholdHumidifier",
             "HouseholdHumidifier",
             hashMapOf(
-                "开关" to "OnOff",
-                "雾量档位" to "setSprayVolume",
-                "当前湿度" to "CurrentHumidity",
-                "目标湿度" to "SettedHumidity",
-                "滤网寿命" to "FilterCartridgeRemainingTime",
-                "水量值" to "WaterLevel",
+                "开关" to "onOff",
+                "雾量档位" to "sprayVolume",
+                "当前湿度" to "currentHumidity",
+                "目标湿度" to "settedHumidity",
+                "滤网寿命" to "filterCartridgeRemainingTime",
+                "水量值" to "waterLevel",
             ),
         )
     }
