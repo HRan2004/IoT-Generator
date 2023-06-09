@@ -11,7 +11,7 @@ window.methods = {
     console.log('Device sdks loaded.\n')
 
     try {
-      main()
+      main().then(r => {})
     } catch (e) {
       console.error('Run Error')
       console.error(e)
@@ -20,6 +20,6 @@ window.methods = {
 }
 
 async function main(): Promise<void> {
-  /* GENERATE MAIN */
+  /* GENERATE MAIN CODE */
 }
 

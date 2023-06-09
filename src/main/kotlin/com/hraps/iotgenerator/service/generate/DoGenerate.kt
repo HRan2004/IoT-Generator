@@ -15,14 +15,35 @@ object DoGenerate {
 
     private val gsonPretty = GsonBuilder().setPrettyPrinting().create()
     private val gson = Gson()
+    private lateinit var task: TaskData
 
     fun generate(task: TaskData): String {
+        this.task = task
         copyTemplate()
-        val dataTs = FileUtils.read("$TEMPLATE_PATH\\data.ts")
-        val dataStr = if (DEBUG_MODE) gsonPretty.toJson(task) else gson.toJson(task)
-        FileUtils.write("$WORK_PATH\\data.ts", dataTs.replace("null", dataStr))
+        FileUtils.write("$WORK_PATH\\data.ts", makeDataFile(FileUtils.read("$WORK_PATH\\data.ts")))
+        FileUtils.write("$WORK_PATH\\index.ts", makeIndexFile(FileUtils.read("$WORK_PATH\\index.ts")))
         println(gsonPretty.toJson(task))
         return ""
+    }
+
+    private fun makeDataFile(source: String): String {
+        val dataStr = if (DEBUG_MODE) gsonPretty.toJson(task) else gson.toJson(task)
+        return source.replace("null", dataStr)
+    }
+
+    private fun makeIndexFile(source: String): String {
+        var text = source
+        var deviceVarCreate = emptyArray<String>()
+        var deviceInit = emptyArray<String>()
+        for (device in task.devices) {
+            deviceVarCreate += "let ${device.vn}: ${device.tal}"
+            deviceInit += "${device.vn} = deviceManager.get${device.tal}('${device.name}_${device.index}')"
+        }
+        text = text.replace("/* GENERATE DEVICE VAR CREATE */", deviceVarCreate.joinToString("\n"))
+        text = text.replace("/* GENERATE DEVICE INIT */", deviceInit.joinToString("\n    "))
+        val mainCode = ""
+        text = text.replace("/* GENERATE MAIN CODE */\n", mainCode)
+        return text
     }
 
     private fun copyTemplate() {

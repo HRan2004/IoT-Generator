@@ -1,34 +1,26 @@
-import Manager, {Trigger} from "./manager";
+import Manager, {Trigger} from "./manager"
+import data from "./data"
 
 let deviceManager: DeviceManager
-let humanSensor: HumanSensor_1
-let switch1: MultiKeySwitch
+let humanMotionSensor0: HumanSensor_1
+let lampHome0: Light
 
 window.methods = {
   onloadSdk(deviceArr) {
     deviceManager = new DeviceManager(deviceArr)
-    humanSensor = deviceManager.getHumanSensor_1('人体存在传感器3')
-    // switch1 = deviceManager.getSwitch('开关')
-    console.log('Device sdks loaded')
+    humanMotionSensor0 = deviceManager.getHumanSensor_1('HumanMotionSensor_0')
+    lampHome0 = deviceManager.getLight('Lamp(Home)_0')
+    console.log('Device sdks loaded.\n')
 
     try {
-      main()
+      main().then(r => {})
     } catch (e) {
       console.error('Run Error')
-      console.warn(e)
+      console.error(e)
     }
   },
 }
 
 async function main(): Promise<void> {
-  const printHumanExist = async (): Promise<void> => {
-    try {
-      let res = await humanSensor.getExistStatus()
-    } catch (e) {
-      console.warn(e)
-    }
   }
-
-  Trigger.interval(printHumanExist, 1000)
-}
 

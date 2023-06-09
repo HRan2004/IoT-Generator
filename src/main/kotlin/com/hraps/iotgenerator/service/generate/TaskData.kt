@@ -6,11 +6,11 @@ import com.hraps.iotgenerator.service.generate.mapper.DapmItem
 import com.hraps.iotgenerator.service.generate.mapper.DeviceAndPortMap
 
 class TaskData(json: JSONObject) {
-    private var name: String = ""
+    var name: String = ""
 
-    private var devices: Array<Device> = emptyArray()
-    private var edges: Array<Edge> = emptyArray()
-    private var logics: Array<Logic> = emptyArray()
+    var devices: Array<Device> = emptyArray()
+    var edges: Array<Edge> = emptyArray()
+    var logics: Array<Logic> = emptyArray()
 
     private var counter: HashMap<String, Int> = hashMapOf()
 
