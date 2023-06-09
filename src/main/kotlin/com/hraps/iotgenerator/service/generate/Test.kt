@@ -8,20 +8,31 @@ fun main() {
             "name": "test",
             "cells": [
                 {
-                    "id": "83905d74-6a26-4a50-951f-cb190dba1dc8",
+                    "id": "c3fd5597-7af7-4eed-a700-89f4ce3db508",
+                    "source": {
+                        "cell": "N2",
+                        "port": "2-OUT-1"
+                    },
+                    "target": {
+                        "cell": "N1",
+                        "port": "1-IN-1"
+                    }
+                },
+                {
+                    "id": "a171051c-c32c-44d4-843b-9956058c2aca",
                     "source": {
                         "cell": "N1",
                         "port": "1-OUT-1"
                     },
                     "target": {
-                        "cell": "N2",
-                        "port": "2-IN-1"
+                        "cell": "N3",
+                        "port": "3-IN-1"
                     }
                 },
                 {
                     "position": {
-                        "x": 228.01040649414062,
-                        "y": 445
+                        "x": 330,
+                        "y": 400
                     },
                     "size": {
                         "width": 208,
@@ -64,6 +75,19 @@ fun main() {
                         },
                         "items": [
                             {
+                                "id": "1-IN-1",
+                                "group": "left",
+                                "text": "开关",
+                                "attrs": {
+                                    "circle": {
+                                        "r": 10
+                                    },
+                                    "data": {
+                                        "disable": true
+                                    }
+                                }
+                            },
+                            {
                                 "id": "1-IN-ADD",
                                 "group": "left",
                                 "text": "+",
@@ -72,14 +96,15 @@ fun main() {
                                         "r": 0
                                     },
                                     "data": {
-                                        "disable": true
+                                        "disable": true,
+                                        "originColor": "rgb(82, 155, 241)"
                                     }
                                 }
                             },
                             {
                                 "id": "1-OUT-1",
                                 "group": "right",
-                                "text": "是否有人",
+                                "text": "开关",
                                 "attrs": {
                                     "circle": {
                                         "r": 10
@@ -107,16 +132,16 @@ fun main() {
                     },
                     "id": "N1",
                     "data": {
-                        "device": "HumanMotionSensor",
-                        "update": 3,
-                        "connecting": null
+                        "device": "Lamp(Home)",
+                        "connecting": null,
+                        "update": 6
                     },
                     "zIndex": 1
                 },
                 {
                     "position": {
-                        "x": 700.0103759765625,
-                        "y": 600
+                        "x": 40,
+                        "y": 210
                     },
                     "size": {
                         "width": 208,
@@ -159,19 +184,6 @@ fun main() {
                         },
                         "items": [
                             {
-                                "id": "2-IN-1",
-                                "group": "left",
-                                "text": "开关",
-                                "attrs": {
-                                    "circle": {
-                                        "r": 10
-                                    },
-                                    "data": {
-                                        "disable": true
-                                    }
-                                }
-                            },
-                            {
                                 "id": "2-IN-ADD",
                                 "group": "left",
                                 "text": "+",
@@ -180,8 +192,21 @@ fun main() {
                                         "r": 0
                                     },
                                     "data": {
+                                        "disable": true
+                                    }
+                                }
+                            },
+                            {
+                                "id": "2-OUT-1",
+                                "group": "right",
+                                "text": "开关",
+                                "attrs": {
+                                    "circle": {
+                                        "r": 10
+                                    },
+                                    "data": {
                                         "disable": true,
-                                        "originColor": "rgb(82, 155, 241)"
+                                        "originColor": "rgb(179, 117, 224)"
                                     }
                                 }
                             },
@@ -202,11 +227,106 @@ fun main() {
                     },
                     "id": "N2",
                     "data": {
-                        "device": "Lamp(Home)",
-                        "connecting": null,
-                        "update": 3
+                        "device": "HumanMotionSensor",
+                        "update": 5,
+                        "connecting": null
                     },
                     "zIndex": 2
+                },
+                {
+                    "position": {
+                        "x": 680,
+                        "y": 590
+                    },
+                    "size": {
+                        "width": 208,
+                        "height": 112
+                    },
+                    "view": "react-shape-view",
+                    "shape": "device-node",
+                    "component": {
+                        "key": null,
+                        "ref": null,
+                        "props": {},
+                        "_owner": null
+                    },
+                    "ports": {
+                        "groups": {
+                            "left": {
+                                "position": "left",
+                                "attrs": {
+                                    "circle": {
+                                        "r": 10,
+                                        "magnet": true,
+                                        "stroke": "#ffffff00",
+                                        "strokeWidth": 0,
+                                        "fill": "#ffffff00"
+                                    }
+                                }
+                            },
+                            "right": {
+                                "position": "right",
+                                "attrs": {
+                                    "circle": {
+                                        "r": 10,
+                                        "magnet": true,
+                                        "stroke": "#ffffff00",
+                                        "strokeWidth": 0,
+                                        "fill": "#ffffff00"
+                                    }
+                                }
+                            }
+                        },
+                        "items": [
+                            {
+                                "id": "3-IN-1",
+                                "group": "left",
+                                "text": "开关",
+                                "attrs": {
+                                    "circle": {
+                                        "r": 10
+                                    },
+                                    "data": {
+                                        "disable": true
+                                    }
+                                }
+                            },
+                            {
+                                "id": "3-IN-ADD",
+                                "group": "left",
+                                "text": "+",
+                                "attrs": {
+                                    "circle": {
+                                        "r": 0
+                                    },
+                                    "data": {
+                                        "disable": true,
+                                        "originColor": "rgb(82, 155, 241)"
+                                    }
+                                }
+                            },
+                            {
+                                "id": "3-OUT-ADD",
+                                "group": "right",
+                                "text": "+",
+                                "attrs": {
+                                    "circle": {
+                                        "r": 0
+                                    },
+                                    "data": {
+                                        "disable": true
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "id": "N3",
+                    "data": {
+                        "device": "HouseholdHumidifier",
+                        "connecting": null,
+                        "update": 5
+                    },
+                    "zIndex": 3
                 }
             ]
         }

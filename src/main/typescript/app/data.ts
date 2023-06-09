@@ -6,25 +6,50 @@ export const data = {
       "id": "N1",
       "ports": [
         {
+          "id": "1-IN-1",
+          "name": "开关",
+          "left": true,
+          "disable": true,
+          "tal": "OnOff"
+        },
+        {
           "id": "1-OUT-1",
-          "name": "是否有人",
+          "name": "开关",
           "left": false,
           "disable": true,
-          "tal": "ExistStatus"
+          "tal": "OnOff"
         }
       ],
       "disable": false,
-      "name": "HumanMotionSensor",
-      "vn": "humanSensor0",
+      "name": "Lamp(Home)",
+      "vn": "light0",
       "index": 0,
-      "tal": "HumanSensor_1",
+      "tal": "Light",
       "model": ""
     },
     {
       "id": "N2",
       "ports": [
         {
-          "id": "2-IN-1",
+          "id": "2-OUT-1",
+          "name": "开关",
+          "left": false,
+          "disable": true,
+          "tal": ""
+        }
+      ],
+      "disable": false,
+      "name": "HumanMotionSensor",
+      "vn": "humanSensor1",
+      "index": 1,
+      "tal": "HumanSensor_1",
+      "model": ""
+    },
+    {
+      "id": "N3",
+      "ports": [
+        {
+          "id": "3-IN-1",
           "name": "开关",
           "left": true,
           "disable": true,
@@ -32,23 +57,31 @@ export const data = {
         }
       ],
       "disable": false,
-      "name": "Lamp(Home)",
-      "vn": "light1",
-      "index": 1,
-      "tal": "Light",
+      "name": "HouseholdHumidifier",
+      "vn": "householdHumidifier2",
+      "index": 2,
+      "tal": "HouseholdHumidifier",
       "model": ""
     }
   ],
   "edges": [
     {
-      "id": "83905d74-6a26-4a50-951f-cb190dba1dc8",
+      "id": "c3fd5597-7af7-4eed-a700-89f4ce3db508",
+      "source": "N2",
+      "target": "N1",
+      "sourcePort": "2-OUT-1",
+      "targetPort": "1-IN-1",
+      "disable": false
+    },
+    {
+      "id": "a171051c-c32c-44d4-843b-9956058c2aca",
       "source": "N1",
-      "target": "N2",
+      "target": "N3",
       "sourcePort": "1-OUT-1",
-      "targetPort": "2-IN-1",
+      "targetPort": "3-IN-1",
       "disable": false
     }
   ],
   "logics": [],
-  "counter": 2
+  "counter": 3
 }
