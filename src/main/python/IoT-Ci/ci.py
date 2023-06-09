@@ -17,7 +17,7 @@ import zipfile
 
 name = 'dist'
 pid = '0188526d-3dca-c901-bb7e-d2dc594ad84d'
-token = '01h2atzwrrkfd7xyn4352amj3g'
+token = '01h2gayh63pp32jv2x1590s9aw'
 path = '../../typescript/' + name
 second_prevent = True
 

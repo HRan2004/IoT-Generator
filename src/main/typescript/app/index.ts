@@ -1,5 +1,6 @@
 import Manager, {Trigger} from "./manager"
 import {data} from "./data"
+import {UNKNOWN} from "./const";
 
 let deviceManager: DeviceManager
 let humanSensor0: HumanSensor_1
@@ -21,7 +22,16 @@ window.methods = {
   },
 }
 
+let state: any = {
+  humanSensor0: {
+    existStatus: UNKNOWN
+  }
+}
+
 async function main(): Promise<void> {
-  
+  state.humanSensor0.existStatus = (await humanSensor0.getExistStatus()).value
+  humanSensor0.onReceive(data => {
+    state.humanSensor0.existStatus = data.existStatus
+  })
 }
 

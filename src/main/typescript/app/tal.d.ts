@@ -24,11 +24,11 @@ declare class DeviceManager {
   // getMultiKeySwitch(name: string): MultiKeySwitch
 }
 
-declare class Device {
+declare class IotDevice {
   onReceive(f: (data: any) => void): void
 }
 
-declare class HumanSensor_1 extends Device {
+declare class HumanSensor_1 extends IotDevice {
   setAlarmRemindOnOff(value: boolean): TalPromise
   setIndicatorLampOnOff(value: boolean): TalPromise
   setBuzzerOnOff(value: boolean): TalPromise
@@ -55,7 +55,7 @@ declare interface TalColor {
   BLUE: number
 }
 
-declare class Light extends Device {
+declare class Light extends IotDevice {
   setOnOff(value: boolean): TalPromise
   setRelativeBrightness(value: number): TalPromise // 0~100,1
   setAdaptionBrightness(value: number): TalPromise // 0~20000,1
@@ -88,7 +88,7 @@ declare class Light extends Device {
   getRealTimePower(): TalPromise<number> // 0~1000,0.1
 }
 
-declare class HouseholdHumidifier extends Device {
+declare class HouseholdHumidifier extends IotDevice {
   setOnOff(value: boolean): TalPromise
   setSprayOnOff(value: boolean): TalPromise
   setSprayVolume(volume: 'SMALL' | 'MIDDLE' | 'LARGE'): TalPromise
@@ -119,14 +119,14 @@ declare class HouseholdHumidifier extends Device {
   getBacklightBrightness(): TalPromise<number> // 0~100,1
   getWarningToneOnOff(): TalPromise<boolean>
   getDegermingOnOff(): TalPromise<boolean>
-  // 31 ?
+  // TODO 31 ?
   getSeparatewarningOnOff(): TalPromise<boolean>
   getFilterCartridgeRemainingTime(): TalPromise<number>
   getAchieveSettedHumidity(): TalPromise<boolean>
   getChildLockOnOff(): TalPromise<boolean>
 }
 
-declare class DoorWindowSensor extends Device {
+declare class DoorWindowSensor extends IotDevice {
   setSensitivity(value: 'LOW' | 'MIDDLE' | 'HIGH'): TalPromise
   setOvertimeNotCloseAlarmOnoff(value: boolean): TalPromise
   setOvertimeTime(value: number): TalPromise // 0~86400,1
