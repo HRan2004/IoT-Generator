@@ -1,25 +1,46 @@
-import Manager, {Trigger} from "./manager"
-import {data} from "./data"
+import Property, {From} from "./property";
+import Parser from "./parser";
 
-let deviceManager: DeviceManager
+let deviceManager: DeviceManager // Device Manager
+let DSM: any = {} // Double State Manager
+
 /* GENERATE DEVICE VAR CREATE */
 
 window.methods = {
   onloadSdk(deviceArr) {
     deviceManager = new DeviceManager(deviceArr)
+    // Load devices sdk
     /* GENERATE DEVICE INIT */
     console.log('Device sdks loaded.\n')
 
     try {
-      main().then(r => {})
+      init().then(r => {
+        console.log('Init Success.')
+        try {
+          main().then(r => {})
+        } catch (e) {
+          console.error('Run Error.')
+          console.error(e)
+        }
+      })
     } catch (e) {
-      console.error('Run Error')
+      console.error('Init Error.')
       console.error(e)
     }
   },
 }
 
+// Init function
+async function init(): Promise<void> {
+  // Init properties
+  /* GENERATE INIT PROPERTY */
+  // Init remote receive
+  /* GENERATE PROPERTY REMOTE RECEIVE */
+}
+
+// Main function
 async function main(): Promise<void> {
-  /* GENERATE MAIN CODE */
+  // Edges property bind
+  /* GENERATE DEVICE BIND */
 }
 

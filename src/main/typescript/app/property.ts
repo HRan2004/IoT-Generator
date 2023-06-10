@@ -3,7 +3,6 @@ import {UNKNOWN} from "./const";
 export default class Property {
   device: string
   key: string
-  changed: boolean = false
   
   localValue: any = UNKNOWN
   remoteValue: any = UNKNOWN
@@ -28,7 +27,6 @@ export default class Property {
   
   setLocalValue(value: any, from: From = From.Local): boolean {
     if (this.localValue === value) return false
-    this.changed = true
     this.localValue = value
     this.listeners.forEach(l => l(value))
     if (this.remoteValue !== value) {
@@ -49,6 +47,7 @@ export default class Property {
         console.error(e)
       })
     } else if (from === From.Device) {
+      console.log('')
       console.log(`Receive data: ${this.device}.${this.key} =`, value)
       this.setLocalValue(value, From.Remote)
     }
