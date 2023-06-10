@@ -36,23 +36,42 @@ object DoGenerate {
         var deviceVarCreate = emptyArray<String>()
         var deviceInit = emptyArray<String>()
         var dsmInit = emptyArray<String>()
+        var initSetFunction = emptyArray<String>()
+        var initProperties = emptyArray<String>()
+        var initRemoteReceive = emptyArray<String>()
+
         for (device in task.devices) {
             deviceVarCreate += "let ${device.vn}: ${device.tal}"
             deviceInit += "${device.vn} = deviceManager.get${device.tal}('${device.name}_${device.index}')"
             var dsmProperties = emptyArray<String>()
             var hadArray = emptyArray<String>()
             for (port in device.ports) {
-                if (hadArray.contains(port.tal.name)) continue
-                hadArray += port.tal.name
-                dsmProperties += "${port.tal}: new Property('${device.vn}', '${port.tal}'),"
+                if (hadArray.contains(port.property)) continue
+                hadArray += port.property
+                val property = task.properties.find { it.tal == port.property && it.device == device.tal } ?: continue
+                dsmProperties += "${port.property}: new Property('${device.vn}', '${port.property}'),"
+                if (property.canWrite()) {
+                    initSetFunction += "DSM.${device.vn}.${port.property}.update = v => ${device.vn}.${property.setFunctionName}(Parser.parseToRemote(v))"
+                }
+                if (property.canRead()) {
+                    initProperties += "DSM.${device.vn}.${port.property}.setRemoteValue((await ${device.vn}.${property.getFunctionName}()).value)"
+                }
+                if (property.canNotify()) {
+                    initRemoteReceive += "${device.vn}.onReceive(data => {\n" +
+                        "    data.${port.property} = Parser.parseFromRemote(data.${port.property})\n" +
+                        "    DSM.${device.vn}.${port.property}.setRemoteValue(data.${port.property})\n" +
+                        "  })"
+                }
             }
             dsmInit += "DSM.${device.vn} = {\n      ${dsmProperties.joinToString("\n      ")}\n    }"
         }
         text = text.replace("/* GENERATE DEVICE VAR CREATE */", deviceVarCreate.joinToString("\n"))
         text = text.replace("/* GENERATE DEVICE INIT */", deviceInit.joinToString("\n    "))
         text = text.replace("/* GENERATE DSM INIT */", dsmInit.joinToString("\n    "))
-        val mainCode = ""
-        text = text.replace("/* GENERATE MAIN CODE */", mainCode)
+        text = text.replace("/* GENERATE INIT SET FUNCTION */", initSetFunction.joinToString("\n  "))
+        text = text.replace("/* GENERATE INIT PROPERTIES */", initProperties.joinToString("\n  "))
+        text = text.replace("/* GENERATE INIT REMOTE RECEIVE */", initRemoteReceive.joinToString("\n  "))
+        text = text.replace("/* GENERATE MAIN CODE */", "")
         return text
     }
 

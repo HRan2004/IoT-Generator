@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSONObject
 import com.hraps.iotgenerator.service.generate.classes.*
 import com.hraps.iotgenerator.service.generate.mapper.DapmItem
 import com.hraps.iotgenerator.service.generate.mapper.DeviceAndPortMap
+import com.hraps.iotgenerator.service.generate.mapper.Property
 
 class TaskData(json: JSONObject) {
     var name: String = ""
@@ -11,6 +12,7 @@ class TaskData(json: JSONObject) {
     var devices: Array<Device> = emptyArray()
     var edges: Array<Edge> = emptyArray()
     var logics: Array<Logic> = emptyArray()
+    var properties: Array<Property> = emptyArray()
 
     // private var counter: HashMap<String, Int> = hashMapOf()
     private var counter = 0
@@ -22,16 +24,7 @@ class TaskData(json: JSONObject) {
             val cell = it as JSONObject
             if (!cell.containsKey("id")) return@map
             val id = cell.getString("id")
-            if (cell.containsKey("source") && cell.containsKey("target")) {
-                val source = cell.getJSONObject("source")
-                val target = cell.getJSONObject("target")
-                val sourceCell = source.getString("cell")
-                val targetCell = target.getString("cell")
-                val sourcePort = source.getString("port")
-                val targetPort = target.getString("port")
-                val edge = Edge(id, sourceCell, targetCell, sourcePort, targetPort)
-                edges += edge
-            } else if (cell.containsKey("shape")) {
+            if (cell.containsKey("shape")) {
                 val shape = cell.getString("shape")
                 val ports = cell.getJSONObject("ports").getJSONArray("items")
                 val data = cell.getJSONObject("data")
@@ -80,11 +73,43 @@ class TaskData(json: JSONObject) {
                         pd = port.getJSONObject("attrs").getJSONObject("data").getBoolean("disable")
                     } catch (_: Exception) {}
                     if (talItem != null) {
-                        val tal = talItem.getProperty(name) ?: return@map
-                        node.ports += Port(pid, name, left, pd, tal)
+                        val property = talItem.getProperty(name) ?: return@map
+                        this.addProperty(property)
+                        node.ports += Port(pid, name, left, pd, property.tal)
                     }
                 }
             }
+        }
+        cells.map {
+            val cell = it as JSONObject
+            if (!cell.containsKey("id")) return@map
+            val id = cell.getString("id")
+            if (cell.containsKey("source") && cell.containsKey("target")) {
+                val source = cell.getJSONObject("source")
+                val target = cell.getJSONObject("target")
+                val sourceCell = source.getString("cell")
+                val targetCell = target.getString("cell")
+                val sourcePort = source.getString("port")
+                val targetPort = target.getString("port")
+                val disable = false
+                val sourceDevice = devices.find { it.id == sourceCell } ?: return@map
+                val targetDevice = devices.find { it.id == targetCell } ?: return@map
+                val sourcePortObj = sourceDevice.ports.find { it.id == sourcePort } ?: return@map
+                val targetPortObj = targetDevice.ports.find { it.id == targetPort } ?: return@map
+                edges += Edge(
+                    id,
+                    EdgePoint(sourceCell, targetCell, sourceDevice.vn, sourcePortObj.property),
+                    EdgePoint(sourcePort, targetPort, targetDevice.vn, targetPortObj.property),
+                    disable
+                )
+            }
+        }
+    }
+
+    private fun addProperty(property: Property) {
+        val hp = properties.find { it.tal == property.tal && it.device == property.device }
+        if (hp == null) {
+            properties += property
         }
     }
 }

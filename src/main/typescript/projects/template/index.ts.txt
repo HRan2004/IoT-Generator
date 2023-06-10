@@ -33,10 +33,12 @@ window.methods = {
 
 // Init function
 async function init(): Promise<void> {
+  // Init set function
+  /* GENERATE INIT SET FUNCTION */
   // Init properties
-  /* GENERATE INIT PROPERTY */
+  /* GENERATE INIT PROPERTIES */
   // Init remote receive
-  /* GENERATE PROPERTY REMOTE RECEIVE */
+  /* GENERATE INIT REMOTE RECEIVE */
 }
 
 // Main function

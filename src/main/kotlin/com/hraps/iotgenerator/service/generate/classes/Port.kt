@@ -7,5 +7,5 @@ class Port (
     val name: String = "",
     val left: Boolean = true,
     val disable: Boolean = false,
-    val tal: Property = Property(),
+    val property: String = "",
 )

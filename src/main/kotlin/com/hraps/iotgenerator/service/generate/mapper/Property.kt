@@ -3,6 +3,7 @@ package com.hraps.iotgenerator.service.generate.mapper
 import com.jeejio.xiaomi.general.tal.input.TalInputType
 
 class Property (
+    val device: String = "",
     val name: String = "",
     val tal: String = "",
 
@@ -21,5 +22,9 @@ class Property (
 
     fun canWrite(): Boolean {
         return permission.contains("w")
+    }
+
+    fun canNotify(): Boolean {
+        return permission.contains("n")
     }
 }

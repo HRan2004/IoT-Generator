@@ -1,5 +1,7 @@
 package com.hraps.iotgenerator.service.generate.classes
 
+import com.hraps.iotgenerator.service.generate.mapper.Property
+
 class Device (
     override var id: String = "",
     override var ports: Array<Port> = emptyArray(),
@@ -9,5 +11,4 @@ class Device (
     var index: Int = 0,
     var tal: String = "",
     var model: String = "",
-): Node {
-}
+): Node

@@ -14,10 +14,10 @@ window.methods = {
     light0 = deviceManager.getLight('Lamp(Home)_0')
     householdHumidifier2 = deviceManager.getHouseholdHumidifier('HouseholdHumidifier_2')
     DSM.light0 = {
-      com.hraps.iotgenerator.service.generate.mapper.Property@6b419da: new Property('light0', 'com.hraps.iotgenerator.service.generate.mapper.Property@6b419da'),
+      onOff: new Property('light0', 'onOff'),
     }
     DSM.householdHumidifier2 = {
-      com.hraps.iotgenerator.service.generate.mapper.Property@3b2da18f: new Property('householdHumidifier2', 'com.hraps.iotgenerator.service.generate.mapper.Property@3b2da18f'),
+      onOff: new Property('householdHumidifier2', 'onOff'),
     }
     console.log('Device sdks loaded.\n')
 
@@ -40,10 +40,21 @@ window.methods = {
 
 // Init function
 async function init(): Promise<void> {
+  // Init set function
+  DSM.light0.onOff.update = v => light0.setOnOff(Parser.parseToRemote(v))
+  DSM.householdHumidifier2.onOff.update = v => householdHumidifier2.setOnOff(Parser.parseToRemote(v))
   // Init properties
-  /* GENERATE INIT PROPERTY */
+  DSM.light0.onOff.setRemoteValue((await light0.getOnOff()).value)
+  DSM.householdHumidifier2.onOff.setRemoteValue((await householdHumidifier2.getOnOff()).value)
   // Init remote receive
-  /* GENERATE PROPERTY REMOTE RECEIVE */
+  light0.onReceive(data => {
+    data.onOff = Parser.parseFromRemote(data.onOff)
+    DSM.light0.onOff.setRemoteValue(data.onOff)
+  })
+  householdHumidifier2.onReceive(data => {
+    data.onOff = Parser.parseFromRemote(data.onOff)
+    DSM.householdHumidifier2.onOff.setRemoteValue(data.onOff)
+  })
 }
 
 // Main function

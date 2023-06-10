@@ -8,38 +8,38 @@ object DeviceAndPortMap {
             "Lamp(Home)",
             "Light",
             arrayOf(
-                Property("开关", "onOff"),
-                Property("光照强度", "relativeBrightness"),
-                Property("色温", "temperature"),
-                Property("亮度挡位", "relativeBrightness"),
-                Property("RGB值", "RGB"),
+                Property("Light", "开关", "onOff"),
+                Property("Light", "光照强度", "relativeBrightness"),
+                Property("Light", "色温", "temperature"),
+                Property("Light", "亮度挡位", "relativeBrightness"),
+                Property("Light", "RGB值", "RGB"),
             ),
         )
         data += DapmItem(
             "humanMotionSensor",
             "humanSensor_1",
             arrayOf(
-                Property("是否有人", "existStatus"),
+                Property("humanSensor_1", "是否有人", "existStatus"),
             ),
         )
         data += DapmItem(
             "DoorAndWindowSensor",
             "DoorWindowSensor",
             arrayOf(
-                Property("门窗状态", "status", "rn"),
-                Property("设备电量", "temperature", "rn"),
+                Property("DoorWindowSensor", "门窗状态", "status", "rn"),
+                Property("DoorWindowSensor", "设备电量", "temperature", "rn"),
             ),
         )
         data += DapmItem(
             "HouseholdHumidifier",
             "HouseholdHumidifier",
             arrayOf(
-                Property("开关", "onOff"),
-                Property("雾量档位", "sprayVolume"),
-                Property("当前湿度", "currentHumidity", "rn"),
-                Property("目标湿度", "settedHumidity"),
-                Property("滤网寿命", "filterCartridgeRemainingTime", "rn"),
-                Property("水量值", "waterLevel", "rn"),
+                Property("HouseholdHumidifier", "开关", "onOff"),
+                Property("HouseholdHumidifier", "雾量档位", "sprayVolume"),
+                Property("HouseholdHumidifier", "当前湿度", "currentHumidity", "rn"),
+                Property("HouseholdHumidifier", "目标湿度", "settedHumidity"),
+                Property("HouseholdHumidifier", "滤网寿命", "filterCartridgeRemainingTime", "rn"),
+                Property("HouseholdHumidifier", "水量值", "waterLevel", "rn"),
             ),
         )
     }

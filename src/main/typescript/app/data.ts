@@ -10,32 +10,14 @@ export const data = {
           "name": "开关",
           "left": true,
           "disable": true,
-          "tal": {
-            "name": "开关",
-            "tal": "onOff",
-            "permission": "rwn",
-            "talType": "ANY",
-            "range": [],
-            "options": [],
-            "getFunctionName": "getOnOff",
-            "setFunctionName": "setOnOff"
-          }
+          "property": "onOff"
         },
         {
           "id": "1-OUT-1",
           "name": "开关",
           "left": false,
           "disable": true,
-          "tal": {
-            "name": "开关",
-            "tal": "onOff",
-            "permission": "rwn",
-            "talType": "ANY",
-            "range": [],
-            "options": [],
-            "getFunctionName": "getOnOff",
-            "setFunctionName": "setOnOff"
-          }
+          "property": "onOff"
         }
       ],
       "disable": false,
@@ -53,16 +35,7 @@ export const data = {
           "name": "开关",
           "left": true,
           "disable": true,
-          "tal": {
-            "name": "开关",
-            "tal": "onOff",
-            "permission": "rwn",
-            "talType": "ANY",
-            "range": [],
-            "options": [],
-            "getFunctionName": "getOnOff",
-            "setFunctionName": "setOnOff"
-          }
+          "property": "onOff"
         }
       ],
       "disable": false,
@@ -75,22 +48,46 @@ export const data = {
   ],
   "edges": [
     {
-      "id": "c3fd5597-7af7-4eed-a700-89f4ce3db508",
-      "source": "N2",
-      "target": "N1",
-      "sourcePort": "2-OUT-1",
-      "targetPort": "1-IN-1",
-      "disable": false
-    },
-    {
       "id": "a171051c-c32c-44d4-843b-9956058c2aca",
-      "source": "N1",
-      "target": "N3",
-      "sourcePort": "1-OUT-1",
-      "targetPort": "3-IN-1",
+      "source": {
+        "cell": "N1",
+        "port": "N3",
+        "device": "light0",
+        "property": "onOff"
+      },
+      "target": {
+        "cell": "1-OUT-1",
+        "port": "3-IN-1",
+        "device": "householdHumidifier2",
+        "property": "onOff"
+      },
       "disable": false
     }
   ],
   "logics": [],
+  "properties": [
+    {
+      "device": "Light",
+      "name": "开关",
+      "tal": "onOff",
+      "permission": "rwn",
+      "talType": "ANY",
+      "range": [],
+      "options": [],
+      "getFunctionName": "getOnOff",
+      "setFunctionName": "setOnOff"
+    },
+    {
+      "device": "HouseholdHumidifier",
+      "name": "开关",
+      "tal": "onOff",
+      "permission": "rwn",
+      "talType": "ANY",
+      "range": [],
+      "options": [],
+      "getFunctionName": "getOnOff",
+      "setFunctionName": "setOnOff"
+    }
+  ],
   "counter": 3
 }
