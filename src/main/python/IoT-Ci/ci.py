@@ -209,7 +209,7 @@ def login():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
     }
     response = requests.request("POST", url, headers=headers, data=payload).json()
-    print('Login: ' + response["code"])
+    print('Login: ' + str(response["code"]))
     token = response['result']['token']
 
     while_do(lambda: driver.find_element(By.XPATH, '//input[@placeholder="请输入手机号"]').send_keys(username))

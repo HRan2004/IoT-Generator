@@ -2,7 +2,9 @@ package com.hraps.iotgenerator.service.generate
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.hraps.iotgenerator.Options
 import com.hraps.iotgenerator.service.generate.utils.FileUtils
+import com.hraps.iotgenerator.utils.CommandUtils
 import java.io.File
 
 object DoGenerate {
@@ -23,7 +25,10 @@ object DoGenerate {
         FileUtils.write("$WORK_PATH\\data.ts", makeDataFile(FileUtils.read("$WORK_PATH\\data.ts")))
         FileUtils.write("$WORK_PATH\\index.ts", makeIndexFile(FileUtils.read("$WORK_PATH\\index.ts")))
         println(gsonPretty.toJson(task))
-        return ""
+        if (Options.DEBUG_MODE) {
+            CommandUtils.runPython("src/main/python/IoT-Ci", "fresh.py")
+        }
+        return "Success"
     }
 
     private fun makeDataFile(source: String): String {
