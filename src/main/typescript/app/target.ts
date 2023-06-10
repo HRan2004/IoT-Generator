@@ -16,13 +16,13 @@ window.methods = {
     humanSensor1 = deviceManager.getHumanSensor_1('HumanMotionSensor_1')
     householdHumidifier2 = deviceManager.getHouseholdHumidifier('HouseholdHumidifier_2')
     DSM.light0 = {
-      onOff: new Property("light0", "onOff", v => light0.setOnOff(Parser.parseToRemote(v))),
+      onOff: new Property("light0", "onOff"),
     }
     DSM.humanSensor1 = {
       existStatus: new Property("humanSensor1", "existStatus")
     }
     DSM.householdHumidifier2 = {
-      onOff: new Property("householdHumidifier2", "onOff", v => householdHumidifier2.setOnOff(Parser.parseToRemote(v))),
+      onOff: new Property("householdHumidifier2", "onOff"),
     }
     console.log('Devices sdk loaded.\n')
     
@@ -45,22 +45,25 @@ window.methods = {
 
 // Init function
 async function init(): Promise<void> {
+  // Init set function
+  DSM.light0.onOff.update = v => light0.setOnOff(Parser.parseToRemote(v))
+  DSM.householdHumidifier2.onOff.update = v => householdHumidifier2.setOnOff(Parser.parseToRemote(v))
   // Init properties
-  DSM.humanSensor1.existStatus.setRemoteValue((await humanSensor1.getExistStatus()).value, From.Device)
-  DSM.light0.onOff.setRemoteValue((await light0.getOnOff()).value, From.Device)
-  DSM.householdHumidifier2.onOff.setRemoteValue((await householdHumidifier2.getOnOff()).value, From.Device)
+  DSM.humanSensor1.existStatus.setRemoteValue((await humanSensor1.getExistStatus()).value)
+  DSM.light0.onOff.setRemoteValue((await light0.getOnOff()).value)
+  DSM.householdHumidifier2.onOff.setRemoteValue((await householdHumidifier2.getOnOff()).value)
   // Init remote receive
   humanSensor1.onReceive(data => {
     data.existStatus = Parser.parseFromRemote(data.existStatus)
-    DSM.humanSensor1.existStatus.setRemoteValue(data.existStatus, From.Device)
+    DSM.humanSensor1.existStatus.setRemoteValue(data.existStatus)
   })
   light0.onReceive(data => {
     data.onOff = Parser.parseFromRemote(data.onOff)
-    DSM.light0.onOff.setRemoteValue(data.onOff, From.Device)
+    DSM.light0.onOff.setRemoteValue(data.onOff)
   })
   householdHumidifier2.onReceive(data => {
     data.onOff = Parser.parseFromRemote(data.onOff)
-    DSM.householdHumidifier2.onOff.setRemoteValue(data.onOff, From.Device)
+    DSM.householdHumidifier2.onOff.setRemoteValue(data.onOff)
   })
 }
 

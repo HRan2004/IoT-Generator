@@ -1,46 +1,45 @@
 package com.hraps.iotgenerator.service.generate.mapper
 
 object DeviceAndPortMap {
-
     var data: Array<DapmItem> = emptyArray()
 
     init {
         data += DapmItem(
             "Lamp(Home)",
             "Light",
-            hashMapOf(
-                "开关" to "onOff",
-                "光照强度" to "relativeBrightness",
-                "色温" to "temperature",
-                "亮度挡位" to "relativeBrightness",
-                "RGB值" to "RGB",
+            arrayOf(
+                Property("开关", "onOff"),
+                Property("光照强度", "relativeBrightness"),
+                Property("色温", "temperature"),
+                Property("亮度挡位", "relativeBrightness"),
+                Property("RGB值", "RGB"),
             ),
         )
         data += DapmItem(
             "humanMotionSensor",
             "humanSensor_1",
-            hashMapOf(
-                "是否有人" to "existStatus",
+            arrayOf(
+                Property("是否有人", "existStatus"),
             ),
         )
         data += DapmItem(
             "DoorAndWindowSensor",
             "DoorWindowSensor",
-            hashMapOf(
-                "门窗状态" to "status",
-                "设备电量" to "t emperature",
+            arrayOf(
+                Property("门窗状态", "status", "rn"),
+                Property("设备电量", "temperature", "rn"),
             ),
         )
         data += DapmItem(
             "HouseholdHumidifier",
             "HouseholdHumidifier",
-            hashMapOf(
-                "开关" to "onOff",
-                "雾量档位" to "sprayVolume",
-                "当前湿度" to "currentHumidity",
-                "目标湿度" to "settedHumidity",
-                "滤网寿命" to "filterCartridgeRemainingTime",
-                "水量值" to "waterLevel",
+            arrayOf(
+                Property("开关", "onOff"),
+                Property("雾量档位", "sprayVolume"),
+                Property("当前湿度", "currentHumidity", "rn"),
+                Property("目标湿度", "settedHumidity"),
+                Property("滤网寿命", "filterCartridgeRemainingTime", "rn"),
+                Property("水量值", "waterLevel", "rn"),
             ),
         )
     }

@@ -3,6 +3,11 @@ package com.hraps.iotgenerator.service.generate.mapper
 class DapmItem (
     val name: String = "",
     val tal: String = "",
-    val ports: HashMap<String, String> = HashMap(),
+    private val properties: Array<Property> = emptyArray(),
 ) {
+    fun getProperty(name: String): Property? {
+        return properties.find { it.name == name }
+    }
 }
+
+

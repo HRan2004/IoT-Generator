@@ -35,12 +35,22 @@ object DoGenerate {
         var text = source
         var deviceVarCreate = emptyArray<String>()
         var deviceInit = emptyArray<String>()
+        var dsmInit = emptyArray<String>()
         for (device in task.devices) {
             deviceVarCreate += "let ${device.vn}: ${device.tal}"
             deviceInit += "${device.vn} = deviceManager.get${device.tal}('${device.name}_${device.index}')"
+            var dsmProperties = emptyArray<String>()
+            var hadArray = emptyArray<String>()
+            for (port in device.ports) {
+                if (hadArray.contains(port.tal.name)) continue
+                hadArray += port.tal.name
+                dsmProperties += "${port.tal}: new Property('${device.vn}', '${port.tal}'),"
+            }
+            dsmInit += "DSM.${device.vn} = {\n      ${dsmProperties.joinToString("\n      ")}\n    }"
         }
         text = text.replace("/* GENERATE DEVICE VAR CREATE */", deviceVarCreate.joinToString("\n"))
         text = text.replace("/* GENERATE DEVICE INIT */", deviceInit.joinToString("\n    "))
+        text = text.replace("/* GENERATE DSM INIT */", dsmInit.joinToString("\n    "))
         val mainCode = ""
         text = text.replace("/* GENERATE MAIN CODE */", mainCode)
         return text

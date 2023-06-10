@@ -10,14 +10,32 @@ export const data = {
           "name": "开关",
           "left": true,
           "disable": true,
-          "tal": "onOff"
+          "tal": {
+            "name": "开关",
+            "tal": "onOff",
+            "permission": "rwn",
+            "talType": "ANY",
+            "range": [],
+            "options": [],
+            "getFunctionName": "getOnOff",
+            "setFunctionName": "setOnOff"
+          }
         },
         {
           "id": "1-OUT-1",
           "name": "开关",
           "left": false,
           "disable": true,
-          "tal": "onOff"
+          "tal": {
+            "name": "开关",
+            "tal": "onOff",
+            "permission": "rwn",
+            "talType": "ANY",
+            "range": [],
+            "options": [],
+            "getFunctionName": "getOnOff",
+            "setFunctionName": "setOnOff"
+          }
         }
       ],
       "disable": false,
@@ -28,24 +46,6 @@ export const data = {
       "model": ""
     },
     {
-      "id": "N2",
-      "ports": [
-        {
-          "id": "2-OUT-1",
-          "name": "是否有人",
-          "left": false,
-          "disable": true,
-          "tal": "existStatus"
-        }
-      ],
-      "disable": false,
-      "name": "HumanMotionSensor",
-      "vn": "humanSensor1",
-      "index": 1,
-      "tal": "HumanSensor_1",
-      "model": ""
-    },
-    {
       "id": "N3",
       "ports": [
         {
@@ -53,7 +53,16 @@ export const data = {
           "name": "开关",
           "left": true,
           "disable": true,
-          "tal": "onOff"
+          "tal": {
+            "name": "开关",
+            "tal": "onOff",
+            "permission": "rwn",
+            "talType": "ANY",
+            "range": [],
+            "options": [],
+            "getFunctionName": "getOnOff",
+            "setFunctionName": "setOnOff"
+          }
         }
       ],
       "disable": false,

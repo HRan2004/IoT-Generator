@@ -11,6 +11,7 @@ window.methods = {
     deviceManager = new DeviceManager(deviceArr)
     // Load devices sdk
     /* GENERATE DEVICE INIT */
+    /* GENERATE DSM INIT */
     console.log('Device sdks loaded.\n')
 
     try {

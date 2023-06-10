@@ -79,9 +79,8 @@ class TaskData(json: JSONObject) {
                     try {
                         pd = port.getJSONObject("attrs").getJSONObject("data").getBoolean("disable")
                     } catch (_: Exception) {}
-                    var tal = ""
                     if (talItem != null) {
-                        tal = talItem.ports[name] ?: ""
+                        val tal = talItem.getProperty(name) ?: return@map
                         node.ports += Port(pid, name, left, pd, tal)
                     }
                 }

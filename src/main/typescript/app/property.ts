@@ -35,7 +35,7 @@ export default class Property {
     return true
   }
   
-  setRemoteValue(value: any, from: From = From.Local): boolean {
+  setRemoteValue(value: any, from: From = From.Device): boolean {
     if (this.remoteValue === value) return false
     this.remoteValue = value
     if (from === From.Local) {
