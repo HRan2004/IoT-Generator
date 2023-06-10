@@ -4,20 +4,26 @@ import Parser from "./parser";
 let deviceManager: DeviceManager // Device Manager
 let DSM: any = {} // Double State Manager
 
-let light0: Light
-let householdHumidifier2: HouseholdHumidifier
+let doorWindowSensor0: DoorWindowSensor
+let light1: Light
+let light2: Light
 
 window.methods = {
   onloadSdk(deviceArr) {
     deviceManager = new DeviceManager(deviceArr)
     // Load devices sdk
-    light0 = deviceManager.getLight('Lamp(Home)_0')
-    householdHumidifier2 = deviceManager.getHouseholdHumidifier('HouseholdHumidifier_2')
-    DSM.light0 = {
-      onOff: new Property('light0', 'onOff'),
+    doorWindowSensor0 = deviceManager.getDoorWindowSensor('DoorAndWindowSensor_0')
+    light1 = deviceManager.getLight('Lamp(Home)_1')
+    light2 = deviceManager.getLight('Lamp(Home)_2')
+    DSM.doorWindowSensor0 = {
+      temperature: new Property('doorWindowSensor0', 'temperature'),
+      status: new Property('doorWindowSensor0', 'status'),
     }
-    DSM.householdHumidifier2 = {
-      onOff: new Property('householdHumidifier2', 'onOff'),
+    DSM.light1 = {
+      onOff: new Property('light1', 'onOff'),
+    }
+    DSM.light2 = {
+      onOff: new Property('light2', 'onOff'),
     }
     console.log('Device sdks loaded.\n')
 
@@ -41,27 +47,40 @@ window.methods = {
 // Init function
 async function init(): Promise<void> {
   // Init set function
-  DSM.light0.onOff.update = v => light0.setOnOff(Parser.parseToRemote(v))
-  DSM.householdHumidifier2.onOff.update = v => householdHumidifier2.setOnOff(Parser.parseToRemote(v))
+  DSM.light1.onOff.update = v => light1.setOnOff(Parser.parseToRemote(v))
+  DSM.light2.onOff.update = v => light2.setOnOff(Parser.parseToRemote(v))
   // Init properties
-  DSM.light0.onOff.setRemoteValue((await light0.getOnOff()).value)
-  DSM.householdHumidifier2.onOff.setRemoteValue((await householdHumidifier2.getOnOff()).value)
+  DSM.doorWindowSensor0.temperature.setRemoteValue((await doorWindowSensor0.getTemperature()).value)
+  DSM.doorWindowSensor0.status.setRemoteValue((await doorWindowSensor0.getStatus()).value)
+  DSM.light1.onOff.setRemoteValue((await light1.getOnOff()).value)
+  DSM.light2.onOff.setRemoteValue((await light2.getOnOff()).value)
   // Init remote receive
-  light0.onReceive(data => {
-    data.onOff = Parser.parseFromRemote(data.onOff)
-    DSM.light0.onOff.setRemoteValue(data.onOff)
+  doorWindowSensor0.onReceive(data => {
+    data.temperature = Parser.parseFromRemote(data.temperature)
+    DSM.doorWindowSensor0.temperature.setRemoteValue(data.temperature)
   })
-  householdHumidifier2.onReceive(data => {
+  doorWindowSensor0.onReceive(data => {
+    data.status = Parser.parseFromRemote(data.status)
+    DSM.doorWindowSensor0.status.setRemoteValue(data.status)
+  })
+  light1.onReceive(data => {
     data.onOff = Parser.parseFromRemote(data.onOff)
-    DSM.householdHumidifier2.onOff.setRemoteValue(data.onOff)
+    DSM.light1.onOff.setRemoteValue(data.onOff)
+  })
+  light2.onReceive(data => {
+    data.onOff = Parser.parseFromRemote(data.onOff)
+    DSM.light2.onOff.setRemoteValue(data.onOff)
   })
 }
 
 // Main function
 async function main(): Promise<void> {
   // Edges property bind
-  DSM.light0.onOff.addListener(value => {
-    DSM.householdHumidifier2.onOff.setLocalValue(value, From.Local)
+  DSM.doorWindowSensor0.status.addListener(value => {
+    DSM.light2.onOff.setLocalValue(value, From.Local)
+  })
+  DSM.doorWindowSensor0.temperature.addListener(value => {
+    DSM.light1.onOff.setLocalValue(value, From.Local)
   })
 }
 

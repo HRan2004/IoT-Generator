@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service
 class GenerateService {
 
     fun generate(json: JSONObject): String {
-        println("Start generate")
-        return "Success"
+        DoGenerate.generate(TaskData(json))
+        return "Finish"
     }
 
 }

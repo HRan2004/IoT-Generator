@@ -16,7 +16,7 @@ class TaskController {
     @Autowired
     lateinit var generateService: GenerateService
 
-    @RequestMapping("/generate", method = [RequestMethod.POST])
+    @RequestMapping("/api/generate", method = [RequestMethod.POST])
     fun task(
         @RequestBody jsonText: String,
     ): String {
