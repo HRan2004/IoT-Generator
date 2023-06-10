@@ -7,13 +7,6 @@ export const data = {
       "ports": [
         {
           "id": "1-OUT-1",
-          "name": "设备电量",
-          "left": false,
-          "disable": true,
-          "property": "temperature"
-        },
-        {
-          "id": "1-OUT-2",
           "name": "门窗状态",
           "left": false,
           "disable": true,
@@ -44,50 +37,16 @@ export const data = {
       "index": 1,
       "tal": "Light",
       "model": ""
-    },
-    {
-      "id": "N3",
-      "ports": [
-        {
-          "id": "3-IN-1",
-          "name": "开关",
-          "left": true,
-          "disable": true,
-          "property": "onOff"
-        }
-      ],
-      "disable": false,
-      "name": "Lamp(Home)",
-      "vn": "light2",
-      "index": 2,
-      "tal": "Light",
-      "model": ""
     }
   ],
   "edges": [
     {
-      "id": "c7ec5df2-a7fb-4f19-8e1b-b1162e8a05b6",
-      "source": {
-        "cell": "N1",
-        "port": "N3",
-        "device": "doorWindowSensor0",
-        "property": "status"
-      },
-      "target": {
-        "cell": "1-OUT-2",
-        "port": "3-IN-1",
-        "device": "light2",
-        "property": "onOff"
-      },
-      "disable": false
-    },
-    {
-      "id": "047cedb3-d087-4b15-92c2-1f640ca2b0bc",
+      "id": "a467b108-7a5e-46af-bd19-edc34cf67b36",
       "source": {
         "cell": "N1",
         "port": "N2",
         "device": "doorWindowSensor0",
-        "property": "temperature"
+        "property": "status"
       },
       "target": {
         "cell": "1-OUT-1",
@@ -100,17 +59,6 @@ export const data = {
   ],
   "logics": [],
   "properties": [
-    {
-      "device": "DoorWindowSensor",
-      "name": "设备电量",
-      "tal": "temperature",
-      "permission": "rn",
-      "talType": "ANY",
-      "range": [],
-      "options": [],
-      "getFunctionName": "getTemperature",
-      "setFunctionName": "setTemperature"
-    },
     {
       "device": "DoorWindowSensor",
       "name": "门窗状态",
@@ -134,5 +82,5 @@ export const data = {
       "setFunctionName": "setOnOff"
     }
   ],
-  "counter": 3
+  "counter": 2
 }

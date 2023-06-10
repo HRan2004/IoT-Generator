@@ -20,10 +20,16 @@ class TaskController {
     fun task(
         @RequestBody jsonText: String,
     ): String {
+        println("\nStart task: ")
         println(jsonText)
-        val json = JSONObject.parseObject(jsonText)
-        val result = generateService.generate(json)
-        return "Success"
+        return try {
+            val json = JSONObject.parseObject(jsonText)
+            val result = generateService.generate(json)
+            "Success"
+        } catch (e: Exception) {
+            e.printStackTrace()
+            "Failed"
+        }
     }
 
     @RequestMapping("/ping", method = [RequestMethod.GET])

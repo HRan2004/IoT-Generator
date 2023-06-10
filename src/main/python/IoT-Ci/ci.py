@@ -15,20 +15,26 @@ from selenium.webdriver.common.by import By
 import requests
 import zipfile
 
-name = 'dist'
-pid = '0188526d-3dca-c901-bb7e-d2dc594ad84d'
-token = '01h2gayh63pp32jv2x1590s9aw'
-path = '../../typescript/' + name
-second_prevent = True
 
+username = '10281991589'
+password = '2486vbnm'
+
+project_name = 'Test'
+pid = '0188526d-3dca-c901-bb7e-d2dc594ad84d'
+
+
+dir_name = 'dist'
+path = '../../typescript/' + dir_name
+
+second_prevent = True
 use_zip = False
 fresh = './upload'
 
-up = '''
-10281991589
-2486vbnm
-C:\Projects\IoT-Generator\src\main\python\IoT-Ci
-'''
+
+running = False
+driver = None
+token = ''
+modified_time = -1
 
 
 def make_zip(base_dir, zip_name, mn):
@@ -44,8 +50,23 @@ def make_zip(base_dir, zip_name, mn):
     zp.close()
 
 
-running = False
-driver = None
+def while_do(func):
+    while True:
+        try:
+            func()
+            break
+        except Exception as e:
+            # traceback.print_exc()
+            print('Loading...')
+            time.sleep(0.3)
+
+
+def click_element(tag, text):
+    def func():
+        btn = driver.find_element(By.XPATH, f'//{tag}[text()="{text}"]')
+        ActionChains(driver).move_to_element(btn).click().perform()
+    while_do(func)
+
 
 def main():
     global running
@@ -98,20 +119,9 @@ def main():
     time.sleep(0.2)
 
     print('Click Run...')
-    while True:
-        try:
-            btn = driver.find_element(By.XPATH, '//span[text()="运行"]')
-            ActionChains(driver).move_to_element(btn).click().perform()
-            print('Run Success.\n\n')
-            time.sleep(1)
-            running = False
-            break
-        except Exception as e:
-            print('Loading')
-            time.sleep(0.1)
-
-
-modified_time = -1
+    click_element('span', '运行')
+    print('Run Success.\n\n')
+    running = False
 
 
 def try_main():
@@ -173,14 +183,50 @@ class FileEventHandler(FileSystemEventHandler):
         try_main()
 
 
+def login():
+    global token
+    url = 'https://gateway.jeejio.com/user/login'
+    payload = json.dumps({
+        'phone': username,
+        'password': password,
+        'loginType': 0,
+    })
+    headers = {
+        'Accept': 'application/json, text/plain, */*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+        'Content-Length': '59',
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Origin': 'https://developer.jeejio.com',
+        'Platform': '1',
+        'Referer': 'https://developer.jeejio.com/',
+        'Sec-Ch-Ua': '"Google Chrome";v="113", "Chromium";v="113", "Not-A.Brand";v="24"',
+        'Sec-Ch-Ua-Mobile': '?0',
+        'Sec-Ch-Ua-Platform': '"Windows"',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-site',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
+    }
+    response = requests.request("POST", url, headers=headers, data=payload).json()
+    print('Login: ' + response["code"])
+    token = response['result']['token']
+
+    while_do(lambda: driver.find_element(By.XPATH, '//input[@placeholder="请输入手机号"]').send_keys(username))
+    while_do(lambda: driver.find_element(By.XPATH, '//input[@placeholder="请输入密码"]').send_keys(password))
+    click_element('span', '登录')
+    click_element('span', f' {project_name} ')
+
+
 if __name__ == '__main__':
     chrome_options = Options()
     chrome_options.add_experimental_option("detach", True)
     driver = webdriver.Chrome(service=Service('chromedriver.exe'), options=chrome_options)
-    driver.get('https://developer.jeejio.com/#/application/debugger?id=%s&appName=Test' % pid)
+    driver.get('https://developer.jeejio.com/#/application/debugger?id=%s&appName=%s' % (pid, project_name))
+    login()
     observer = Observer()
     event_handler = FileEventHandler()
-    if fresh == None:
+    if fresh is None:
         fresh = path
     observer.schedule(event_handler, fresh, True)
     observer.start()

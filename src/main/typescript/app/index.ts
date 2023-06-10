@@ -6,7 +6,6 @@ let DSM: any = {} // Double State Manager
 
 let doorWindowSensor0: DoorWindowSensor
 let light1: Light
-let light2: Light
 
 window.methods = {
   onloadSdk(deviceArr) {
@@ -14,16 +13,11 @@ window.methods = {
     // Load devices sdk
     doorWindowSensor0 = deviceManager.getDoorWindowSensor('DoorAndWindowSensor_0')
     light1 = deviceManager.getLight('Lamp(Home)_1')
-    light2 = deviceManager.getLight('Lamp(Home)_2')
     DSM.doorWindowSensor0 = {
-      temperature: new Property('doorWindowSensor0', 'temperature'),
       status: new Property('doorWindowSensor0', 'status'),
     }
     DSM.light1 = {
       onOff: new Property('light1', 'onOff'),
-    }
-    DSM.light2 = {
-      onOff: new Property('light2', 'onOff'),
     }
     console.log('Device sdks loaded.\n')
 
@@ -48,17 +42,10 @@ window.methods = {
 async function init(): Promise<void> {
   // Init set function
   DSM.light1.onOff.update = v => light1.setOnOff(Parser.parseToRemote(v))
-  DSM.light2.onOff.update = v => light2.setOnOff(Parser.parseToRemote(v))
   // Init properties
-  DSM.doorWindowSensor0.temperature.setRemoteValue((await doorWindowSensor0.getTemperature()).value)
   DSM.doorWindowSensor0.status.setRemoteValue((await doorWindowSensor0.getStatus()).value)
   DSM.light1.onOff.setRemoteValue((await light1.getOnOff()).value)
-  DSM.light2.onOff.setRemoteValue((await light2.getOnOff()).value)
   // Init remote receive
-  doorWindowSensor0.onReceive(data => {
-    data.temperature = Parser.parseFromRemote(data.temperature)
-    DSM.doorWindowSensor0.temperature.setRemoteValue(data.temperature)
-  })
   doorWindowSensor0.onReceive(data => {
     data.status = Parser.parseFromRemote(data.status)
     DSM.doorWindowSensor0.status.setRemoteValue(data.status)
@@ -67,19 +54,12 @@ async function init(): Promise<void> {
     data.onOff = Parser.parseFromRemote(data.onOff)
     DSM.light1.onOff.setRemoteValue(data.onOff)
   })
-  light2.onReceive(data => {
-    data.onOff = Parser.parseFromRemote(data.onOff)
-    DSM.light2.onOff.setRemoteValue(data.onOff)
-  })
 }
 
 // Main function
 async function main(): Promise<void> {
   // Edges property bind
   DSM.doorWindowSensor0.status.addListener(value => {
-    DSM.light2.onOff.setLocalValue(value, From.Local)
-  })
-  DSM.doorWindowSensor0.temperature.addListener(value => {
     DSM.light1.onOff.setLocalValue(value, From.Local)
   })
 }
