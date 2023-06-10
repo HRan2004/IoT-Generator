@@ -60,6 +60,8 @@ async function init(): Promise<void> {
 // Main function
 async function main(): Promise<void> {
   // Edges property bind
-  /* GENERATE DEVICE BIND */
+  DSM.light0.onOff.addListener(value => {
+    DSM.householdHumidifier2.onOff.setLocalValue(value, From.Local)
+  })
 }
 

@@ -71,7 +71,18 @@ object DoGenerate {
         text = text.replace("/* GENERATE INIT SET FUNCTION */", initSetFunction.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT PROPERTIES */", initProperties.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT REMOTE RECEIVE */", initRemoteReceive.joinToString("\n  "))
-        text = text.replace("/* GENERATE MAIN CODE */", "")
+
+        var edgesPropertyBind = emptyArray<String>()
+        for (edge in task.edges) {
+            val sourceDevice = task.devices.find { it.vn == edge.source.device } ?: continue
+            val sourceProperty = task.properties.find { it.tal == edge.source.property && it.device == sourceDevice.tal } ?: continue
+            val targetDevice = task.devices.find { it.vn == edge.target.device } ?: continue
+            val targetProperty = task.properties.find { it.tal == edge.target.property && it.device == targetDevice.tal } ?: continue
+            edgesPropertyBind += "DSM.${sourceDevice.vn}.${sourceProperty.tal}.addListener(value => {\n" +
+                "    DSM.${targetDevice.vn}.${targetProperty.tal}.setLocalValue(value, From.Local)\n" +
+                "  })"
+        }
+        text = text.replace("/* GENERATE EDGES PROPERTY BIND */", edgesPropertyBind.joinToString("\n  "))
         return text
     }
 

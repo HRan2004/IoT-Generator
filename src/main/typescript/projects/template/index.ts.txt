@@ -44,6 +44,6 @@ async function init(): Promise<void> {
 // Main function
 async function main(): Promise<void> {
   // Edges property bind
-  /* GENERATE DEVICE BIND */
+  /* GENERATE EDGES PROPERTY BIND */
 }
 
