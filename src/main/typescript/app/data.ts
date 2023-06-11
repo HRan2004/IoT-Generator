@@ -3,28 +3,28 @@ export const data = {
   "name": "test",
   "devices": [
     {
-      "id": "N2",
+      "id": "N1",
       "ports": [
         {
-          "id": "2-IN-1",
-          "name": "开关",
-          "left": true,
+          "id": "1-OUT-1",
+          "name": "门窗状态",
+          "left": false,
           "disable": true,
-          "property": "onOff"
+          "property": "status"
         }
       ],
       "disable": false,
-      "name": "Lamp(Home)",
-      "vn": "light0",
+      "name": "DoorAndWindowSensor",
+      "vn": "doorWindowSensor0",
       "index": 0,
-      "tal": "Light",
+      "tal": "DoorWindowSensor",
       "model": ""
     },
     {
-      "id": "N3",
+      "id": "N2",
       "ports": [
         {
-          "id": "3-OUT-1",
+          "id": "2-OUT-1",
           "name": "门窗状态",
           "left": false,
           "disable": true,
@@ -37,21 +37,73 @@ export const data = {
       "index": 1,
       "tal": "DoorWindowSensor",
       "model": ""
+    },
+    {
+      "id": "N3",
+      "ports": [
+        {
+          "id": "3-IN-1",
+          "name": "开关",
+          "left": true,
+          "disable": true,
+          "property": "onOff"
+        }
+      ],
+      "disable": false,
+      "name": "Lamp(Home)",
+      "vn": "light2",
+      "index": 2,
+      "tal": "Light",
+      "model": ""
+    },
+    {
+      "id": "N4",
+      "ports": [
+        {
+          "id": "4-IN-1",
+          "name": "开关",
+          "left": true,
+          "disable": true,
+          "property": "onOff"
+        }
+      ],
+      "disable": false,
+      "name": "Lamp(Home)",
+      "vn": "light3",
+      "index": 3,
+      "tal": "Light",
+      "model": ""
     }
   ],
   "edges": [
     {
-      "id": "5e4b61b3-b33a-4454-a2a1-f14ab39a9576",
+      "id": "635c5443-f4f3-49bc-92bf-b83b1fac48a0",
       "source": {
-        "cell": "N3",
-        "port": "N2",
+        "cell": "N1",
+        "port": "N3",
+        "device": "doorWindowSensor0",
+        "property": "status"
+      },
+      "target": {
+        "cell": "1-OUT-1",
+        "port": "3-IN-1",
+        "device": "light2",
+        "property": "onOff"
+      },
+      "disable": false
+    },
+    {
+      "id": "0d977c63-eff4-4c29-a6ce-d39ced84f6cb",
+      "source": {
+        "cell": "N2",
+        "port": "N4",
         "device": "doorWindowSensor1",
         "property": "status"
       },
       "target": {
-        "cell": "3-OUT-1",
-        "port": "2-IN-1",
-        "device": "light0",
+        "cell": "2-OUT-1",
+        "port": "4-IN-1",
+        "device": "light3",
         "property": "onOff"
       },
       "disable": false
@@ -59,17 +111,6 @@ export const data = {
   ],
   "logics": [],
   "properties": [
-    {
-      "device": "Light",
-      "name": "开关",
-      "tal": "onOff",
-      "permission": "rwn",
-      "talType": "ANY",
-      "range": [],
-      "options": [],
-      "getFunctionName": "getOnOff",
-      "setFunctionName": "setOnOff"
-    },
     {
       "device": "DoorWindowSensor",
       "name": "门窗状态",
@@ -80,7 +121,18 @@ export const data = {
       "options": [],
       "getFunctionName": "getStatus",
       "setFunctionName": "setStatus"
+    },
+    {
+      "device": "Light",
+      "name": "开关",
+      "tal": "onOff",
+      "permission": "rwn",
+      "talType": "ANY",
+      "range": [],
+      "options": [],
+      "getFunctionName": "getOnOff",
+      "setFunctionName": "setOnOff"
     }
   ],
-  "counter": 2
+  "counter": 4
 }

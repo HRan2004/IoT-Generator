@@ -21,6 +21,7 @@ password = '2486vbnm'
 
 project_name = 'Test'
 pid = '0188526d-3dca-c901-bb7e-d2dc594ad84d'
+# C:\Projects\IoT-Generator\src\main\python\IoT-Ci\upload
 
 
 dir_name = 'dist'
@@ -75,7 +76,7 @@ def main():
     running = True
     if use_zip:
         print('Making Zip...')
-        make_zip(path, 'upload.zip', path + '/')
+        make_zip(path, 'upload/app.zip', path + '/')
 
     print('Upload...')
     headers = {
@@ -83,13 +84,11 @@ def main():
     }
     url = "https://gateway.jeejio.com/developer/apps/file"
     payload = {}
-    f = open('upload.zip', 'rb')
-    files = [
-        ('file', ('app.zip', f, 'application/zip'))
-    ]
+    f = open('upload/app.zip', 'rb')
+    files = [('file', ('app.zip', f, 'application/zip'))]
     result = requests.request("POST", url, headers=headers, data=payload, files=files).json()
     f.close()
-    # print(json.dumps(result, indent=4))
+    print(json.dumps(result, indent=4))
 
     print('Fresh Project...')
     headers = {

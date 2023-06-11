@@ -21,11 +21,14 @@ object DoGenerate {
 
     fun generate(task: TaskData): String {
         this.task = task
+        println("Copy template...")
         copyTemplate()
+        println("Make files...")
         FileUtils.write("$WORK_PATH\\data.ts", makeDataFile(FileUtils.read("$WORK_PATH\\data.ts")))
         FileUtils.write("$WORK_PATH\\index.ts", makeIndexFile(FileUtils.read("$WORK_PATH\\index.ts")))
-        println(gsonPretty.toJson(task))
+        // println(gsonPretty.toJson(task))
         if (Options.DEBUG_MODE) {
+            println("Run fresh.py...")
             CommandUtils.runPython("src/main/python/IoT-Ci", "fresh.py")
         }
         return "Success"

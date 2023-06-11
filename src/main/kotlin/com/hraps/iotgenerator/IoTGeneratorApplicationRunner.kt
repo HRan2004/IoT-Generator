@@ -10,8 +10,8 @@ class IoTGeneratorApplicationRunner: ApplicationRunner {
 
     override fun run(args: ApplicationArguments?) {
         if (Options.DEBUG_MODE) {
-            println("Start debug browser...")
-            CommandUtils.runPython("src/main/python/IoT-Ci", "ci.py")
+            // println("Start debug browser...")
+            // CommandUtils.runPython("src/main/python/IoT-Ci", "ci.py")
         }
     }
 
