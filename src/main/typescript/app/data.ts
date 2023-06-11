@@ -3,24 +3,6 @@ export const data = {
   "name": "test",
   "devices": [
     {
-      "id": "N1",
-      "ports": [
-        {
-          "id": "1-OUT-1",
-          "name": "门窗状态",
-          "left": false,
-          "disable": true,
-          "property": "status"
-        }
-      ],
-      "disable": false,
-      "name": "DoorAndWindowSensor",
-      "vn": "doorWindowSensor0",
-      "index": 0,
-      "tal": "DoorWindowSensor",
-      "model": ""
-    },
-    {
       "id": "N2",
       "ports": [
         {
@@ -33,25 +15,43 @@ export const data = {
       ],
       "disable": false,
       "name": "Lamp(Home)",
-      "vn": "light1",
-      "index": 1,
+      "vn": "light0",
+      "index": 0,
       "tal": "Light",
+      "model": ""
+    },
+    {
+      "id": "N3",
+      "ports": [
+        {
+          "id": "3-OUT-1",
+          "name": "门窗状态",
+          "left": false,
+          "disable": true,
+          "property": "status"
+        }
+      ],
+      "disable": false,
+      "name": "DoorAndWindowSensor",
+      "vn": "doorWindowSensor1",
+      "index": 1,
+      "tal": "DoorWindowSensor",
       "model": ""
     }
   ],
   "edges": [
     {
-      "id": "a467b108-7a5e-46af-bd19-edc34cf67b36",
+      "id": "5e4b61b3-b33a-4454-a2a1-f14ab39a9576",
       "source": {
-        "cell": "N1",
+        "cell": "N3",
         "port": "N2",
-        "device": "doorWindowSensor0",
+        "device": "doorWindowSensor1",
         "property": "status"
       },
       "target": {
-        "cell": "1-OUT-1",
+        "cell": "3-OUT-1",
         "port": "2-IN-1",
-        "device": "light1",
+        "device": "light0",
         "property": "onOff"
       },
       "disable": false
@@ -59,17 +59,6 @@ export const data = {
   ],
   "logics": [],
   "properties": [
-    {
-      "device": "DoorWindowSensor",
-      "name": "门窗状态",
-      "tal": "status",
-      "permission": "rn",
-      "talType": "ANY",
-      "range": [],
-      "options": [],
-      "getFunctionName": "getStatus",
-      "setFunctionName": "setStatus"
-    },
     {
       "device": "Light",
       "name": "开关",
@@ -80,6 +69,17 @@ export const data = {
       "options": [],
       "getFunctionName": "getOnOff",
       "setFunctionName": "setOnOff"
+    },
+    {
+      "device": "DoorWindowSensor",
+      "name": "门窗状态",
+      "tal": "status",
+      "permission": "rn",
+      "talType": "ANY",
+      "range": [],
+      "options": [],
+      "getFunctionName": "getStatus",
+      "setFunctionName": "setStatus"
     }
   ],
   "counter": 2

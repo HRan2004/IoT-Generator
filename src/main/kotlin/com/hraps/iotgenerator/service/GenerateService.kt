@@ -11,7 +11,7 @@ class GenerateService {
 
     fun generate(json: JSONObject): String {
         DoGenerate.generate(TaskData(json))
-        return "Finish"
+        return "Success"
     }
 
 }

@@ -83,10 +83,12 @@ def main():
     }
     url = "https://gateway.jeejio.com/developer/apps/file"
     payload = {}
+    f = open('upload.zip', 'rb')
     files = [
-        ('file', ('app.zip', open('upload/app.zip', 'rb'), 'application/zip'))
+        ('file', ('app.zip', f, 'application/zip'))
     ]
     result = requests.request("POST", url, headers=headers, data=payload, files=files).json()
+    f.close()
     # print(json.dumps(result, indent=4))
 
     print('Fresh Project...')
@@ -211,6 +213,7 @@ def login():
     response = requests.request("POST", url, headers=headers, data=payload).json()
     print('Login: ' + str(response["code"]))
     token = response['result']['token']
+    print('Token: ' + token)
 
     while_do(lambda: driver.find_element(By.XPATH, '//input[@placeholder="请输入手机号"]').send_keys(username))
     while_do(lambda: driver.find_element(By.XPATH, '//input[@placeholder="请输入密码"]').send_keys(password))

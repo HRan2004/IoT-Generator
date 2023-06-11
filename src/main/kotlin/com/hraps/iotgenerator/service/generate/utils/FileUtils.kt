@@ -11,7 +11,7 @@ object FileUtils {
             println("File not exists: $from")
             return
         }
-        if (toFile.exists()) {
+        while (toFile.exists()) {
             toFile.delete()
         }
         fromFile.copyTo(toFile)

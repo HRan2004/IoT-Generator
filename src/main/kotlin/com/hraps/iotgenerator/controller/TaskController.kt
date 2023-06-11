@@ -21,7 +21,6 @@ class TaskController {
         @RequestBody jsonText: String,
     ): String {
         println("\nStart task: ")
-        println(jsonText)
         return try {
             val json = JSONObject.parseObject(jsonText)
             val result = generateService.generate(json)
