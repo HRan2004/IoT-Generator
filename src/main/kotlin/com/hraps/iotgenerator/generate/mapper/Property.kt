@@ -1,4 +1,4 @@
-package com.hraps.iotgenerator.service.generate.mapper
+package com.hraps.iotgenerator.generate.mapper
 
 import com.jeejio.xiaomi.general.tal.input.TalInputType
 

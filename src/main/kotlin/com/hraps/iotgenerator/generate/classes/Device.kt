@@ -1,6 +1,6 @@
-package com.hraps.iotgenerator.service.generate.classes
+package com.hraps.iotgenerator.generate.classes
 
-import com.hraps.iotgenerator.service.generate.mapper.Property
+import com.hraps.iotgenerator.generate.mapper.Property
 
 class Device (
     override var id: String = "",

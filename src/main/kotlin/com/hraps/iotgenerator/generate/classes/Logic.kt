@@ -1,4 +1,4 @@
-package com.hraps.iotgenerator.service.generate.classes
+package com.hraps.iotgenerator.generate.classes
 
 import com.alibaba.fastjson2.JSONObject
 

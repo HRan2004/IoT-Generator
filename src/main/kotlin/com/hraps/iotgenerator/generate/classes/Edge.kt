@@ -1,4 +1,4 @@
-package com.hraps.iotgenerator.service.generate.classes
+package com.hraps.iotgenerator.generate.classes
 
 class Edge (
     val id: String,

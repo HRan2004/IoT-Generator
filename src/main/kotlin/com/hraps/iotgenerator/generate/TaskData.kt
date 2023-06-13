@@ -1,10 +1,11 @@
-package com.hraps.iotgenerator.service.generate
+package com.hraps.iotgenerator.generate
 
 import com.alibaba.fastjson2.JSONObject
-import com.hraps.iotgenerator.service.generate.classes.*
-import com.hraps.iotgenerator.service.generate.mapper.DapmItem
-import com.hraps.iotgenerator.service.generate.mapper.DeviceAndPortMap
-import com.hraps.iotgenerator.service.generate.mapper.Property
+import com.hraps.iotgenerator.generate.classes.*
+import com.hraps.iotgenerator.generate.classes.*
+import com.hraps.iotgenerator.generate.mapper.DapmItem
+import com.hraps.iotgenerator.generate.mapper.DeviceAndPortMap
+import com.hraps.iotgenerator.generate.mapper.Property
 
 class TaskData(json: JSONObject) {
     var name: String = ""

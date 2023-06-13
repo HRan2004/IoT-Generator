@@ -1,9 +1,9 @@
-package com.hraps.iotgenerator.service.generate
+package com.hraps.iotgenerator.generate
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.hraps.iotgenerator.Options
-import com.hraps.iotgenerator.service.generate.utils.FileUtils
+import com.hraps.iotgenerator.generate.utils.FileUtils
 import com.hraps.iotgenerator.utils.CommandUtils
 import java.io.File
 
@@ -20,7 +20,7 @@ object DoGenerate {
     private lateinit var task: TaskData
 
     fun generate(task: TaskData): String {
-        this.task = task
+        DoGenerate.task = task
         println("Copy template...")
         copyTemplate()
         println("Make files...")
