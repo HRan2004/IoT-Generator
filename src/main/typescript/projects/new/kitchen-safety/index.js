@@ -1,3 +1,4 @@
+var deviceManager;
 
 let humanSensor;
 let temperatureHumiditysSensor;
@@ -6,9 +7,10 @@ let householdHumidifier;
 window.methods = {
   onloadSdk(deviceArr) {
     console.log('onloadSdk', 3)
-    humanSensor = DeviceManager.createHumanBodySensor('人体存在传感器')
-    temperatureHumiditysSensor = DeviceManager.createTemperatureAndHumiditySensor('温湿度传感器')
-    householdHumidifier = DeviceManager.createHomeHumidifier('家用加湿器')
+    deviceManager = new DeviceManager(deviceArr)
+    humanSensor = deviceManager.getHumanSensor_1('人体存在传感器')
+    temperatureHumiditysSensor = deviceManager.getTemperatureHumiditysSensor('温湿度传感器')
+    householdHumidifier = deviceManager.getHouseholdHumidifier('家用加湿器')
 
     try {
       main()
@@ -21,21 +23,22 @@ window.methods = {
 
 async function main() {
   let state = false
-  let mode = ''
+  let mode = 0
 
   const setMode = async (value) => {
     console.log('SetHumidifierMode:', value)
-    if (value === 'OFF') {
-      // if (!state) return
+    if (value === 0) {
+      if (!state) return
       state = false
+      mode = 0
       await householdHumidifier.setOnOff(false)
     } else {
-      // if (state) return
+      if (state) return
       state = true
       await householdHumidifier.setOnOff(true)
-      // if (value === mode) return
+      if (value === mode) return
       mode = value
-      await householdHumidifier.setSprayVolume(mode)
+      await householdHumidifier.setSprayVolumePercentage(mode)
     }
   }
 
@@ -48,16 +51,16 @@ async function main() {
       console.log('Humidity:', res)
       let humidity = res.value
       if (humidity > 60) {
-        setMode('OFF')
+        setMode(0)
       } else if (humidity > 50) {
-        setMode('SMALL')
+        setMode(33)
       } else if (humidity > 30) {
-        setMode('MIDDLE')
+        setMode(67)
       } else {
-        setMode('LARGE')
+        setMode(100)
       }
     } else {
-      setMode('OFF')
+      setMode(0)
     }
   }
 
@@ -67,7 +70,7 @@ async function main() {
     } catch (e) {
       console.warn(e)
     }
-  }, 2 * 1000)
+  }, 120 * 1000)
 }
 
 function sleep(time) {
