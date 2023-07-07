@@ -11,11 +11,11 @@ async function setMode(value) {
   if (value === 'OFF') {
     // if (!state) return
     state = false
-    await homeHumidifier.setOnOff(false)
+    await homeHumidifier.setSwitch(false)
   } else {
     // if (state) return
     state = true
-    await homeHumidifier.setOnOff(true)
+    await homeHumidifier.setSwitch(true)
     // if (value === mode) return
     mode = value
     await homeHumidifier.setSprayVolume(mode)
