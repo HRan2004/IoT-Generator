@@ -9,11 +9,11 @@ import java.io.File
 
 object DoGenerate {
 
-    private const val DEBUG_MODE = true
+    const val DEBUG_MODE = true
 
-    private const val BASE_PATH = "C:\\Projects\\IoT-Generator\\src\\main"
-    private const val TEMPLATE_PATH = "$BASE_PATH\\typescript\\projects\\template"
-    private const val WORK_PATH = "$BASE_PATH\\typescript\\app"
+    const val BASE_PATH = "C:\\Projects\\IoT-Generator\\src\\main"
+    const val TEMPLATE_PATH = "$BASE_PATH\\typescript\\projects\\template"
+    const val WORK_PATH = "$BASE_PATH\\typescript\\app"
 
     private val gsonPretty = GsonBuilder().setPrettyPrinting().create()
     private val gson = Gson()
@@ -105,6 +105,7 @@ object DoGenerate {
         }
         FileUtils.copyFile("$TEMPLATE_PATH\\index.ts.txt", "$WORK_PATH\\index.ts")
         FileUtils.copyFile("$TEMPLATE_PATH\\data.ts.txt", "$WORK_PATH\\data.ts")
+        FileUtils.copyFile("$TEMPLATE_PATH\\index.html.txt", "$WORK_PATH\\index.html")
     }
 
 }
