@@ -28,11 +28,11 @@ async function main() {
     if (value === 'OFF') {
       // if (!state) return
       state = false
-      await householdHumidifier.setOnOff(false)
+      await householdHumidifier.setSwitch(false)
     } else {
       // if (state) return
       state = true
-      await householdHumidifier.setOnOff(true)
+      await householdHumidifier.setSwitch(true)
       // if (value === mode) return
       mode = value
       await householdHumidifier.setSprayVolume(mode)

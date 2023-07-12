@@ -78,8 +78,8 @@ export const data = {
       "talType": "ANY",
       "range": [],
       "options": [],
-      "getFunctionName": "getOnOff",
-      "setFunctionName": "setOnOff"
+      "getFunctionName": "getSwitch",
+      "setFunctionName": "setSwitch"
     }
   ],
   "counter": 2
