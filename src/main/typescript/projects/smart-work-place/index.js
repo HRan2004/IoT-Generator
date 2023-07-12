@@ -8,9 +8,9 @@ window.methods = {
   onloadSdk(deviceArr) {
     console.log('onloadSdk', 3)
     deviceManager = new DeviceManager(deviceArr)
-    humanSensor = deviceManager.getHumanSensor_1('人体存在传感器')
+    humanSensor = deviceManager.createHumanBodySensor('人体存在传感器')
     temperatureHumiditysSensor = deviceManager.getTemperatureHumiditysSensor('温湿度传感器')
-    householdHumidifier = deviceManager.getHouseholdHumidifier('家用加湿器')
+    householdHumidifier = deviceManager.createHomeHumidifier('家用加湿器')
 
     try {
       main()
@@ -30,11 +30,11 @@ async function main() {
     if (value === 'OFF') {
       // if (!state) return
       state = false
-      await householdHumidifier.setOnOff(false)
+      await householdHumidifier.setSwitch(false)
     } else {
       // if (state) return
       state = true
-      await householdHumidifier.setOnOff(true)
+      await householdHumidifier.setSwitch(true)
       // if (value === mode) return
       mode = value
       await householdHumidifier.setSprayVolume(mode)

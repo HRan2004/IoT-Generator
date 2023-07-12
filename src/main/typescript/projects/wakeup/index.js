@@ -17,8 +17,8 @@ window.methods = {
     deviceManager = new DeviceManager(deviceArr)
     speaker = deviceManager.getSpeaker("智能音箱")
     singleSmartCurtain = deviceManager.getSingleSmartCurtain("智能窗帘")
-    doorWindowSensor = deviceManager.getDoorWindowSensor("门窗传感器")
-    doorWindowSensor2 = deviceManager.getDoorWindowSensor("门窗传感器2")
+    doorWindowSensor = deviceManager.createDoorAndWindowSensor("门窗传感器")
+    doorWindowSensor2 = deviceManager.createDoorAndWindowSensor("门窗传感器2")
     floorFan = deviceManager.getFloorFan("落地扇")
     temperatureHumiditysSensor = deviceManager.getTemperatureHumiditysSensor("温湿度传感器")
     aromatherapyMachine = deviceManager.getAromatherapyMachine("香薰机")
@@ -52,7 +52,7 @@ function main() {
     if (step !== 0) return
     step = 1
     try {
-      await aromatherapyMachine.setOnOff(true)
+      await aromatherapyMachine.setSwitch(true)
       await speaker.setPlayMode("PLAY")
       await aromatherapyMachine.setSprayVolume(10)
       await healthPot.setStart()
@@ -67,13 +67,13 @@ function main() {
   const onFirstDoorOpen = async () => {
     console.log('Bedroom Door Open')
     await singleSmartCurtain.setSwitch("OPEN")
-    await aromatherapyMachine.setOnOff(false)
+    await aromatherapyMachine.setSwitch(false)
     let temperature = await temperatureHumiditysSensor.getTemperature()
     console.log('Temperature:', temperature)
     if (temperature.value > 26) {
-      await floorFan.setOnOff(true)
+      await floorFan.setSwitch(true)
       await floorFan.setWindSpeed(30)
-      await floorFan.setHorizontalSweepingOnOff(true)
+      await floorFan.setHorizontalSweepingSwitch(true)
       await floorFan.setWorkMode("NATURAL")
     }
   }
@@ -82,7 +82,7 @@ function main() {
     try {
       await speaker.setPlayMode("STOP")
       await healthPot.setStop()
-      await floorFan.setOnOff(false)
+      await floorFan.setSwitch(false)
     } catch (e) {
       console.warn(e)
     }

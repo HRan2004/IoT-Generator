@@ -36,8 +36,8 @@ let light1;
 window.methods = {
     onloadSdk(deviceArr) {
         deviceManager = new DeviceManager(deviceArr);
-        doorWindowSensor0 = deviceManager.getDoorWindowSensor('DoorAndWindowSensor_0');
-        light1 = deviceManager.getLight('Lamp(Home)_1');
+        doorWindowSensor0 = deviceManager.createDoorAndWindowSensor('DoorAndWindowSensor_0');
+        light1 = deviceManager.createLight('Lamp(Home)_1');
         DSM.doorWindowSensor0 = {
             status: new property_1.default('doorWindowSensor0', 'status'),
         };
@@ -65,9 +65,9 @@ window.methods = {
 };
 function init() {
     return __awaiter(this, void 0, void 0, function* () {
-        DSM.light1.onOff.update = v => light1.setOnOff(parser_1.default.parseToRemote(v));
+        DSM.light1.onOff.update = v => light1.setSwitch(parser_1.default.parseToRemote(v));
         DSM.doorWindowSensor0.status.setRemoteValue((yield doorWindowSensor0.getStatus()).value);
-        DSM.light1.onOff.setRemoteValue((yield light1.getOnOff()).value);
+        DSM.light1.onOff.setRemoteValue((yield light1.getSwitch()).value);
         doorWindowSensor0.onReceive(data => {
             data.status = parser_1.default.parseFromRemote(data.status);
             DSM.doorWindowSensor0.status.setRemoteValue(data.status);
