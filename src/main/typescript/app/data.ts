@@ -6,25 +6,32 @@ export const data = {
       "id": "N1",
       "ports": [
         {
+          "id": "1-IN-1",
+          "name": "开关",
+          "left": true,
+          "disable": true,
+          "property": "onOff"
+        },
+        {
           "id": "1-OUT-1",
-          "name": "门窗状态",
+          "name": "开关",
           "left": false,
           "disable": true,
-          "property": "status"
+          "property": "onOff"
         }
       ],
       "disable": false,
-      "name": "DoorAndWindowSensor",
-      "vn": "doorWindowSensor0",
+      "name": "Lamp(Home)",
+      "vn": "light0",
       "index": 0,
-      "tal": "DoorWindowSensor",
+      "tal": "Light",
       "model": ""
     },
     {
-      "id": "N2",
+      "id": "N3",
       "ports": [
         {
-          "id": "2-IN-1",
+          "id": "3-IN-1",
           "name": "开关",
           "left": true,
           "disable": true,
@@ -32,26 +39,26 @@ export const data = {
         }
       ],
       "disable": false,
-      "name": "Lamp(Home)",
-      "vn": "light1",
-      "index": 1,
-      "tal": "Light",
+      "name": "HouseholdHumidifier",
+      "vn": "householdHumidifier2",
+      "index": 2,
+      "tal": "HouseholdHumidifier",
       "model": ""
     }
   ],
   "edges": [
     {
-      "id": "fff296fa-426b-4d82-9e30-16995fb51b25",
+      "id": "a171051c-c32c-44d4-843b-9956058c2aca",
       "source": {
         "cell": "N1",
-        "port": "N2",
-        "device": "doorWindowSensor0",
-        "property": "status"
+        "port": "N3",
+        "device": "light0",
+        "property": "onOff"
       },
       "target": {
         "cell": "1-OUT-1",
-        "port": "2-IN-1",
-        "device": "light1",
+        "port": "3-IN-1",
+        "device": "householdHumidifier2",
         "property": "onOff"
       },
       "disable": false
@@ -60,17 +67,6 @@ export const data = {
   "logics": [],
   "properties": [
     {
-      "device": "DoorWindowSensor",
-      "name": "门窗状态",
-      "tal": "status",
-      "permission": "rn",
-      "talType": "ANY",
-      "range": [],
-      "options": [],
-      "getFunctionName": "getStatus",
-      "setFunctionName": "setStatus"
-    },
-    {
       "device": "Light",
       "name": "开关",
       "tal": "onOff",
@@ -78,9 +74,20 @@ export const data = {
       "talType": "ANY",
       "range": [],
       "options": [],
-      "getFunctionName": "getSwitch",
-      "setFunctionName": "setSwitch"
+      "getFunctionName": "getOnOff",
+      "setFunctionName": "setOnOff"
+    },
+    {
+      "device": "HouseholdHumidifier",
+      "name": "开关",
+      "tal": "onOff",
+      "permission": "rwn",
+      "talType": "ANY",
+      "range": [],
+      "options": [],
+      "getFunctionName": "getOnOff",
+      "setFunctionName": "setOnOff"
     }
   ],
-  "counter": 2
+  "counter": 3
 }

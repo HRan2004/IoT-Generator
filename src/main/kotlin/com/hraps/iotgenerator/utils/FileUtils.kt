@@ -1,4 +1,4 @@
-package com.hraps.iotgenerator.generate.utils
+package com.hraps.iotgenerator.utils
 
 import java.io.*
 

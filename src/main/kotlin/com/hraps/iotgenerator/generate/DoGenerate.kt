@@ -3,7 +3,7 @@ package com.hraps.iotgenerator.generate
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.hraps.iotgenerator.Options
-import com.hraps.iotgenerator.generate.utils.FileUtils
+import com.hraps.iotgenerator.utils.FileUtils
 import com.hraps.iotgenerator.utils.CommandUtils
 import java.io.File
 
@@ -11,7 +11,9 @@ object DoGenerate {
 
     const val DEBUG_MODE = true
 
-    const val BASE_PATH = "C:\\Projects\\IoT-Generator\\src\\main"
+//    const val BASE_PATH = "C:\\Projects\\IoT-Generator\\src\\main"
+    const val BASE_PATH = "C:\\Users\\21257\\Documents\\GitHub\\IoT-Generator\\src\\main"
+    const val TEST_PATH = "$BASE_PATH\\kotlin\\com\\hraps\\iotgenerator\\generate\\test"
     const val TEMPLATE_PATH = "$BASE_PATH\\typescript\\projects\\template"
     const val WORK_PATH = "$BASE_PATH\\typescript\\app"
 
@@ -27,11 +29,23 @@ object DoGenerate {
         FileUtils.write("$WORK_PATH\\data.ts", makeDataFile(FileUtils.read("$WORK_PATH\\data.ts")))
         FileUtils.write("$WORK_PATH\\index.ts", makeIndexFile(FileUtils.read("$WORK_PATH\\index.ts")))
         // println(gsonPretty.toJson(task))
+        return "Success"
+    }
+
+    fun compile(): String {
+        CommandUtils.runCommand(listOf("npx webpack"), File(WORK_PATH))
+        return "Success"
+    }
+
+    fun zip() {
+
+    }
+
+    fun compileAndZipByPython() {
         if (Options.DEBUG_MODE) {
             println("Run fresh.py...")
             CommandUtils.runPython("src/main/python/IoT-Ci", "fresh.py")
         }
-        return "Success"
     }
 
     private fun makeDataFile(source: String): String {
