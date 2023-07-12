@@ -14,7 +14,9 @@ object DoGenerate {
 //    const val BASE_PATH = "C:\\Projects\\IoT-Generator\\src\\main"
     const val BASE_PATH = "C:\\Users\\21257\\Documents\\GitHub\\IoT-Generator\\src\\main"
     const val TEST_PATH = "$BASE_PATH\\kotlin\\com\\hraps\\iotgenerator\\generate\\test"
+
     const val TEMPLATE_PATH = "$BASE_PATH\\typescript\\projects\\template"
+    const val COMPILE_PATH = "$BASE_PATH\\typescript"
     const val WORK_PATH = "$BASE_PATH\\typescript\\app"
 
     private val gsonPretty = GsonBuilder().setPrettyPrinting().create()
@@ -33,7 +35,7 @@ object DoGenerate {
     }
 
     fun compile(): String {
-        CommandUtils.runCommand(listOf("npx webpack"), File(WORK_PATH))
+        CommandUtils.runCommand(listOf("cmd.exe", "/c", "npx", "webpack"), File(COMPILE_PATH))
         return "Success"
     }
 
@@ -47,6 +49,7 @@ object DoGenerate {
             CommandUtils.runPython("src/main/python/IoT-Ci", "fresh.py")
         }
     }
+
 
     private fun makeDataFile(source: String): String {
         val dataStr = if (DEBUG_MODE) gsonPretty.toJson(task) else gson.toJson(task)
@@ -119,7 +122,7 @@ object DoGenerate {
         }
         FileUtils.copyFile("$TEMPLATE_PATH\\index.ts.txt", "$WORK_PATH\\index.ts")
         FileUtils.copyFile("$TEMPLATE_PATH\\data.ts.txt", "$WORK_PATH\\data.ts")
-        FileUtils.copyFile("$TEMPLATE_PATH\\index.html.txt", "$WORK_PATH\\index.html")
+        FileUtils.copyFile("$TEMPLATE_PATH\\index.html.txt", "$WORK_PATH\\public\\index.html")
     }
 
 }

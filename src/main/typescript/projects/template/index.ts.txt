@@ -1,37 +1,29 @@
-import Property, {From} from "./property";
-import Parser from "./parser";
+import Property, {From} from "./core/property";
+import Parser from "./core/parser";
 
 let DSM: any = {} // Double State Manager
 
-/* GENERATE DEVICE VAR CREATE */
+/* GENERATE DEVICE INIT */
 
-window.methods = {
-  onloadSdk(deviceArr) {
-    deviceManager = new DeviceManager(deviceArr)
-    // Load devices sdk
-    /* GENERATE DEVICE INIT */
-    /* GENERATE DSM INIT */
-    console.log('Device sdks loaded.\n')
-
+try {
+  init().then(r => {
+    console.log('Init Success.')
     try {
-      init().then(r => {
-        console.log('Init Success.')
-        try {
-          main().then(r => {})
-        } catch (e) {
-          console.error('Run Error.')
-          console.error(e)
-        }
-      })
+      main().then(r => {})
     } catch (e) {
-      console.error('Init Error.')
+      console.error('Run Error.')
       console.error(e)
     }
-  },
+  })
+} catch (e) {
+  console.error('Init Error.')
+  console.error(e)
 }
 
 // Init function
 async function init(): Promise<void> {
+  // Init DSM states
+  /* GENERATE DSM INIT */
   // Init set function
   /* GENERATE INIT SET FUNCTION */
   // Init properties

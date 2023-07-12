@@ -1,5 +1,6 @@
 import Property, {From} from "./core/property";
 import Parser from "./core/parser";
+const DeviceManager: any = {}
 
 let DSM: any = {} // Double State Manager
 

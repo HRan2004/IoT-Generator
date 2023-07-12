@@ -8,7 +8,7 @@ import com.hraps.iotgenerator.utils.FileUtils
 const val TASK_FILE = "${DoGenerate.TEST_PATH}\\tasks\\project1.json"
 const val OUTPUT_FILE = "${DoGenerate.TEST_PATH}\\result\\app.zip"
 
-const val USE_CODE_GENERATE = true
+const val USE_CODE_GENERATE = false
 const val USE_COMPILE = true
 const val USE_ZIP = true
 
