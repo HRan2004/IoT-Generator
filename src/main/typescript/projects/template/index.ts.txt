@@ -1,7 +1,6 @@
 import Property, {From} from "./property";
 import Parser from "./parser";
 
-let deviceManager: DeviceManager // Device Manager
 let DSM: any = {} // Double State Manager
 
 /* GENERATE DEVICE VAR CREATE */
