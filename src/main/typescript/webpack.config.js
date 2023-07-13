@@ -6,6 +6,7 @@ module.exports = {
   optimization: {
     minimize: false // 关闭代码压缩，可选
   },
+  mode: "production",
 
   entry: "./app/index.ts",
 

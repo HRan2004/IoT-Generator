@@ -18,12 +18,14 @@ fun main() {
         val json = JSONObject.parseObject(jsonText)
         val data = TaskData(json)
         val result = DoGenerate.generate(data)
-        print(result)
+        print("Generate result: $result\n")
     }
     if (USE_COMPILE) {
         val result = DoGenerate.compile()
+        print("Compile result: $result\n")
     }
     if (USE_ZIP) {
-
+        val result = DoGenerate.zip()
+        print("Zip result: $result\n")
     }
 }

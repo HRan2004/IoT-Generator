@@ -11,8 +11,8 @@ object DoGenerate {
 
     const val DEBUG_MODE = true
 
-//    const val BASE_PATH = "C:\\Projects\\IoT-Generator\\src\\main"
-    const val BASE_PATH = "C:\\Users\\21257\\Documents\\GitHub\\IoT-Generator\\src\\main"
+    const val BASE_PATH = "C:\\Projects\\IoT-Generator\\src\\main"
+//    const val BASE_PATH = "C:\\Users\\21257\\Documents\\GitHub\\IoT-Generator\\src\\main"
     const val TEST_PATH = "$BASE_PATH\\kotlin\\com\\hraps\\iotgenerator\\generate\\test"
 
     const val TEMPLATE_PATH = "$BASE_PATH\\typescript\\projects\\template"
@@ -39,8 +39,8 @@ object DoGenerate {
         return "Success"
     }
 
-    fun zip() {
-
+    fun zip(): String {
+        return "Success"
     }
 
     fun compileAndZipByPython() {
