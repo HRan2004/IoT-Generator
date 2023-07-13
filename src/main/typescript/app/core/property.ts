@@ -25,6 +25,8 @@ export default class Property {
     this.listeners = []
   }
   
+  // 更新本地属性值
+  // 触发监听器，当远程值不同时更新远程值
   setLocalValue(value: any, from: From = From.Local): boolean {
     if (this.localValue === value) return false
     this.localValue = value
@@ -57,8 +59,8 @@ export default class Property {
 }
 
 export enum From {
-  Local,
-  Remote,
-  Page,
-  Device,
+  Local, // 本地属性值更新
+  Remote, // 远程(本地变量中)属性值更新
+  Page, // 页面属性值更新(用户操作)
+  Device, // 设备属性值更新
 }
