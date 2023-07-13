@@ -9,8 +9,8 @@ const val TASK_FILE = "${DoGenerate.TEST_PATH}\\tasks\\project1.json"
 const val OUTPUT_FILE = "${DoGenerate.TEST_PATH}\\result\\app.zip"
 
 const val USE_CODE_GENERATE = true
-const val USE_COMPILE = false
-const val USE_ZIP = false
+const val USE_COMPILE = true
+const val USE_ZIP = true
 
 fun main() {
     if (USE_CODE_GENERATE) {

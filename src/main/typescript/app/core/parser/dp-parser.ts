@@ -10,6 +10,6 @@ export default class DpParser {
   }
   
   parse(value: any): any {
-  
+    return value
   }
 }

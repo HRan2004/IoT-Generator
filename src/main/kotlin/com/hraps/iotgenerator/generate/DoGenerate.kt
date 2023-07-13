@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder
 import com.hraps.iotgenerator.Options
 import com.hraps.iotgenerator.utils.FileUtils
 import com.hraps.iotgenerator.utils.CommandUtils
+import com.hraps.iotgenerator.utils.ZipUtils
 import java.io.File
 
 object DoGenerate {
@@ -41,6 +42,7 @@ object DoGenerate {
     }
 
     fun zip(): String {
+        ZipUtils.zip("$COMPILE_PATH\\dist", "$BASE_PATH\\python\\IoT-Ci\\upload\\app.zip")
         return "Success"
     }
 
