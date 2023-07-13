@@ -56,5 +56,7 @@ async function main(): Promise<void> {
 
   // Logic code
   
+
+  console.info('Main finished.')
 }
 

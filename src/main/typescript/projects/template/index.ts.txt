@@ -38,5 +38,7 @@ async function main(): Promise<void> {
 
   // Logic code
   /* GENERATE LOGIC CODE */
+
+  console.info('Main finished.')
 }
 

@@ -20,7 +20,7 @@ username = '10281991589'
 password = '2486vbnm'
 
 project_name = 'Test'
-pid = '0188526d-3dca-c901-bb7e-d2dc594ad84d'
+pid = '01894ec8-76e9-4fab-62fb-d75447ba565e'
 # C:\Projects\IoT-Generator\src\main\python\IoT-Ci\upload
 
 
@@ -34,7 +34,7 @@ fresh = './upload'
 
 running = False
 driver = None
-token = ''
+token = '01h57d5fjfkmmzy704s1ddw5nq'
 modified_time = -1
 
 
@@ -84,11 +84,17 @@ def main():
     }
     url = "https://gateway.jeejio.com/developer/apps/file"
     payload = {}
+    time.sleep(0.2)
     f = open('upload/app.zip', 'rb')
     files = [('file', ('app.zip', f, 'application/zip'))]
     result = requests.request("POST", url, headers=headers, data=payload, files=files).json()
     f.close()
-    print(json.dumps(result, indent=4))
+    print(result)
+    if 'result' not in result:
+        print('Upload Error - ', end='')
+        print(result['message'])
+        running = False
+        return
 
     print('Fresh Project...')
     headers = {
@@ -96,11 +102,6 @@ def main():
         'Content-Type': 'application/json',
     }
     url = 'https://gateway.jeejio.com/developer/apps/' + pid
-    print(result)
-    if 'result' not in result:
-        print('Upload Error')
-        running = False
-        return
     r = result['result']
     payload = json.dumps({
         'id': pid,
@@ -113,7 +114,7 @@ def main():
         }
     })
     result = requests.request("PUT", url, headers=headers, data=payload).json()
-    # print(json.dumps(result, indent=4))
+    print(result)
 
     print('Fresh Web Page...')
     driver.refresh()
