@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -42,7 +41,7 @@
     .title{
       height: 0.88rem;
       font-size: 0.34rem;
-      font-family: PingFang SC, PingFang SC-Medium;
+      font-family: PingFang SC, PingFang SC-Medium, serif;
       font-weight: 600;
       text-align: center;
       color: #fff;
@@ -57,7 +56,7 @@
   </style>
 </head>
 <body>
-  <div class="index ">
+  <div class="index">
     <div class="title-wrap">
       <div class="title">/* GENERATE PROJECT TITLE */</div>
     </div>

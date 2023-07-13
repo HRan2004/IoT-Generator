@@ -1,6 +1,6 @@
 
 export const data = {
-  "name": "test",
+  "name": "测试项目",
   "devices": [
     {
       "id": "N1",
@@ -10,14 +10,14 @@ export const data = {
           "name": "开关",
           "left": true,
           "disable": true,
-          "property": "onOff"
+          "property": "switch"
         },
         {
           "id": "1-OUT-1",
           "name": "开关",
           "left": false,
           "disable": true,
-          "property": "onOff"
+          "property": "switch"
         }
       ],
       "disable": false,
@@ -35,14 +35,14 @@ export const data = {
           "name": "开关",
           "left": true,
           "disable": true,
-          "property": "onOff"
+          "property": "switch"
         }
       ],
       "disable": false,
       "name": "HouseholdHumidifier",
-      "vn": "householdHumidifier2",
+      "vn": "homeHumidifier2",
       "index": 2,
-      "tal": "HouseholdHumidifier",
+      "tal": "HomeHumidifier",
       "model": ""
     }
   ],
@@ -53,13 +53,13 @@ export const data = {
         "cell": "N1",
         "port": "N3",
         "device": "light0",
-        "property": "onOff"
+        "property": "switch"
       },
       "target": {
         "cell": "1-OUT-1",
         "port": "3-IN-1",
-        "device": "householdHumidifier2",
-        "property": "onOff"
+        "device": "homeHumidifier2",
+        "property": "switch"
       },
       "disable": false
     }
@@ -69,24 +69,24 @@ export const data = {
     {
       "device": "Light",
       "name": "开关",
-      "tal": "onOff",
+      "tal": "switch",
       "permission": "rwn",
       "talType": "ANY",
       "range": [],
       "options": [],
-      "getFunctionName": "getOnOff",
-      "setFunctionName": "setOnOff"
+      "getFunctionName": "getSwitch",
+      "setFunctionName": "setSwitch"
     },
     {
-      "device": "HouseholdHumidifier",
+      "device": "HomeHumidifier",
       "name": "开关",
-      "tal": "onOff",
+      "tal": "switch",
       "permission": "rwn",
       "talType": "ANY",
       "range": [],
       "options": [],
-      "getFunctionName": "getOnOff",
-      "setFunctionName": "setOnOff"
+      "getFunctionName": "getSwitch",
+      "setFunctionName": "setSwitch"
     }
   ],
   "counter": 3

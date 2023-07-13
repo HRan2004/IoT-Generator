@@ -10,14 +10,14 @@ export const data = {
           "name": "开关",
           "left": true,
           "disable": true,
-          "property": "onOff"
+          "property": "switch"
         },
         {
           "id": "1-OUT-1",
           "name": "开关",
           "left": false,
           "disable": true,
-          "property": "onOff"
+          "property": "switch"
         }
       ],
       "disable": false,
@@ -35,7 +35,7 @@ export const data = {
           "name": "开关",
           "left": true,
           "disable": true,
-          "property": "onOff"
+          "property": "switch"
         }
       ],
       "disable": false,
@@ -53,13 +53,13 @@ export const data = {
         "cell": "N1",
         "port": "N3",
         "device": "light0",
-        "property": "onOff"
+        "property": "switch"
       },
       "target": {
         "cell": "1-OUT-1",
         "port": "3-IN-1",
         "device": "householdHumidifier2",
-        "property": "onOff"
+        "property": "switch"
       },
       "disable": false
     }
@@ -69,7 +69,7 @@ export const data = {
     {
       "device": "Light",
       "name": "开关",
-      "tal": "onOff",
+      "tal": "switch",
       "permission": "rwn",
       "talType": "ANY",
       "range": [],
@@ -80,7 +80,7 @@ export const data = {
     {
       "device": "HouseholdHumidifier",
       "name": "开关",
-      "tal": "onOff",
+      "tal": "switch",
       "permission": "rwn",
       "talType": "ANY",
       "range": [],

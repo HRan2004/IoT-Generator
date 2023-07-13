@@ -26,33 +26,33 @@ try {
 async function init(): Promise<void> {
   // Init DSM states
   DSM.light0 = {
-    onOff: new Property('light0', 'onOff'),
+    switch: new Property('light0', 'switch'),
   }
   DSM.householdHumidifier2 = {
-    onOff: new Property('householdHumidifier2', 'onOff'),
+    switch: new Property('householdHumidifier2', 'switch'),
   }
   // Init set function
-  DSM.light0.onOff.update = v => light0.setSwitch(Parser.parseToRemote(v))
-  DSM.householdHumidifier2.onOff.update = v => homeHumidifier2.setSwitch(Parser.parseToRemote(v))
+  DSM.light0.switch.update = v => light0.setSwitch(Parser.parseToRemote(v))
+  DSM.householdHumidifier2.switch.update = v => homeHumidifier2.setSwitch(Parser.parseToRemote(v))
   // Init properties
-  DSM.light0.onOff.setRemoteValue((await light0.getSwitch()).value)
-  DSM.householdHumidifier2.onOff.setRemoteValue((await homeHumidifier2.getSwitch()).value)
+  DSM.light0.switch.setRemoteValue((await light0.getSwitch()).value)
+  DSM.householdHumidifier2.switch.setRemoteValue((await homeHumidifier2.getSwitch()).value)
   // Init remote receive
   light0.subscribe(data => {
-    data.onOff = Parser.parseFromRemote(data.onOff)
-    DSM.light0.onOff.setRemoteValue(data.onOff)
+    data.switch = Parser.parseFromRemote(data.switch)
+    DSM.light0.switch.setRemoteValue(data.switch)
   })
   homeHumidifier2.subscribe(data => {
-    data.onOff = Parser.parseFromRemote(data.onOff)
-    DSM.householdHumidifier2.onOff.setRemoteValue(data.onOff)
+    data.switch = Parser.parseFromRemote(data.switch)
+    DSM.householdHumidifier2.switch.setRemoteValue(data.switch)
   })
 }
 
 // Main function
 async function main(): Promise<void> {
   // Edges property bind
-  DSM.light0.onOff.addListener(value => {
-    DSM.householdHumidifier2.onOff.setLocalValue(value, From.Local)
+  DSM.light0.switch.addListener(value => {
+    DSM.householdHumidifier2.switch.setLocalValue(value, From.Local)
   })
 }
 

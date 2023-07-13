@@ -28,8 +28,9 @@ object DoGenerate {
         println("Copy template...")
         copyTemplate()
         println("Make files...")
-        FileUtils.write("$WORK_PATH\\data.ts", makeDataFile(FileUtils.read("$WORK_PATH\\data.ts")))
-        FileUtils.write("$WORK_PATH\\index.ts", makeIndexFile(FileUtils.read("$WORK_PATH\\index.ts")))
+        doMake(::makeDataFile, "$WORK_PATH\\data.ts")
+        doMake(::makeIndexFile, "$WORK_PATH\\index.ts")
+        doMake(::makeHtmlFile, "$WORK_PATH\\public\\index.html")
         // println(gsonPretty.toJson(task))
         return "Success"
     }
@@ -50,6 +51,10 @@ object DoGenerate {
         }
     }
 
+    private fun doMake(make: (String) -> String, source: String, target: String = source) {
+        val text = FileUtils.read(source)
+        FileUtils.write(target, make(text))
+    }
 
     private fun makeDataFile(source: String): String {
         val dataStr = if (DEBUG_MODE) gsonPretty.toJson(task) else gson.toJson(task)
@@ -108,6 +113,12 @@ object DoGenerate {
                 "  })"
         }
         text = text.replace("/* GENERATE EDGES PROPERTY BIND */", edgesPropertyBind.joinToString("\n  "))
+        return text
+    }
+
+    private fun makeHtmlFile(source: String): String {
+        var text = source
+        text = text.replace("/* GENERATE PROJECT TITLE */", task.name)
         return text
     }
 

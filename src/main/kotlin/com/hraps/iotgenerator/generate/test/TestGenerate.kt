@@ -8,9 +8,9 @@ import com.hraps.iotgenerator.utils.FileUtils
 const val TASK_FILE = "${DoGenerate.TEST_PATH}\\tasks\\project1.json"
 const val OUTPUT_FILE = "${DoGenerate.TEST_PATH}\\result\\app.zip"
 
-const val USE_CODE_GENERATE = false
-const val USE_COMPILE = true
-const val USE_ZIP = true
+const val USE_CODE_GENERATE = true
+const val USE_COMPILE = false
+const val USE_ZIP = false
 
 fun main() {
     if (USE_CODE_GENERATE) {
@@ -18,14 +18,14 @@ fun main() {
         val json = JSONObject.parseObject(jsonText)
         val data = TaskData(json)
         val result = DoGenerate.generate(data)
-        print("Generate result: $result\n")
+        println("Generate result: $result")
     }
     if (USE_COMPILE) {
         val result = DoGenerate.compile()
-        print("Compile result: $result\n")
+        println("Compile result: $result")
     }
     if (USE_ZIP) {
         val result = DoGenerate.zip()
-        print("Zip result: $result\n")
+        println("Zip result: $result")
     }
 }
