@@ -1,6 +1,6 @@
 import {UNKNOWN} from "./const";
 
-export default class PropertyClass {
+export default class Property {
   device: string
   key: string
   

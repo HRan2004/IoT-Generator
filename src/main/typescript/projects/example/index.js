@@ -4,18 +4,18 @@ const temperatureHumiditysSensor = DeviceManager.createTemperatureAndHumiditysSe
 
 humanSensor.subscribe(humanSensorRes => {
   // 如果感应到有人
-  if (humanSensorRes.data.existStatus == true) { 
+  if (humanSensorRes.data.existStatus === true) {
     // 打开桌面扇
-    desktopFan.setSwitch(true); 
+    desktopFan.setSwitch(true);
     // 异步获取温度传感器温度
     temperatureHumiditysSensor.getTemperture().then((tempSensorRes) => {
       let temperature = tempSensorRes.data.temperature;
       if (temperature > 30) {
           // 设定风扇档位为高
-          desktopFan.setGear("HIGH"); 
+          desktopFan.setGear("HIGH");
       } else if (temperature > 25) {  // 温度大于25但小于30
           desktopFan.setGear("Middle");
-      } else {       
+      } else {
           desktopFan.setGear("LOW");
       }
     });

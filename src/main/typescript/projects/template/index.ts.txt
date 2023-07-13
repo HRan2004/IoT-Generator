@@ -1,5 +1,6 @@
 import Property, {From} from "./core/property";
-import NormalParser from "./core/normal-parser";
+import NormalParser from "./core/parser/normal-parser";
+import DpParser from "./core/parser/dp-parser";
 
 let DSM: any = {} // Double State Manager
 

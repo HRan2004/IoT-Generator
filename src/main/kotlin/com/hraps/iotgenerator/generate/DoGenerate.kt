@@ -93,11 +93,11 @@ object DoGenerate {
                         "  })"
                 }
             }
-            dsmInit += "DSM.${device.vn} = {\n      ${dsmProperties.joinToString("\n      ")}\n    }"
+            dsmInit += "DSM.${device.vn} = {\n    ${dsmProperties.joinToString("\n    ")}\n  }"
         }
         text = text.replace("/* GENERATE DEVICE VAR CREATE */", deviceVarCreate.joinToString("\n"))
         text = text.replace("/* GENERATE DEVICE INIT */", deviceInit.joinToString("\n"))
-        text = text.replace("/* GENERATE DSM INIT */", dsmInit.joinToString("\n    "))
+        text = text.replace("/* GENERATE DSM INIT */", dsmInit.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT SET FUNCTION */", initSetFunction.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT PROPERTIES */", initProperties.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT REMOTE RECEIVE */", initRemoteReceive.joinToString("\n  "))
@@ -109,6 +109,7 @@ object DoGenerate {
             val targetDevice = task.devices.find { it.vn == edge.target.device } ?: continue
             val targetProperty = task.properties.find { it.tal == edge.target.property && it.device == targetDevice.tal } ?: continue
             edgesPropertyBind += "DSM.${sourceDevice.vn}.${sourceProperty.tal}.addListener(value => {\n" +
+                "    value = new DpParser(DSM.${sourceDevice.vn}.${sourceProperty.tal}, DSM.${targetDevice.vn}.${targetProperty.tal}).parse(value)\n" +
                 "    DSM.${targetDevice.vn}.${targetProperty.tal}.setLocalValue(value, From.Local)\n" +
                 "  })"
         }

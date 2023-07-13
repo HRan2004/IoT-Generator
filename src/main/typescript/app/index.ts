@@ -1,5 +1,6 @@
-import PropertyClass, {From} from "./core/property.class";
-import NormalParser from "./core/normal-parser";
+import Property, {From} from "./core/property";
+import NormalParser from "./core/parser/normal-parser";
+import DpParser from "./core/parser/dp-parser";
 
 let DSM: any = {} // Double State Manager
 
@@ -23,11 +24,11 @@ init().then(r => {
 async function init(): Promise<void> {
   // Init DSM states
   DSM.light0 = {
-      switch: new PropertyClass('light0', 'switch'),
-    }
-    DSM.homeHumidifier2 = {
-      switch: new PropertyClass('homeHumidifier2', 'switch'),
-    }
+    switch: new Property('light0', 'switch'),
+  }
+  DSM.homeHumidifier2 = {
+    switch: new Property('homeHumidifier2', 'switch'),
+  }
   // Init set function
   DSM.light0.switch.update = v => light0.setSwitch(NormalParser.to(v))
   DSM.homeHumidifier2.switch.update = v => homeHumidifier2.setSwitch(NormalParser.to(v))
@@ -49,6 +50,7 @@ async function init(): Promise<void> {
 async function main(): Promise<void> {
   // Edges property bind
   DSM.light0.switch.addListener(value => {
+    value = new DpParser(DSM.light0.switch, DSM.homeHumidifier2.switch).parse(value)
     DSM.homeHumidifier2.switch.setLocalValue(value, From.Local)
   })
 }
