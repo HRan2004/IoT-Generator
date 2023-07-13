@@ -53,5 +53,8 @@ async function main(): Promise<void> {
     value = new DpParser(DSM.light0.switch, DSM.homeHumidifier2.switch).parse(value)
     DSM.homeHumidifier2.switch.setLocalValue(value, From.Local)
   })
+
+  // Logic code
+  
 }
 

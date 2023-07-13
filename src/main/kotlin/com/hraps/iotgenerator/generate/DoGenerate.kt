@@ -69,6 +69,7 @@ object DoGenerate {
         var initSetFunction = emptyArray<String>()
         var initProperties = emptyArray<String>()
         var initRemoteReceive = emptyArray<String>()
+        var logicCodes = emptyArray<String>()
 
         for (device in task.devices) {
             deviceVarCreate += "const ${device.vn}: ${device.tal}"
@@ -101,6 +102,7 @@ object DoGenerate {
         text = text.replace("/* GENERATE INIT SET FUNCTION */", initSetFunction.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT PROPERTIES */", initProperties.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT REMOTE RECEIVE */", initRemoteReceive.joinToString("\n  "))
+        text = text.replace("/* GENERATE LOGIC CODE */", logicCodes.joinToString("\n  "))
 
         var edgesPropertyBind = emptyArray<String>()
         for (edge in task.edges) {

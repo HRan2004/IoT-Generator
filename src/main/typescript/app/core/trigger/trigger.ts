@@ -1,5 +1,5 @@
 
-export class Trigger {
+export default class Trigger {
   
   static interval(func: Function, time: number, times: number = -1) {
     let interval = setInterval(() => {
@@ -12,8 +12,4 @@ export class Trigger {
     }, time)
   }
   
-}
-
-export default class Manager {
-  static Trigger = Trigger
 }

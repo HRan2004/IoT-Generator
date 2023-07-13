@@ -35,5 +35,8 @@ async function init(): Promise<void> {
 async function main(): Promise<void> {
   // Edges property bind
   /* GENERATE EDGES PROPERTY BIND */
+
+  // Logic code
+  /* GENERATE LOGIC CODE */
 }
 
