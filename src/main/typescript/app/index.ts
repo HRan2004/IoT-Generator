@@ -3,23 +3,21 @@ import Parser from "./core/parser";
 
 let DSM: any = {} // Double State Manager
 
-light0 = deviceManager.getLight('Lamp(Home)_0')
-    homeHumidifier2 = deviceManager.getHomeHumidifier('HouseholdHumidifier_2')
+const light0 = DeviceManager.createLight('Lamp(Home)_0')
+const homeHumidifier2 = DeviceManager.createHomeHumidifier('HouseholdHumidifier_2')
 
-try {
-  init().then(r => {
-    console.log('Init Success.')
-    try {
-      main().then(r => {})
-    } catch (e) {
-      console.error('Run Error.')
-      console.error(e)
-    }
+init().then(r => {
+  console.log('Init Success.')
+  main().then(r => {
+    console.log('Running...')
+  }, e => {
+    console.error('Main Failed.')
+    console.error(e)
   })
-} catch (e) {
-  console.error('Init Error.')
+}, e => {
+  console.error('Init Failed.')
   console.error(e)
-}
+})
 
 // Init function
 async function init(): Promise<void> {
@@ -37,11 +35,11 @@ async function init(): Promise<void> {
   DSM.light0.switch.setRemoteValue((await light0.getSwitch()).value)
   DSM.homeHumidifier2.switch.setRemoteValue((await homeHumidifier2.getSwitch()).value)
   // Init remote receive
-  light0.onReceive(data => {
+  light0.subscribe(data => {
     data.switch = Parser.parseFromRemote(data.switch)
     DSM.light0.switch.setRemoteValue(data.switch)
   })
-  homeHumidifier2.onReceive(data => {
+  homeHumidifier2.subscribe(data => {
     data.switch = Parser.parseFromRemote(data.switch)
     DSM.homeHumidifier2.switch.setRemoteValue(data.switch)
   })

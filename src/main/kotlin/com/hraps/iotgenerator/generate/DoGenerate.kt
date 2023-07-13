@@ -71,8 +71,8 @@ object DoGenerate {
         var initRemoteReceive = emptyArray<String>()
 
         for (device in task.devices) {
-            deviceVarCreate += "let ${device.vn}: ${device.tal}"
-            deviceInit += "${device.vn} = deviceManager.get${device.tal}('${device.name}_${device.index}')"
+            deviceVarCreate += "const ${device.vn}: ${device.tal}"
+            deviceInit += "const ${device.vn} = DeviceManager.create${device.tal}('${device.name}_${device.index}')"
             var dsmProperties = emptyArray<String>()
             var hadArray = emptyArray<String>()
             for (port in device.ports) {
@@ -87,7 +87,7 @@ object DoGenerate {
                     initProperties += "DSM.${device.vn}.${port.property}.setRemoteValue((await ${device.vn}.${property.getFunctionName}()).value)"
                 }
                 if (property.canNotify()) {
-                    initRemoteReceive += "${device.vn}.onReceive(data => {\n" +
+                    initRemoteReceive += "${device.vn}.subscribe(data => {\n" +
                         "    data.${port.property} = Parser.parseFromRemote(data.${port.property})\n" +
                         "    DSM.${device.vn}.${port.property}.setRemoteValue(data.${port.property})\n" +
                         "  })"
@@ -96,7 +96,7 @@ object DoGenerate {
             dsmInit += "DSM.${device.vn} = {\n      ${dsmProperties.joinToString("\n      ")}\n    }"
         }
         text = text.replace("/* GENERATE DEVICE VAR CREATE */", deviceVarCreate.joinToString("\n"))
-        text = text.replace("/* GENERATE DEVICE INIT */", deviceInit.joinToString("\n    "))
+        text = text.replace("/* GENERATE DEVICE INIT */", deviceInit.joinToString("\n"))
         text = text.replace("/* GENERATE DSM INIT */", dsmInit.joinToString("\n    "))
         text = text.replace("/* GENERATE INIT SET FUNCTION */", initSetFunction.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT PROPERTIES */", initProperties.joinToString("\n  "))
