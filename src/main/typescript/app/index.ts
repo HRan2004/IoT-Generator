@@ -1,5 +1,5 @@
-import Property, {From} from "./core/property";
-import Parser from "./core/parser";
+import PropertyClass, {From} from "./core/property.class";
+import NormalParser from "./core/normal-parser";
 
 let DSM: any = {} // Double State Manager
 
@@ -23,24 +23,24 @@ init().then(r => {
 async function init(): Promise<void> {
   // Init DSM states
   DSM.light0 = {
-      switch: new Property('light0', 'switch'),
+      switch: new PropertyClass('light0', 'switch'),
     }
     DSM.homeHumidifier2 = {
-      switch: new Property('homeHumidifier2', 'switch'),
+      switch: new PropertyClass('homeHumidifier2', 'switch'),
     }
   // Init set function
-  DSM.light0.switch.update = v => light0.setSwitch(Parser.parseToRemote(v))
-  DSM.homeHumidifier2.switch.update = v => homeHumidifier2.setSwitch(Parser.parseToRemote(v))
+  DSM.light0.switch.update = v => light0.setSwitch(NormalParser.to(v))
+  DSM.homeHumidifier2.switch.update = v => homeHumidifier2.setSwitch(NormalParser.to(v))
   // Init properties
   DSM.light0.switch.setRemoteValue((await light0.getSwitch()).value)
   DSM.homeHumidifier2.switch.setRemoteValue((await homeHumidifier2.getSwitch()).value)
   // Init remote receive
   light0.subscribe(data => {
-    data.switch = Parser.parseFromRemote(data.switch)
+    data.switch = NormalParser.from(data.switch)
     DSM.light0.switch.setRemoteValue(data.switch)
   })
   homeHumidifier2.subscribe(data => {
-    data.switch = Parser.parseFromRemote(data.switch)
+    data.switch = NormalParser.from(data.switch)
     DSM.homeHumidifier2.switch.setRemoteValue(data.switch)
   })
 }

@@ -81,14 +81,14 @@ object DoGenerate {
                 val property = task.properties.find { it.tal == port.property && it.device == device.tal } ?: continue
                 dsmProperties += "${port.property}: new Property('${device.vn}', '${port.property}'),"
                 if (property.canWrite()) {
-                    initSetFunction += "DSM.${device.vn}.${port.property}.update = v => ${device.vn}.${property.setFunctionName}(Parser.parseToRemote(v))"
+                    initSetFunction += "DSM.${device.vn}.${port.property}.update = v => ${device.vn}.${property.setFunctionName}(NormalParser.to(v))"
                 }
                 if (property.canRead()) {
                     initProperties += "DSM.${device.vn}.${port.property}.setRemoteValue((await ${device.vn}.${property.getFunctionName}()).value)"
                 }
                 if (property.canNotify()) {
                     initRemoteReceive += "${device.vn}.subscribe(data => {\n" +
-                        "    data.${port.property} = Parser.parseFromRemote(data.${port.property})\n" +
+                        "    data.${port.property} = NormalParser.from(data.${port.property})\n" +
                         "    DSM.${device.vn}.${port.property}.setRemoteValue(data.${port.property})\n" +
                         "  })"
                 }

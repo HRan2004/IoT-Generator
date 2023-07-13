@@ -1,6 +1,6 @@
 
-export default class Parser {
-  static parseFromRemote(data: any): any {
+export default class NormalParser {
+  static from(data: any): any {
     if (typeof data === 'string') {
       if (data.toLowerCase() === 'true') return true
       if (data.toLowerCase() === 'false') return false
@@ -10,7 +10,7 @@ export default class Parser {
     return data
   }
   
-  static parseToRemote(data: any): any {
+  static to(data: any): any {
     return data
   }
 }

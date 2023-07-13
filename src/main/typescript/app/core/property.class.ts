@@ -1,12 +1,12 @@
 import {UNKNOWN} from "./const";
 
-export default class Property {
+export default class PropertyClass {
   device: string
   key: string
   
   localValue: any = UNKNOWN
   remoteValue: any = UNKNOWN
-  update: ((value: any) => TalPromise) | null
+  update: ((value: any) => TalPromise) | null // Direct upload value to device
   
   constructor(device: string, key: string, update: ((value: any) => TalPromise) | null = null) {
     this.device = device
@@ -25,8 +25,6 @@ export default class Property {
     this.listeners = []
   }
   
-  // 更新本地属性值
-  // 触发监听器，当远程值不同时更新远程值
   setLocalValue(value: any, from: From = From.Local): boolean {
     if (this.localValue === value) return false
     this.localValue = value
