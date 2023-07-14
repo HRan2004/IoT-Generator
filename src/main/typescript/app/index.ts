@@ -1,7 +1,7 @@
 import Property, {From} from "./core/property";
 import NormalParser from "./core/parser/normal-parser";
 import DpParser from "./core/parser/dp-parser";
-import {PDO, PDS, sleep} from "./core/utils";
+import {PDO, PDS, Queue} from "./core/utils";
 
 let DSM: any = {} // Double State Manager
 
@@ -44,7 +44,12 @@ async function main(): Promise<void> {
 
   // Logic code
   setTimeout(async () => {
-    
+    for(let i=0;i<3;i++){
+      DSM.light0.switch.setRemoteValue(true)
+      await Queue.delay(1 * 1000)
+      DSM.light0.switch.setRemoteValue(false)
+      await Queue.delay(1 * 1000)
+    }
   }, 0)
   
 }
