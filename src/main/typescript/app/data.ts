@@ -61,7 +61,7 @@ export const data = {
       "disable": false,
       "events": [
         {
-          "trigger": "START",
+          "trigger": "EQUIP_STATE A1 0",
           "code": "for(let i\u003d0;i\u003c3;i++){\n  PDO(\u0027CONTROL\u0027, \u0027B1\u0027, 0)\n  sleep(1 * 1000)\n  PDO(\u0027CONTROL\u0027, \u0027B1\u0027, 1)\n  sleep(1 * 1000)\n}\n"
         }
       ],

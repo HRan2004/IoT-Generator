@@ -256,7 +256,7 @@
         ],
         "events": [
           {
-            "key": "START",
+            "key": "EQUIP_STATE A1 0",
             "code": "for(let i=0;i<3;i++){\n  PDO('CONTROL', 'B1', 0)\n  sleep(1 * 1000)\n  PDO('CONTROL', 'B1', 1)\n  sleep(1 * 1000)\n}\n"
           }
         ],

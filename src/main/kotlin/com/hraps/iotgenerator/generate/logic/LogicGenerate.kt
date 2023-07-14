@@ -13,11 +13,16 @@ object LogicGenerate {
 
         val trigger = args[0]
         var result = ""
+        this.pdm = logic.pdm
         if (trigger == "START") {
             result = "setTimeout(async () => {\n${addIndent(code)}\n}, 0)\n"
         } else {
-            val port = args[1]
-            val pd = logic.pdm[port]!!
+            val pd = logic.pdm[args[0]] ?: ""
+            if (trigger == "CHANGE") {
+                result = "DSM.$pd.addListener(async v => {\n${addIndent(code)}\n})\n"
+            } else if (trigger == "EQUIP_STATE" || trigger == "EQUIP_EXIST_STATUS") {
+                result = "DSM.$pd.addListener(async v => {\n  if (v) {\n${addIndent(code, 4)}\n  }\n})\n"
+            }
         }
 
         if (indent != 0) result = addIndent(result, indent, false)
@@ -36,7 +41,7 @@ object LogicGenerate {
         val ar = JsAnalysis.analysis(code)
         val calls = JsAnalysis.recursionGetCalls(ar)
         val replaceMap = mutableListOf<MutableList<String>>()
-        for (call in calls) {
+        for (call in calls) {                                              
             val name = call.getJSONObject("callee").getString("name")
             this.args = call.getJSONArray("arguments")
             val sc = code.substring(

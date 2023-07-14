@@ -43,14 +43,16 @@ async function main(): Promise<void> {
   
 
   // Logic code
-  setTimeout(async () => {
-    for(let i=0;i<3;i++){
-      DSM.light0.switch.setRemoteValue(true)
-      await Queue.delay(1 * 1000)
-      DSM.light0.switch.setRemoteValue(false)
-      await Queue.delay(1 * 1000)
+  DSM.xxx.xxx.addListener(async v => {
+    if (v) {
+      for(let i=0;i<3;i++){
+        DSM.light0.switch.setRemoteValue(true)
+        await Queue.delay(1 * 1000)
+        DSM.light0.switch.setRemoteValue(false)
+        await Queue.delay(1 * 1000)
+      }
     }
-  }, 0)
+  })
   
 }
 
