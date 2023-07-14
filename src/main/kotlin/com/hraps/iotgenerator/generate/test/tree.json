@@ -88,10 +88,10 @@
               "type": "CallExpression",
               "callee": {
                 "type": "Identifier",
-                "name": "PDO",
+                "name": "PDxO",
                 "range": [
                   24,
-                  27
+                  28
                 ]
               },
               "arguments": [
@@ -100,8 +100,8 @@
                   "value": "CONTROL",
                   "raw": "'CONTROL'",
                   "range": [
-                    28,
-                    37
+                    29,
+                    38
                   ]
                 },
                 {
@@ -109,8 +109,8 @@
                   "value": "B1",
                   "raw": "'B1'",
                   "range": [
-                    39,
-                    43
+                    40,
+                    44
                   ]
                 },
                 {
@@ -118,19 +118,19 @@
                   "value": 0,
                   "raw": "0",
                   "range": [
-                    45,
-                    46
+                    46,
+                    47
                   ]
                 }
               ],
               "range": [
                 24,
-                47
+                48
               ]
             },
             "range": [
               24,
-              47
+              48
             ]
           },
           {
@@ -141,8 +141,8 @@
                 "type": "Identifier",
                 "name": "sleep",
                 "range": [
-                  50,
-                  55
+                  51,
+                  56
                 ]
               },
               "arguments": [
@@ -154,8 +154,8 @@
                     "value": 1,
                     "raw": "1",
                     "range": [
-                      56,
-                      57
+                      57,
+                      58
                     ]
                   },
                   "right": {
@@ -163,142 +163,64 @@
                     "value": 1000,
                     "raw": "1000",
                     "range": [
-                      60,
-                      64
+                      61,
+                      65
                     ]
                   },
                   "range": [
-                    56,
-                    64
+                    57,
+                    65
                   ]
                 }
               ],
               "range": [
-                50,
-                65
+                51,
+                66
               ]
             },
             "range": [
-              50,
-              65
-            ]
-          },
-          {
-            "type": "ExpressionStatement",
-            "expression": {
-              "type": "CallExpression",
-              "callee": {
-                "type": "Identifier",
-                "name": "PDO",
-                "range": [
-                  68,
-                  71
-                ]
-              },
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value": "CONTROL",
-                  "raw": "'CONTROL'",
-                  "range": [
-                    72,
-                    81
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value": "B1",
-                  "raw": "'B1'",
-                  "range": [
-                    83,
-                    87
-                  ]
-                },
-                {
-                  "type": "Literal",
-                  "value": 1,
-                  "raw": "1",
-                  "range": [
-                    89,
-                    90
-                  ]
-                }
-              ],
-              "range": [
-                68,
-                91
-              ]
-            },
-            "range": [
-              68,
-              91
-            ]
-          },
-          {
-            "type": "ExpressionStatement",
-            "expression": {
-              "type": "CallExpression",
-              "callee": {
-                "type": "Identifier",
-                "name": "sleep",
-                "range": [
-                  94,
-                  99
-                ]
-              },
-              "arguments": [
-                {
-                  "type": "BinaryExpression",
-                  "operator": "*",
-                  "left": {
-                    "type": "Literal",
-                    "value": 1,
-                    "raw": "1",
-                    "range": [
-                      100,
-                      101
-                    ]
-                  },
-                  "right": {
-                    "type": "Literal",
-                    "value": 1000,
-                    "raw": "1000",
-                    "range": [
-                      104,
-                      108
-                    ]
-                  },
-                  "range": [
-                    100,
-                    108
-                  ]
-                }
-              ],
-              "range": [
-                94,
-                109
-              ]
-            },
-            "range": [
-              94,
-              109
+              51,
+              66
             ]
           }
         ],
         "range": [
           20,
-          111
+          68
         ]
       },
       "range": [
         0,
-        111
+        68
+      ]
+    },
+    {
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "CallExpression",
+        "callee": {
+          "type": "Identifier",
+          "name": "aaa",
+          "range": [
+            69,
+            72
+          ]
+        },
+        "arguments": [],
+        "range": [
+          69,
+          74
+        ]
+      },
+      "range": [
+        69,
+        74
       ]
     }
   ],
   "sourceType": "script",
   "range": [
     0,
-    111
+    74
   ]
 }

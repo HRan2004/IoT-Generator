@@ -26,10 +26,23 @@ object LogicGenerate {
 
     private fun makeEquipCode(code: String): String {
         val ar = JsAnalysis.analysis(code)
-        println(ar.toJSONString())
-        var result = code
+        val calls = JsAnalysis.recursionGetCalls(ar)
+        val replaceMap = mutableMapOf<String, String>()
+        for (call in calls) {
+            val name = call.getJSONObject("callee").getString("name")
+            val args = call.getJSONArray("arguments")
+            val sc = code.substring(
+                call.getJSONArray("range").getInteger(0),
+                call.getJSONArray("range").getInteger(1)
+            )
+            val tc = sc
+            if (name == "PDO") {
 
-        return result
+            } else if (name == "sleep") {
+                tc.replace("sleep", "await sleep")
+            }
+        }
+        return ""
     }
 
     private fun addIndent(code: String, indent: Int = 2, first: Boolean = true): String {
