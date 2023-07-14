@@ -3,6 +3,7 @@ package com.hraps.iotgenerator.generate
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.hraps.iotgenerator.Options
+import com.hraps.iotgenerator.generate.logic.LogicGenerate
 import com.hraps.iotgenerator.utils.FileUtils
 import com.hraps.iotgenerator.utils.CommandUtils
 import com.hraps.iotgenerator.utils.ZipUtils
@@ -100,7 +101,12 @@ object DoGenerate {
         }
         for (logic in task.logics) {
             for (event in logic.events) {
-                logicCodes += LogicGenerate.makeEvent(event, logic, 2)
+                try {
+                    logicCodes += LogicGenerate.makeEvent(event, logic, 2)
+                } catch (e: Exception) {
+                    println("Logic Code '${event.trigger}' Generate Error: ${e.message}")
+                    e.printStackTrace()
+                }
             }
         }
         text = text.replace("/* GENERATE DEVICE VAR CREATE */", deviceVarCreate.joinToString("\n"))

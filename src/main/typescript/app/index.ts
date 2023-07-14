@@ -43,14 +43,6 @@ async function main(): Promise<void> {
   
 
   // Logic code
-  setTimeout(async () => {
-    for(let i=0;i<3;i++){
-      PDO('CONTROL', 'B1', 0)
-      await sleep(1 * 1000)
-      PDO('CONTROL', 'B1', 1)
-      await sleep(1 * 1000)
-    }
-  }, 0)
   
 }
 

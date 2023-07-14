@@ -7,8 +7,8 @@ export async function sleep(time: number): Promise<void> {
   })
 }
 
-export function PDO(command: string, ...args): any {
+export async function PDO(command: string, ...args) {
 }
 
-export function PDS(command: string, ...args): any {
+export async function PDS(command: string, ...args) {
 }
