@@ -2,7 +2,6 @@ package com.hraps.iotgenerator.generate
 
 import com.alibaba.fastjson2.JSONObject
 import com.hraps.iotgenerator.generate.classes.*
-import com.hraps.iotgenerator.generate.classes.*
 import com.hraps.iotgenerator.generate.mapper.DapmItem
 import com.hraps.iotgenerator.generate.mapper.DeviceAndPortMap
 import com.hraps.iotgenerator.generate.mapper.Property
@@ -35,6 +34,7 @@ class TaskData(json: JSONObject) {
                 } catch (_: Exception) {}
                 lateinit var node: Node
                 var talItem: DapmItem? = null
+
                 if (shape == "device-node") {
                     node = Device()
                     node.name = data.getString("device")
@@ -57,10 +57,17 @@ class TaskData(json: JSONObject) {
                     }
                 } else if (shape == "logic-node") {
                     node = Logic()
+                    for (event in data.getJSONArray("events")) {
+                        val e = event as JSONObject
+                        val trigger = e.getString("key")
+                        val code = e.getString("code")
+                        node.events += Event(trigger, code)
+                    }
                     logics += node
                 } else {
                     return@map
                 }
+
                 node.id = id
                 node.disable = disable
                 ports.map { pit ->
@@ -77,6 +84,8 @@ class TaskData(json: JSONObject) {
                         val property = talItem.getProperty(name) ?: return@map
                         this.addProperty(property)
                         node.ports += Port(pid, name, left, pd, property.tal)
+                    } else if (shape == "logic-node") {
+                        node.ports += Port(pid, name, left, pd, "")
                     }
                 }
             }
@@ -90,21 +99,35 @@ class TaskData(json: JSONObject) {
                 val target = cell.getJSONObject("target")
                 val sourceCell = source.getString("cell")
                 val targetCell = target.getString("cell")
-                val sourcePort = source.getString("port")
-                val targetPort = target.getString("port")
+                val sourcePortKey = source.getString("port")
+                val targetPortKey = target.getString("port")
                 val disable = false
-                val sourceDevice = devices.find { it.id == sourceCell } ?: return@map
-                val targetDevice = devices.find { it.id == targetCell } ?: return@map
-                val sourcePortObj = sourceDevice.ports.find { it.id == sourcePort } ?: return@map
-                val targetPortObj = targetDevice.ports.find { it.id == targetPort } ?: return@map
+
+                var sourceNode: Node? = devices.find { it.id == sourceCell }
+                var targetNode: Node? = devices.find { it.id == targetCell }
+                if (sourceNode == null) sourceNode = logics.find { it.id == sourceCell }
+                if (targetNode == null) targetNode = logics.find { it.id == targetCell }
+                if (sourceNode == null || targetNode == null) return@map
+
+                val sourcePort = sourceNode.ports.find { it.id == sourcePortKey } ?: return@map
+                val targetPort = targetNode.ports.find { it.id == targetPortKey } ?: return@map
                 edges += Edge(
                     id,
-                    EdgePoint(sourceCell, targetCell, sourceDevice.vn, sourcePortObj.property),
-                    EdgePoint(sourcePort, targetPort, targetDevice.vn, targetPortObj.property),
+                    EdgePoint(sourceCell, targetCell, getNodeVn(sourceNode), sourcePort.property),
+                    EdgePoint(sourcePortKey, targetPortKey, getNodeVn(targetNode), targetPort.property),
                     disable
                 )
             }
         }
+    }
+
+    private fun getNodeVn(node: Node): String {
+        if (node is Device) {
+            return node.vn
+        } else if (node is Logic) {
+            return "LOGIC"
+        }
+        return "UNKNOWN"
     }
 
     private fun addProperty(property: Property) {

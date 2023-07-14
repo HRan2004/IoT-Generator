@@ -6,6 +6,12 @@ class Logic (
     override var id: String = "",
     override var ports: Array<Port> = emptyArray(),
     override var disable: Boolean = false,
-    val data: JSONObject = JSONObject(),
+    var events: Array<Event> = emptyArray(),
 ): Node {
+}
+
+class Event (
+    val trigger: String,
+    val code: String,
+) {
 }
