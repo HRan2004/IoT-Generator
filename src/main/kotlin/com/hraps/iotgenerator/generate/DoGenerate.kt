@@ -98,6 +98,11 @@ object DoGenerate {
             }
             dsmInit += "DSM.${device.vn} = {\n    ${dsmProperties.joinToString("\n    ")}\n  }"
         }
+        for (logic in task.logics) {
+            for (event in logic.events) {
+                logicCodes += LogicGenerate.makeEvent(event, logic, 2)
+            }
+        }
         text = text.replace("/* GENERATE DEVICE VAR CREATE */", deviceVarCreate.joinToString("\n"))
         text = text.replace("/* GENERATE DEVICE INIT */", deviceInit.joinToString("\n"))
         text = text.replace("/* GENERATE DSM INIT */", dsmInit.joinToString("\n  "))

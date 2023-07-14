@@ -13,15 +13,14 @@ const val OUTPUT_FILE = "${DoGenerate.TEST_PATH}\\result\\app.zip"
 const val DATA_PATH = "${DoGenerate.TEST_PATH}\\data.json"
 
 const val USE_DATA_GENERATE = true
-const val USE_CODE_GENERATE = false
+const val USE_CODE_GENERATE = true
 const val USE_COMPILE = false
 const val USE_ZIP = false
 
 fun main() {
     if (USE_DATA_GENERATE) {
         val jsonText = FileUtils.read(TASK_FILE)
-        val json = JSONObject.parseObject(jsonText)
-        val data = TaskData(json)
+        val data = TaskData(JSONObject.parseObject(jsonText))
         val gson = GsonBuilder().setPrettyPrinting().create()
         FileUtils.write(DATA_PATH, gson.toJson(data))
         println("Data generate: Success")

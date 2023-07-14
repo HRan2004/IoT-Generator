@@ -1,6 +1,6 @@
 
 export const data = {
-  "name": "测试项目",
+  "name": "test",
   "devices": [
     {
       "id": "N1",
@@ -11,13 +11,6 @@ export const data = {
           "left": true,
           "disable": true,
           "property": "switch"
-        },
-        {
-          "id": "1-OUT-1",
-          "name": "开关",
-          "left": false,
-          "disable": true,
-          "property": "switch"
         }
       ],
       "disable": false,
@@ -26,45 +19,57 @@ export const data = {
       "index": 0,
       "tal": "Light",
       "model": ""
-    },
-    {
-      "id": "N3",
-      "ports": [
-        {
-          "id": "3-IN-1",
-          "name": "开关",
-          "left": true,
-          "disable": true,
-          "property": "switch"
-        }
-      ],
-      "disable": false,
-      "name": "HouseholdHumidifier",
-      "vn": "homeHumidifier2",
-      "index": 2,
-      "tal": "HomeHumidifier",
-      "model": ""
     }
   ],
   "edges": [
     {
-      "id": "a171051c-c32c-44d4-843b-9956058c2aca",
+      "id": "d86b9843-9174-42e7-9c55-5ca0b75a4e91",
       "source": {
-        "cell": "N1",
-        "port": "N3",
-        "device": "light0",
-        "property": "switch"
+        "cell": "N2",
+        "port": "N1",
+        "device": "LOGIC",
+        "property": ""
       },
       "target": {
-        "cell": "1-OUT-1",
-        "port": "3-IN-1",
-        "device": "homeHumidifier2",
+        "cell": "2-OUT-1",
+        "port": "1-IN-1",
+        "device": "light0",
         "property": "switch"
       },
       "disable": false
     }
   ],
-  "logics": [],
+  "logics": [
+    {
+      "id": "N2",
+      "ports": [
+        {
+          "id": "2-IN-1",
+          "name": "A1",
+          "left": true,
+          "disable": true,
+          "property": ""
+        },
+        {
+          "id": "2-OUT-1",
+          "name": "B1",
+          "left": false,
+          "disable": true,
+          "property": ""
+        }
+      ],
+      "disable": false,
+      "events": [
+        {
+          "trigger": "START",
+          "code": "for(let i\u003d0;i\u003c3;i++){\n  PDO(\u0027CONTROL\u0027, \u0027B1\u0027, 0)\n  await sleep(1 * 1000)\n  PDO(\u0027CONTROL\u0027, \u0027B1\u0027, 1)\n  await sleep(1 * 1000)\n}\n"
+        }
+      ],
+      "pdm": {
+        "B1": "light0.switch"
+      }
+    }
+  ],
   "properties": [
     {
       "device": "Light",
@@ -76,18 +81,7 @@ export const data = {
       "options": [],
       "getFunctionName": "getSwitch",
       "setFunctionName": "setSwitch"
-    },
-    {
-      "device": "HomeHumidifier",
-      "name": "开关",
-      "tal": "switch",
-      "permission": "rwn",
-      "talType": "ANY",
-      "range": [],
-      "options": [],
-      "getFunctionName": "getSwitch",
-      "setFunctionName": "setSwitch"
     }
   ],
-  "counter": 3
+  "counter": 1
 }

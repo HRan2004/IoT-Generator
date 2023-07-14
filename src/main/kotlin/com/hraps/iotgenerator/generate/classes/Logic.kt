@@ -7,6 +7,7 @@ class Logic (
     override var ports: Array<Port> = emptyArray(),
     override var disable: Boolean = false,
     var events: Array<Event> = emptyArray(),
+    var pdm: HashMap<String, String> = hashMapOf(), // Port text To Device and property Map
 ): Node {
 }
 

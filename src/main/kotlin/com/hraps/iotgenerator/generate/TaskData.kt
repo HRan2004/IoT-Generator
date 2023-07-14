@@ -117,6 +117,12 @@ class TaskData(json: JSONObject) {
                     EdgePoint(sourcePortKey, targetPortKey, getNodeVn(targetNode), targetPort.property),
                     disable
                 )
+
+                if (sourceNode is Device && targetNode is Logic) {
+                    targetNode.pdm[targetPort.name] = sourceNode.vn + "." + sourcePort.property
+                } else if (sourceNode is Logic && targetNode is Device) {
+                    sourceNode.pdm[sourcePort.name] = targetNode.vn + "." + targetPort.property
+                }
             }
         }
     }
