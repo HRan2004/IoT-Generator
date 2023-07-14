@@ -1,0 +1,304 @@
+{
+  "type": "Program",
+  "body": [
+    {
+      "type": "ForStatement",
+      "init": {
+        "type": "VariableDeclaration",
+        "declarations": [
+          {
+            "type": "VariableDeclarator",
+            "id": {
+              "type": "Identifier",
+              "name": "i",
+              "range": [
+                8,
+                9
+              ]
+            },
+            "init": {
+              "type": "Literal",
+              "value": 0,
+              "raw": "0",
+              "range": [
+                10,
+                11
+              ]
+            },
+            "range": [
+              8,
+              11
+            ]
+          }
+        ],
+        "kind": "let",
+        "range": [
+          4,
+          12
+        ]
+      },
+      "test": {
+        "type": "BinaryExpression",
+        "operator": "<",
+        "left": {
+          "type": "Identifier",
+          "name": "i",
+          "range": [
+            12,
+            13
+          ]
+        },
+        "right": {
+          "type": "Literal",
+          "value": 3,
+          "raw": "3",
+          "range": [
+            14,
+            15
+          ]
+        },
+        "range": [
+          12,
+          15
+        ]
+      },
+      "update": {
+        "type": "UpdateExpression",
+        "operator": "++",
+        "argument": {
+          "type": "Identifier",
+          "name": "i",
+          "range": [
+            16,
+            17
+          ]
+        },
+        "prefix": false,
+        "range": [
+          16,
+          19
+        ]
+      },
+      "body": {
+        "type": "BlockStatement",
+        "body": [
+          {
+            "type": "ExpressionStatement",
+            "expression": {
+              "type": "CallExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "PDO",
+                "range": [
+                  24,
+                  27
+                ]
+              },
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value": "CONTROL",
+                  "raw": "'CONTROL'",
+                  "range": [
+                    28,
+                    37
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value": "B1",
+                  "raw": "'B1'",
+                  "range": [
+                    39,
+                    43
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value": 0,
+                  "raw": "0",
+                  "range": [
+                    45,
+                    46
+                  ]
+                }
+              ],
+              "range": [
+                24,
+                47
+              ]
+            },
+            "range": [
+              24,
+              47
+            ]
+          },
+          {
+            "type": "ExpressionStatement",
+            "expression": {
+              "type": "CallExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "sleep",
+                "range": [
+                  50,
+                  55
+                ]
+              },
+              "arguments": [
+                {
+                  "type": "BinaryExpression",
+                  "operator": "*",
+                  "left": {
+                    "type": "Literal",
+                    "value": 1,
+                    "raw": "1",
+                    "range": [
+                      56,
+                      57
+                    ]
+                  },
+                  "right": {
+                    "type": "Literal",
+                    "value": 1000,
+                    "raw": "1000",
+                    "range": [
+                      60,
+                      64
+                    ]
+                  },
+                  "range": [
+                    56,
+                    64
+                  ]
+                }
+              ],
+              "range": [
+                50,
+                65
+              ]
+            },
+            "range": [
+              50,
+              65
+            ]
+          },
+          {
+            "type": "ExpressionStatement",
+            "expression": {
+              "type": "CallExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "PDO",
+                "range": [
+                  68,
+                  71
+                ]
+              },
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value": "CONTROL",
+                  "raw": "'CONTROL'",
+                  "range": [
+                    72,
+                    81
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value": "B1",
+                  "raw": "'B1'",
+                  "range": [
+                    83,
+                    87
+                  ]
+                },
+                {
+                  "type": "Literal",
+                  "value": 1,
+                  "raw": "1",
+                  "range": [
+                    89,
+                    90
+                  ]
+                }
+              ],
+              "range": [
+                68,
+                91
+              ]
+            },
+            "range": [
+              68,
+              91
+            ]
+          },
+          {
+            "type": "ExpressionStatement",
+            "expression": {
+              "type": "CallExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "sleep",
+                "range": [
+                  94,
+                  99
+                ]
+              },
+              "arguments": [
+                {
+                  "type": "BinaryExpression",
+                  "operator": "*",
+                  "left": {
+                    "type": "Literal",
+                    "value": 1,
+                    "raw": "1",
+                    "range": [
+                      100,
+                      101
+                    ]
+                  },
+                  "right": {
+                    "type": "Literal",
+                    "value": 1000,
+                    "raw": "1000",
+                    "range": [
+                      104,
+                      108
+                    ]
+                  },
+                  "range": [
+                    100,
+                    108
+                  ]
+                }
+              ],
+              "range": [
+                94,
+                109
+              ]
+            },
+            "range": [
+              94,
+              109
+            ]
+          }
+        ],
+        "range": [
+          20,
+          111
+        ]
+      },
+      "range": [
+        0,
+        111
+      ]
+    }
+  ],
+  "sourceType": "script",
+  "range": [
+    0,
+    111
+  ]
+}

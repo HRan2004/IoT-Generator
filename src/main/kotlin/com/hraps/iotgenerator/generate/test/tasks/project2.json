@@ -257,7 +257,7 @@
         "events": [
           {
             "key": "START",
-            "code": "for(let i=0;i<3;i++){\n  PDO('CONTROL', 'B1', 0)\n  await sleep(1 * 1000)\n  PDO('CONTROL', 'B1', 1)\n  await sleep(1 * 1000)\n}\n"
+            "code": "for(let i=0;i<3;i++){\n  PDO('CONTROL', 'B1', 0)\n  sleep(1 * 1000)\n  PDO('CONTROL', 'B1', 1)\n  sleep(1 * 1000)\n}\n"
           }
         ],
         "graph": {

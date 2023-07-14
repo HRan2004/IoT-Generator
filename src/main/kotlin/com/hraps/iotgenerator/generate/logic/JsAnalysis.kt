@@ -18,5 +18,8 @@ object JsAnalysis {
 }
 
 fun main() {
-    println(JsAnalysis.analysis("var a=0"))
+    println(JsAnalysis.analysis("for(let i=0;i<3;i++){\n" +
+        "  PDO('CONTROL', 'B1', 0)\n" +
+        "  sleep(1 * 1000)\n" +
+        "}"))
 }
