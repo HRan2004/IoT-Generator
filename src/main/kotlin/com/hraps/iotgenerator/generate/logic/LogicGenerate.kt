@@ -21,7 +21,10 @@ object LogicGenerate {
             if (trigger == "CHANGE") {
                 result = "DSM.$pd.addListener(async v => {\n${addIndent(code)}\n})\n"
             } else if (trigger == "EQUIP_STATE" || trigger == "EQUIP_EXIST_STATUS") {
-                result = "DSM.$pd.addListener(async v => {\n  if (v) {\n${addIndent(code, 4)}\n  }\n})\n"
+                val con = if (args[1] == "0") "v" else "!v"
+                result = "DSM.$pd.addListener(async v => {\n  " +
+                    "if ($con) {\n${addIndent(code, 4)}\n  }" +
+                    "\n})\n"
             }
         }
 
@@ -41,7 +44,7 @@ object LogicGenerate {
         val ar = JsAnalysis.analysis(code)
         val calls = JsAnalysis.recursionGetCalls(ar)
         val replaceMap = mutableListOf<MutableList<String>>()
-        for (call in calls) {                                              
+        for (call in calls) {
             val name = call.getJSONObject("callee").getString("name")
             this.args = call.getJSONArray("arguments")
             val sc = code.substring(
