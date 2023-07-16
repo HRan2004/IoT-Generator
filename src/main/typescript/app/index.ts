@@ -66,18 +66,18 @@ async function main(): Promise<void> {
   // Logic code
   DSM.humanBodySensor0.existStatus.addListener(async v => {
     mlog(' ├ @EVENT CHANGE humanBodySensor0.existStatus changed-to', v)
-    mlog(' ├ @EQUIP-PDO SET_VALUE logic1.B1 set to number')
+    mlog(' ├ @EQUIP-PDO SET_VALUE logic1.B1 set as number')
     DSM.logic1.B1.setValue(
-      mlog(' ├ @EQUIP-PDS VALUE humanBodySensor0.existStatus to number')
+      mlog(' ├ @EQUIP-PDS VALUE humanBodySensor0.existStatus as number')
       || DSM.humanBodySensor0.existStatus.getLocalValue()
     )
   })
   
   DSM.logic1.B1.addListener(async v => {
     mlog(' ├ @EVENT CHANGE logic1.B1 changed-to', v)
-    mlog(' ├ @EQUIP-PDO SET_VALUE light1.switch set to number')
+    mlog(' ├ @EQUIP-PDO SET_VALUE light1.switch set as number')
     DSM.light1.switch.setLocalValue(
-      mlog(' ├ @EQUIP-PDS VALUE logic1.B1 to number')
+      mlog(' ├ @EQUIP-PDS VALUE logic1.B1 as number')
       || DSM.logic1.B1.getValue()
     )
   })

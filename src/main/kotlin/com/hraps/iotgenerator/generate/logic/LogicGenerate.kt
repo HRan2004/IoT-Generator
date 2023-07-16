@@ -121,7 +121,7 @@ object LogicGenerate {
             "HaveNotSupport()"
         } else if (type == "VALUE") {
             val toType = arrayOf("number", "string", "time", "date", "boolean")[ats[2].toInt()]
-            logText += "to $toType"
+            logText += "as $toType"
             "DSM.$dp.$get()"
         } else if (type == "COMPARE_TEXT") {
             val mode = ats[2].toInt()
@@ -141,7 +141,7 @@ object LogicGenerate {
             "DSM.$dp.$get() $con $num"
         } else if (type == "SET_VALUE") {
             val toType = arrayOf("number", "string", "time", "date", "boolean")[ats[2].toInt()]
-            logText += "set to $toType"
+            logText += "set as $toType"
             "DSM.$dp.$set(${ats[3]})"
         } else {
             ""
