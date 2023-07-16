@@ -1,0 +1,627 @@
+{
+  "name": "test",
+  "cells": [
+    {
+      "id": "78c8784a-47bc-40c6-91ca-57e39c54ebfd",
+      "source": {
+        "cell": "N4",
+        "port": "4-OUT-1"
+      },
+      "target": {
+        "cell": "N2",
+        "port": "2-IN-1"
+      }
+    },
+    {
+      "id": "0811716f-7be9-4c41-b02b-4756536420a6",
+      "source": {
+        "cell": "N2",
+        "port": "2-OUT-1"
+      },
+      "target": {
+        "cell": "N3",
+        "port": "3-IN-1"
+      }
+    },
+    {
+      "id": "52581d76-d76d-4357-a88f-48ad4996d43b",
+      "source": {
+        "cell": "N3",
+        "port": "3-OUT-1"
+      },
+      "target": {
+        "cell": "N5",
+        "port": "5-IN-1"
+      }
+    },
+    {
+      "position": {
+        "x": 379.99999999999113,
+        "y": -461.99999999998977
+      },
+      "size": {
+        "width": 608,
+        "height": 332
+      },
+      "view": "react-shape-view",
+      "shape": "logic-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "1-IN-1",
+            "group": "left",
+            "text": "A1",
+            "attrs": {
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "1-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "rect": {
+                "w": 34,
+                "h": 20
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "1-OUT-1",
+            "group": "right",
+            "text": "B1",
+            "attrs": {
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "1-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "rect": {
+                "w": 34,
+                "h": 20
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N1",
+      "data": {
+        "blocks": [],
+        "events": [],
+        "graph": {
+          "isToolbox": false,
+          "isDisable": false,
+          "blocksLength": 0
+        },
+        "connecting": null,
+        "update": 9
+      },
+      "zIndex": 1
+    },
+    {
+      "position": {
+        "x": 840,
+        "y": 120
+      },
+      "size": {
+        "width": 608,
+        "height": 332
+      },
+      "view": "react-shape-view",
+      "shape": "logic-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "2-IN-1",
+            "group": "left",
+            "text": "A1",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "2-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "2-OUT-1",
+            "group": "right",
+            "text": "B1",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "2-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N2",
+      "data": {
+        "blocks": [
+          {
+            "block": "event_change",
+            "args": [
+              0,
+              {
+                "block": "equipment_set_value",
+                "args": [
+                  0,
+                  0,
+                  {
+                    "block": "equipment_get_value",
+                    "args": [
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                "isSelected": true,
+                "next": true
+              }
+            ],
+            "x": 168.0242919921875,
+            "y": 81.79997253417969
+          }
+        ],
+        "events": [
+          {
+            "key": "CHANGE A1",
+            "code": "PDO('SET_VALUE', 'B1', 0, PDS('VALUE', 'A1', 0))\n"
+          }
+        ],
+        "graph": {
+          "isToolbox": false,
+          "isDisable": false,
+          "blocksLength": 1
+        },
+        "connecting": null,
+        "update": 20
+      },
+      "zIndex": 2
+    },
+    {
+      "position": {
+        "x": 240,
+        "y": 760
+      },
+      "size": {
+        "width": 608,
+        "height": 332
+      },
+      "view": "react-shape-view",
+      "shape": "logic-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "3-IN-1",
+            "group": "left",
+            "text": "A1",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "3-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "3-OUT-1",
+            "group": "right",
+            "text": "B1",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(179, 117, 224)"
+              }
+            }
+          },
+          {
+            "id": "3-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N3",
+      "data": {
+        "blocks": [
+          {
+            "block": "event_change",
+            "args": [
+              0,
+              {
+                "block": "equipment_set_value",
+                "args": [
+                  0,
+                  0,
+                  {
+                    "block": "equipment_get_value",
+                    "args": [
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                "next": true
+              }
+            ],
+            "x": 83.02435302734375,
+            "y": 84.684326171875
+          }
+        ],
+        "events": [
+          {
+            "key": "CHANGE A1",
+            "code": "PDO('SET_VALUE', 'B1', 0, PDS('VALUE', 'A1', 0))\n"
+          }
+        ],
+        "graph": {
+          "isToolbox": false,
+          "isDisable": false,
+          "blocksLength": 1
+        },
+        "connecting": null,
+        "update": 19
+      },
+      "zIndex": 3
+    },
+    {
+      "position": {
+        "x": 340,
+        "y": 170
+      },
+      "size": {
+        "width": 208,
+        "height": 112
+      },
+      "view": "react-shape-view",
+      "shape": "device-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "4-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "4-OUT-1",
+            "group": "right",
+            "text": "是否有人",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "4-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N4",
+      "data": {
+        "device": "HumanMotionSensor",
+        "update": 8,
+        "connecting": null
+      },
+      "zIndex": 4
+    },
+    {
+      "position": {
+        "x": 1310,
+        "y": 820
+      },
+      "size": {
+        "width": 208,
+        "height": 112
+      },
+      "view": "react-shape-view",
+      "shape": "device-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "5-IN-1",
+            "group": "left",
+            "text": "开关",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "5-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(82, 155, 241)"
+              }
+            }
+          },
+          {
+            "id": "5-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N5",
+      "data": {
+        "device": "Lamp(Home)",
+        "connecting": null,
+        "update": 5
+      },
+      "zIndex": 5
+    }
+  ]
+}

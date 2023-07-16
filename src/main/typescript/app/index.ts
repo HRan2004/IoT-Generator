@@ -5,10 +5,8 @@ import {PDO, PDS, Queue, HaveNotSupport} from "./core/utils";
 
 let DSM: any = {} // Double State Manager
 
-const humanBodySensor0 = DeviceManager.createHumanBodySensor('HumanMotionSensor_0')
-const light1 = DeviceManager.createLight('Lamp(Home)_1')
-const homeHumidifier2 = DeviceManager.createHomeHumidifier('HouseholdHumidifier_2')
-const doorAndWindowSensor3 = DeviceManager.createDoorAndWindowSensor('DoorAndWindowSensor_3')
+const humanBodySensor3 = DeviceManager.createHumanBodySensor('HumanMotionSensor_3')
+const light4 = DeviceManager.createLight('Lamp(Home)_4')
 
 init().then(r => {
   console.log('Init Success.')
@@ -26,96 +24,43 @@ init().then(r => {
 // Init function
 async function init(): Promise<void> {
   // Init DSM states
-  DSM.humanBodySensor0 = {
-    existStatus: new Property('humanBodySensor0', 'existStatus'),
+  DSM.humanBodySensor3 = {
+    existStatus: new Property('humanBodySensor3', 'existStatus'),
   }
-  DSM.light1 = {
-    switch: new Property('light1', 'switch'),
-  }
-  DSM.homeHumidifier2 = {
-    settledHumidity: new Property('homeHumidifier2', 'settledHumidity'),
-  }
-  DSM.doorAndWindowSensor3 = {
-    status: new Property('doorAndWindowSensor3', 'status'),
+  DSM.light4 = {
+    switch: new Property('light4', 'switch'),
   }
 
   // Init set function
-  DSM.light1.switch.update = v => light1.setSwitch(NormalParser.to(v))
-  DSM.homeHumidifier2.settledHumidity.update = v => homeHumidifier2.setHumidity(NormalParser.to(v))
+  DSM.light4.switch.update = v => light4.setSwitch(NormalParser.to(v))
 
   // Init properties
-  DSM.humanBodySensor0.existStatus.setRemoteValue((await humanBodySensor0.getExistStatus()).value)
-  DSM.light1.switch.setRemoteValue((await light1.getSwitch()).value)
-  DSM.homeHumidifier2.settledHumidity.setRemoteValue((await homeHumidifier2.getSettledHumidity()).value)
-  DSM.doorAndWindowSensor3.status.setRemoteValue((await doorAndWindowSensor3.getStatus()).value)
+  DSM.humanBodySensor3.existStatus.setRemoteValue((await humanBodySensor3.getExistStatus()).value)
+  DSM.light4.switch.setRemoteValue((await light4.getSwitch()).value)
 
   // Init remote receive
-  humanBodySensor0.subscribe(data => {
+  humanBodySensor3.subscribe(data => {
     data.existStatus = NormalParser.from(data.existStatus)
-    DSM.humanBodySensor0.existStatus.setRemoteValue(data.existStatus)
+    DSM.humanBodySensor3.existStatus.setRemoteValue(data.existStatus)
   })
-  light1.subscribe(data => {
+  light4.subscribe(data => {
     data.switch = NormalParser.from(data.switch)
-    DSM.light1.switch.setRemoteValue(data.switch)
-  })
-  homeHumidifier2.subscribe(data => {
-    data.settledHumidity = NormalParser.from(data.settledHumidity)
-    DSM.homeHumidifier2.settledHumidity.setRemoteValue(data.settledHumidity)
-  })
-  doorAndWindowSensor3.subscribe(data => {
-    data.status = NormalParser.from(data.status)
-    DSM.doorAndWindowSensor3.status.setRemoteValue(data.status)
+    DSM.light4.switch.setRemoteValue(data.switch)
   })
 }
 
 // Main function
 async function main(): Promise<void> {
   // Edges property bind
-  DSM.humanBodySensor0.existStatus.addListener(value => {
-    value = new DpParser(DSM.humanBodySensor0.existStatus, DSM.light1.switch).parse(value)
-    DSM.light1.switch.setLocalValue(value, From.Local)
-  })
+  
 
   // Logic code
-  setTimeout(async () => {
-    if(DSM.humanBodySensor0.existStatus.getLocalValue()){
-      HaveNotSupport()
-    }
-  }, 0)
-  
-  DSM.humanBodySensor0.existStatus.addListener(async v => {
-    if(DSM.humanBodySensor0.existStatus.getLocalValue()){
-      HaveNotSupport()
-      HaveNotSupport()
-    }
+  DSM.humanBodySensor3.existStatus.addListener(async v => {
+    PDO('SET_VALUE', 'B1', 0, DSM.humanBodySensor3.existStatus.getLocalValue())
   })
   
-  DSM.humanBodySensor0.existStatus.addListener(async v => {
-    if (v) {
-      DSM.light1.switch.setRemoteValue(true)
-    }
-  })
-  
-  DSM.humanBodySensor0.existStatus.addListener(async v => {
-    if (v) {
-      if(DSM.humanBodySensor0.existStatus.getLocalValue() > 10.0){
-        
-      }
-    }
-  })
-  
-  DSM.humanBodySensor0.existStatus.addListener(async v => {
-    if (v > 10.0) {
-      if(DSM.humanBodySensor0.existStatus.getLocalValue() == 'Hello'){
-        
-      }
-    }
-  })
-  
-  DSM.humanBodySensor0.existStatus.addListener(async v => {
-    if (v == 'Hello') {
-      DSM.homeHumidifier2.settledHumidity.setRemoteValue(DSM.doorAndWindowSensor3.status.getLocalValue())
-    }
+  DSM.logic1.B1.addListener(async v => {
+    DSM.light4.switch.setRemoteValue(DSM.logic1.B1.getLocalValue())
   })
 
   // L2L bind code

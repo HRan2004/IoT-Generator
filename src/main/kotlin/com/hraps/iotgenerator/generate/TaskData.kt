@@ -16,6 +16,7 @@ class TaskData(json: JSONObject) {
 
     // private var counter: HashMap<String, Int> = hashMapOf()
     private var counter = 0
+    private var logicCounter = 0
 
     init {
         name = json["name"] as String
@@ -58,6 +59,8 @@ class TaskData(json: JSONObject) {
                     }
                 } else if (shape == "logic-node") {
                     node = Logic()
+                    node.index = counter++
+                    node.vn = "logic" + node.index
                     for (event in data.getJSONArray("events")) {
                         val e = event as JSONObject
                         val trigger = e.getString("key")
@@ -96,8 +99,13 @@ class TaskData(json: JSONObject) {
             if (!cell.containsKey("id")) return@map
             val id = cell.getString("id")
             if (cell.containsKey("source") && cell.containsKey("target")) {
-                val source = cell.getJSONObject("source")
-                val target = cell.getJSONObject("target")
+                var source = cell.getJSONObject("source")
+                var target = cell.getJSONObject("target")
+                if (source.getString("port").split("-")[1] == "IN") {
+                    val temp = source
+                    source = target
+                    target = temp
+                }
                 val sourceCell = source.getString("cell")
                 val targetCell = target.getString("cell")
                 val sourcePortKey = source.getString("port")
@@ -114,8 +122,8 @@ class TaskData(json: JSONObject) {
                 val targetPort = targetNode.ports.find { it.id == targetPortKey } ?: return@map
                 edges += Edge(
                     id,
-                    EdgePoint(sourceCell, targetCell, getNodeVn(sourceNode), sourcePort.property),
-                    EdgePoint(sourcePortKey, targetPortKey, getNodeVn(targetNode), targetPort.property),
+                    EdgePoint(sourceCell, sourcePortKey, getNodeVn(sourceNode), sourcePort.property),
+                    EdgePoint(targetCell, targetPortKey, getNodeVn(targetNode), targetPort.property),
                     disable
                 )
 
@@ -123,6 +131,9 @@ class TaskData(json: JSONObject) {
                     targetNode.pdm[targetPort.name] = sourceNode.vn + "." + sourcePort.property
                 } else if (sourceNode is Logic && targetNode is Device) {
                     sourceNode.pdm[sourcePort.name] = targetNode.vn + "." + targetPort.property
+                } else if (sourceNode is Logic && targetNode is Logic) {
+                    sourceNode.states += sourcePort.name
+                    targetNode.pdm[targetPort.name] = sourceNode.vn + "." + sourcePort.name
                 }
             }
         }
