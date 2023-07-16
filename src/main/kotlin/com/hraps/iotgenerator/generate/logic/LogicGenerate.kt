@@ -7,9 +7,16 @@ import com.hraps.iotgenerator.generate.classes.Logic
 
 object LogicGenerate {
 
+    // Only use in single makeEquipCode
+    var code: String = ""
+    var args: JSONArray = JSONArray()
+    private var pdm = mutableMapOf<String, String>()
+
     fun makeEvent(event: Event, logic: Logic, indent: Int = 0): String {
         val args = event.trigger.split(" ")
         val code = makeEquipCode(event.code.trim(), logic)
+        println("\nTrigger: " + event.trigger)
+        println(event.code)
 
         val trigger = args[0]
         var result = ""
@@ -17,7 +24,7 @@ object LogicGenerate {
         if (trigger == "START") {
             result = "setTimeout(async () => {\n${addIndent(code)}\n}, 0)\n"
         } else {
-            val pd = logic.pdm[args[0]] ?: ""
+            val pd = pdm[args[0]] ?: ""
             if (trigger == "CHANGE") {
                 result = "DSM.$pd.addListener(async v => {\n${addIndent(code)}\n})\n"
             } else if (trigger == "EQUIP_STATE" || trigger == "EQUIP_EXIST_STATUS") {
@@ -29,16 +36,12 @@ object LogicGenerate {
         }
 
         if (indent != 0) result = addIndent(result, indent, false)
+        println("Result:")
+        println("  $result")
         return result
     }
 
-    // Only use in single makeEquipCode
-    var code: String = ""
-    var args: JSONArray = JSONArray()
-    var pdm = mutableMapOf<String, String>()
-
     private fun makeEquipCode(code: String, logic: Logic): String {
-        println(code)
         this.code = code
         this.pdm = logic.pdm
         val ar = JsAnalysis.analysis(code)
@@ -71,8 +74,6 @@ object LogicGenerate {
         for (rm in replaceMap) {
             result = result.replaceFirst(rm[0], rm[1])
         }
-        println("Result:")
-        println(result)
         return result
     }
 

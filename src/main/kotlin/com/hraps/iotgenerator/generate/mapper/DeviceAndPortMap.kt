@@ -16,10 +16,10 @@ object DeviceAndPortMap {
             ),
         )
         data += DapmItem(
-            "humanMotionSensor",
+            "HumanMotionSensor",
             "HumanBodySensor",
             arrayOf(
-                Property("HumanBodySensor", "是否有人", "existStatus"),
+                Property("HumanBodySensor", "是否有人", "existStatus", permission = "rn"),
             ),
         )
         data += DapmItem(
@@ -37,7 +37,7 @@ object DeviceAndPortMap {
                 Property("HomeHumidifier", "开关", "switch"),
                 Property("HomeHumidifier", "雾量档位", "sprayVolume"),
                 Property("HomeHumidifier", "当前湿度", "currentHumidity", "rn"),
-                Property("HomeHumidifier", "目标湿度", "settledHumidity"),
+                Property("HomeHumidifier", "目标湿度值", "settledHumidity", setFunctionName = "setHumidity"),
                 Property("HomeHumidifier", "滤网寿命", "filterRemainTime", "rn"),
                 Property("HomeHumidifier", "水量值", "waterLevel", "rn"),
             ),

@@ -1,0 +1,826 @@
+{
+  "name": "test",
+  "cells": [
+    {
+      "id": "4c21867a-eacb-4cd7-936a-48e9926a19f9",
+      "source": {
+        "cell": "N1",
+        "port": "1-OUT-2"
+      },
+      "target": {
+        "cell": "N3",
+        "port": "3-IN-1"
+      }
+    },
+    {
+      "id": "4018b24c-3af4-4162-8070-8ae8ba43abf3",
+      "source": {
+        "cell": "N1",
+        "port": "1-OUT-1"
+      },
+      "target": {
+        "cell": "N2",
+        "port": "2-IN-1"
+      }
+    },
+    {
+      "id": "75d61c4c-6a9d-4e95-91bc-038b3d71abf0",
+      "source": {
+        "cell": "N2",
+        "port": "2-IN-2"
+      },
+      "target": {
+        "cell": "N3",
+        "port": "3-OUT-1"
+      }
+    },
+    {
+      "id": "34f66f45-dd63-4f37-887b-ad013056c960",
+      "source": {
+        "cell": "N6",
+        "port": "6-OUT-1"
+      },
+      "target": {
+        "cell": "N3",
+        "port": "3-IN-2"
+      }
+    },
+    {
+      "id": "c27aa686-94b8-4318-be57-cf36cdbce0dc",
+      "source": {
+        "cell": "N3",
+        "port": "3-OUT-2"
+      },
+      "target": {
+        "cell": "N5",
+        "port": "5-IN-1"
+      }
+    },
+    {
+      "position": {
+        "x": 170,
+        "y": -90
+      },
+      "size": {
+        "width": 208,
+        "height": 112
+      },
+      "view": "react-shape-view",
+      "shape": "device-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "1-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "1-OUT-1",
+            "group": "right",
+            "text": "是否有人",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(179, 117, 224)"
+              }
+            }
+          },
+          {
+            "id": "1-OUT-2",
+            "group": "right",
+            "text": "是否有人",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(179, 117, 224)"
+              }
+            }
+          },
+          {
+            "id": "1-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N1",
+      "data": {
+        "device": "HumanMotionSensor",
+        "update": 28,
+        "connecting": null
+      },
+      "zIndex": 1
+    },
+    {
+      "position": {
+        "x": 1200,
+        "y": -90
+      },
+      "size": {
+        "width": 208,
+        "height": 112
+      },
+      "view": "react-shape-view",
+      "shape": "device-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "2-IN-1",
+            "group": "left",
+            "text": "开关",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(82, 155, 241)"
+              }
+            }
+          },
+          {
+            "id": "2-IN-2",
+            "group": "left",
+            "text": "开关",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(82, 155, 241)"
+              }
+            }
+          },
+          {
+            "id": "2-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(82, 155, 241)"
+              }
+            }
+          },
+          {
+            "id": "2-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N2",
+      "data": {
+        "device": "Lamp(Home)",
+        "connecting": null,
+        "update": 26
+      },
+      "zIndex": 2
+    },
+    {
+      "position": {
+        "x": 509.9999999999891,
+        "y": 80.00000000000591
+      },
+      "size": {
+        "width": 571,
+        "height": 1006
+      },
+      "view": "react-shape-view",
+      "shape": "logic-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "3-IN-1",
+            "group": "left",
+            "text": "A1",
+            "attrs": {
+              "data": {
+                "disable": true,
+                "originColor": "rgb(82, 155, 241)"
+              }
+            }
+          },
+          {
+            "id": "3-IN-2",
+            "group": "left",
+            "text": "A2",
+            "attrs": {
+              "rect": {
+                "w": 34,
+                "h": 20
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(82, 155, 241)"
+              },
+              "circle": {
+                "r": 10
+              }
+            }
+          },
+          {
+            "id": "3-IN-3",
+            "group": "left",
+            "text": "A3",
+            "attrs": {
+              "data": {
+                "disable": true,
+                "originColor": "rgb(82, 155, 241)"
+              },
+              "rect": {
+                "w": 34,
+                "h": 20
+              },
+              "circle": {
+                "r": 10
+              }
+            }
+          },
+          {
+            "id": "3-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "rect": {
+                "w": 34,
+                "h": 20
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(82, 155, 241)"
+              }
+            }
+          },
+          {
+            "id": "3-OUT-1",
+            "group": "right",
+            "text": "B1",
+            "attrs": {
+              "rect": {
+                "w": 34,
+                "h": 20
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(179, 117, 224)"
+              }
+            }
+          },
+          {
+            "id": "3-OUT-2",
+            "group": "right",
+            "text": "B2",
+            "attrs": {
+              "rect": {
+                "w": 34,
+                "h": 20
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(179, 117, 224)"
+              },
+              "circle": {
+                "r": 10
+              }
+            }
+          },
+          {
+            "id": "3-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "rect": {
+                "w": 34,
+                "h": 20
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N3",
+      "data": {
+        "blocks": [
+          {
+            "block": "event_start",
+            "args": [
+              {
+                "block": "logic_if",
+                "args": [
+                  {
+                    "block": "equipment_state",
+                    "args": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "block": "equipment_control_rotation",
+                    "args": [
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                "next": true
+              }
+            ],
+            "x": 88.00006103515625,
+            "y": 66.88456726074219
+          },
+          {
+            "block": "event_change",
+            "args": [
+              0,
+              {
+                "block": "logic_if",
+                "args": [
+                  {
+                    "block": "equipment_interface_exist",
+                    "args": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "block": "equipment_rotation_value",
+                    "args": [
+                      0,
+                      0,
+                      "0",
+                      {
+                        "block": "equipment_rotation_turns_number",
+                        "args": [
+                          0,
+                          0,
+                          "0"
+                        ],
+                        "next": true
+                      }
+                    ]
+                  }
+                ],
+                "next": true
+              }
+            ],
+            "x": 91.0244140625,
+            "y": 236.68112182617188
+          },
+          {
+            "block": "event_equip_state",
+            "args": [
+              0,
+              0,
+              {
+                "block": "equipment_control",
+                "args": [
+                  0,
+                  0
+                ],
+                "next": true
+              }
+            ],
+            "x": 94.0244140625,
+            "y": 424.68111419677734
+          },
+          {
+            "block": "event_equip_exist_status",
+            "args": [
+              0,
+              0,
+              {
+                "block": "logic_if",
+                "args": [
+                  {
+                    "block": "equipment_compare_value",
+                    "args": [
+                      0,
+                      0,
+                      "10"
+                    ]
+                  },
+                  null
+                ],
+                "next": true
+              }
+            ],
+            "x": 95.0244140625,
+            "y": 523.6233520507812,
+            "isSelected": true
+          },
+          {
+            "block": "event_compare",
+            "args": [
+              0,
+              0,
+              "10",
+              {
+                "block": "logic_if",
+                "args": [
+                  {
+                    "block": "equipment_compare_value",
+                    "args": [
+                      0,
+                      0,
+                      "10"
+                    ]
+                  },
+                  null
+                ],
+                "next": true
+              }
+            ],
+            "x": 97.0244140625,
+            "y": 680.6810302734375
+          },
+          {
+            "block": "event_compare_text",
+            "args": [
+              0,
+              "Hello",
+              {
+                "block": "equipment_set_value",
+                "args": [
+                  1,
+                  0,
+                  {
+                    "block": "equipment_get_value",
+                    "args": [
+                      1,
+                      0
+                    ]
+                  }
+                ],
+                "next": true
+              }
+            ],
+            "x": 96.0244140625,
+            "y": 836.6810302734375
+          }
+        ],
+        "events": [
+          {
+            "key": "START",
+            "code": "if(PDS('BOOLEAN', 'A1', 0)){\n  PDO('CONTROL_ROTATION', 'B1', 0)\n}\n"
+          },
+          {
+            "key": "CHANGE A1",
+            "code": "if(PDS('BOOLEAN_HAD', 'A1', 0)){\n  PDO('ROTATION_VALUE', 'B1', 0, 0)\n  PDO('ROTATION_TURNS_NUMBER', 'B1', 0, 0)\n}\n"
+          },
+          {
+            "key": "EQUIP_STATE A1 0",
+            "code": "PDO('CONTROL', 'B1', 0)\n"
+          },
+          {
+            "key": "EQUIP_EXIST_STATUS A1 0",
+            "code": "if(PDS('COMPARE', 'A1', 0, 10)){\n  \n}\n"
+          },
+          {
+            "key": "COMPARE A1 0 10",
+            "code": "if(PDS('COMPARE', 'A1', 0, 10)){\n  \n}\n"
+          },
+          {
+            "key": "COMPARE_TEXT A1 Hello",
+            "code": "PDO('SET_VALUE', 'B2', 0, PDS('VALUE', 'A2', 0))\n"
+          }
+        ],
+        "graph": {
+          "isToolbox": false,
+          "isDisable": false,
+          "blocksLength": 6
+        },
+        "connecting": null,
+        "update": 67
+      },
+      "zIndex": 3
+    },
+    {
+      "position": {
+        "x": 1190,
+        "y": 670
+      },
+      "size": {
+        "width": 208,
+        "height": 112
+      },
+      "view": "react-shape-view",
+      "shape": "device-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "5-IN-1",
+            "group": "left",
+            "text": "目标湿度值",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(82, 155, 241)"
+              }
+            }
+          },
+          {
+            "id": "5-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(82, 155, 241)"
+              }
+            }
+          },
+          {
+            "id": "5-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N5",
+      "data": {
+        "device": "HouseholdHumidifier",
+        "connecting": null,
+        "update": 17
+      },
+      "zIndex": 5
+    },
+    {
+      "position": {
+        "x": 170,
+        "y": 350
+      },
+      "size": {
+        "width": 208,
+        "height": 112
+      },
+      "view": "react-shape-view",
+      "shape": "device-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "6-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "6-OUT-1",
+            "group": "right",
+            "text": "门窗状态",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "6-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N6",
+      "data": {
+        "device": "DoorAndWindowSensor",
+        "update": 5,
+        "connecting": null
+      },
+      "zIndex": 6
+    }
+  ]
+}

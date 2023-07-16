@@ -52,6 +52,7 @@ class TaskData(json: JSONObject) {
                             .replace("(", "")
                             .replace(")", "")
                             .replace("_1", "")
+                            .replace("_", "")
                         node.vn = node.vn[0].lowercaseChar() + node.vn.substring(1) + node.index
                         devices += node
                     }
