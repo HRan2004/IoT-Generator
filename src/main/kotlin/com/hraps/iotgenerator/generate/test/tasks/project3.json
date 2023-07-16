@@ -541,8 +541,7 @@
               }
             ],
             "x": 95.0244140625,
-            "y": 523.6233520507812,
-            "isSelected": true
+            "y": 523.6233520507812
           },
           {
             "block": "event_compare",
@@ -554,12 +553,13 @@
                 "block": "logic_if",
                 "args": [
                   {
-                    "block": "equipment_compare_value",
+                    "block": "equipment_compare_text",
                     "args": [
                       0,
                       0,
-                      "10"
-                    ]
+                      "Hello"
+                    ],
+                    "isSelected": true
                   },
                   null
                 ],
@@ -613,7 +613,7 @@
           },
           {
             "key": "COMPARE A1 0 10",
-            "code": "if(PDS('COMPARE', 'A1', 0, 10)){\n  \n}\n"
+            "code": "if(PDS('COMPARE_TEXT', 'A1', 0, Hello)){\n  \n}\n"
           },
           {
             "key": "COMPARE_TEXT A1 Hello",
@@ -626,7 +626,7 @@
           "blocksLength": 6
         },
         "connecting": null,
-        "update": 67
+        "update": 71
       },
       "zIndex": 3
     },

@@ -230,7 +230,7 @@
         },
         {
           "trigger": "COMPARE A1 0 10",
-          "code": "if(PDS(\u0027COMPARE\u0027, \u0027A1\u0027, 0, 10)){\n  \n}\n"
+          "code": "if(PDS(\u0027COMPARE_TEXT\u0027, \u0027A1\u0027, 0, Hello)){\n  \n}\n"
         },
         {
           "trigger": "COMPARE_TEXT A1 Hello",

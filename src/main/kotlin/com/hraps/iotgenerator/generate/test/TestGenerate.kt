@@ -8,33 +8,35 @@ import com.hraps.iotgenerator.generate.TaskData
 import com.hraps.iotgenerator.utils.FileUtils
 import java.io.File
 
-const val TASK_FILE = "${DoGenerate.TEST_PATH}\\tasks\\project3.json"
-const val OUTPUT_FILE = "${DoGenerate.TEST_PATH}\\result\\app.zip"
-const val DATA_PATH = "${DoGenerate.TEST_PATH}\\data.json"
+object Options {
+    const val TASK_FILE = "${DoGenerate.TEST_PATH}\\tasks\\project3.json"
+    const val OUTPUT_FILE = "${DoGenerate.TEST_PATH}\\result\\app.zip"
+    const val DATA_PATH = "${DoGenerate.TEST_PATH}\\data.json"
 
-const val USE_DATA_GENERATE = true
-const val USE_CODE_GENERATE = true
-const val USE_COMPILE = false
-const val USE_ZIP = false
+    const val USE_DATA_GENERATE = true
+    const val USE_CODE_GENERATE = true
+    const val USE_COMPILE = true
+    const val USE_ZIP = true
+}
 
 fun main() {
-    if (USE_DATA_GENERATE) {
-        val jsonText = FileUtils.read(TASK_FILE)
+    if (Options.USE_DATA_GENERATE) {
+        val jsonText = FileUtils.read(Options.TASK_FILE)
         val data = TaskData(JSONObject.parseObject(jsonText))
         val gson = GsonBuilder().setPrettyPrinting().create()
-        FileUtils.write(DATA_PATH, gson.toJson(data))
+        FileUtils.write(Options.DATA_PATH, gson.toJson(data))
         println("Data generate: Success")
     }
-    if (USE_CODE_GENERATE) {
-        val data = Gson().fromJson(FileUtils.read(DATA_PATH), TaskData::class.java)
+    if (Options.USE_CODE_GENERATE) {
+        val data = Gson().fromJson(FileUtils.read(Options.DATA_PATH), TaskData::class.java)
         val result = DoGenerate.generate(data)
         println("Code generate: $result")
     }
-    if (USE_COMPILE) {
+    if (Options.USE_COMPILE) {
         val result = DoGenerate.compile()
         println("Compile result: $result")
     }
-    if (USE_ZIP) {
+    if (Options.USE_ZIP) {
         val result = DoGenerate.zip()
         println("Zip result: $result")
     }

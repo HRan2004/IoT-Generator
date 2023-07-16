@@ -11,12 +11,13 @@ object LogicGenerate {
     var code: String = ""
     var args: JSONArray = JSONArray()
     private var pdm = mutableMapOf<String, String>()
+    private const val DEBUG_MODE = false
 
     fun makeEvent(event: Event, logic: Logic, indent: Int = 0): String {
         val args = event.trigger.split(" ")
         val code = makeEquipsCode(event.code.trim(), logic)
-        println("\nTrigger: " + event.trigger)
-        println(event.code)
+        if (DEBUG_MODE) println("\nTrigger: " + event.trigger)
+        if (DEBUG_MODE) println(event.code)
 
         val trigger = args[0]
         var result = ""
@@ -51,8 +52,8 @@ object LogicGenerate {
         }
 
         if (indent != 0) result = addIndent(result, indent, false)
-        println("Result:")
-        println("  $result")
+        if (DEBUG_MODE) println("Result:")
+        if (DEBUG_MODE) println("  $result")
         return result
     }
 

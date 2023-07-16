@@ -106,7 +106,7 @@ async function main(): Promise<void> {
   
   DSM.humanBodySensor0.existStatus.addListener(async v => {
     if (v > 10.0) {
-      if(DSM.humanBodySensor0.existStatus.getLocalValue() > 10.0){
+      if(DSM.humanBodySensor0.existStatus.getLocalValue() == 'Hello'){
         
       }
     }
