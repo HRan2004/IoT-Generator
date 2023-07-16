@@ -54,6 +54,14 @@ export default class Property {
     return true
   }
   
+  getLocalValue(): any {
+    return this.localValue
+  }
+  
+  getRemoteValue(): any {
+    return this.remoteValue
+  }
+  
 }
 
 export enum From {

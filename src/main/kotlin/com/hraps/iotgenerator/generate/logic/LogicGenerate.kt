@@ -14,7 +14,7 @@ object LogicGenerate {
 
     fun makeEvent(event: Event, logic: Logic, indent: Int = 0): String {
         val args = event.trigger.split(" ")
-        val code = makeEquipCode(event.code.trim(), logic)
+        val code = makeEquipsCode(event.code.trim(), logic)
         println("\nTrigger: " + event.trigger)
         println(event.code)
 
@@ -25,6 +25,10 @@ object LogicGenerate {
             result = "setTimeout(async () => {\n${addIndent(code)}\n}, 0)\n"
         } else {
             val pd = pdm[args[1]] ?: ""
+            if (pd.isEmpty()) {
+                println("Port ${args[1]} in logic ${logic.id} can not matched")
+                return "// Port ${args[1]} in logic ${logic.id} can not matched"
+            }
             if (trigger == "CHANGE") {
                 result = "DSM.$pd.addListener(async v => {\n${addIndent(code)}\n})\n"
             } else if (trigger == "EQUIP_STATE" || trigger == "EQUIP_EXIST_STATUS") {
@@ -52,7 +56,7 @@ object LogicGenerate {
         return result
     }
 
-    private fun makeEquipCode(code: String, logic: Logic): String {
+    private fun makeEquipsCode(code: String, logic: Logic): String {
         this.code = code
         this.pdm = logic.pdm
         val ar = JsAnalysis.analysis(code)
@@ -67,25 +71,60 @@ object LogicGenerate {
             )
             var tc = ""
             if (name == "PDO" || name == "PDS") {
-                val ats = getArgTexts()
-                val type = ats[0].substring(1, ats[0].length - 1)
-                if (type == "CONTROL") {
-                    val dp = getDpByI(1)
-                    val v1l = arrayOf("true", "false")
-                    tc = "DSM.$dp.setRemoteValue(${v1l[ats[2].toInt()]})"
-                } else {
-                    continue
+                val result = makeEquip(name == "PDO")
+                if (result.isEmpty()) {
+                    println("Port ${getArgText(0)} in logic ${logic.id} for control can not matched")
                 }
+                tc = result
             } else if (name == "sleep") {
                 tc = "await Queue.delay(${getArgText(0)})"
             }
-            replaceMap.add(mutableListOf(sc, tc))
+            if (tc.isNotEmpty()) {
+                replaceMap.add(mutableListOf(sc, tc))
+            }
         }
         var result = code
         for (rm in replaceMap) {
             result = result.replaceFirst(rm[0], rm[1])
         }
         return result
+    }
+
+    private fun makeEquip(isOutput: Boolean): String {
+        val ats = getArgTexts()
+        val type = ats[0].substring(1, ats[0].length - 1)
+        val dp = getDpByI(1)
+        if (dp.isEmpty()) return ""
+        return if (type == "CONTROL") {
+            val v1l = arrayOf("true", "false")
+            "DSM.$dp.setRemoteValue(${v1l[ats[2].toInt()]})"
+        } else if (type == "BOOLEAN" || type == "BOOLEAN_HAD") {
+            "DSM.$dp.getLocalValue()"
+        } else if (arrayOf("CONTROL_ROTATION", "ROTATION_VALUE", "ROTATION_TURNS_NUMBER").contains(type)) {
+            "HaveNotSupport()"
+        } else if (type == "VALUE") {
+            val toType = arrayOf("number", "string", "time", "date", "boolean")[ats[2].toInt()]
+            "DSM.$dp.getLocalValue()"
+        } else if (type == "COMPARE_TEXT") {
+            val mode = ats[2].toInt()
+            val text = "'${ats[3]}'"
+            if (mode == 0) { // Equal
+                "DSM.$dp.getLocalValue() == $text"
+            } else if (mode == 1) { // Include
+                "DSM.$dp.getLocalValue().indexOf($text) >= 0"
+            } else { // Include by
+                "${text}.indexOf(DSM.$dp.getLocalValue()) >= 0"
+            }
+        } else if (type == "COMPARE") {
+            val con = arrayOf<String>(">", "<", "==", "!=")[ats[2].toInt()]
+            val num = ats[3].toDouble()
+            "DSM.$dp.getLocalValue() $con $num"
+        } else if (type == "SET_VALUE") {
+            val toType = arrayOf("number", "string", "time", "date", "boolean")[ats[2].toInt()]
+            "DSM.$dp.setRemoteValue(${ats[3]})"
+        } else {
+            ""
+        }
     }
 
     private fun getDpByI(i: Int): String {

@@ -17,7 +17,7 @@ object DoGenerate {
 //    const val BASE_PATH = "C:\\Users\\21257\\Documents\\GitHub\\IoT-Generator\\src\\main"
     const val TEST_PATH = "$BASE_PATH\\kotlin\\com\\hraps\\iotgenerator\\generate\\test"
 
-    const val TEMPLATE_PATH = "$BASE_PATH\\typescript\\projects\\template"
+    const val TEMPLATE_PATH = "$BASE_PATH\\typescript\\template"
     const val COMPILE_PATH = "$BASE_PATH\\typescript"
     const val WORK_PATH = "$BASE_PATH\\typescript\\app"
 

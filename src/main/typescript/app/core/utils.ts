@@ -10,7 +10,14 @@ export class Queue {
 }
 
 export async function PDO(command: string, ...args) {
+  return null
 }
 
 export async function PDS(command: string, ...args) {
+  return null
 }
+
+export function HaveNotSupport(...args) {
+  return null
+}
+

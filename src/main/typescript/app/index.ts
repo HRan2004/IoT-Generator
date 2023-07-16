@@ -1,7 +1,7 @@
 import Property, {From} from "./core/property";
 import NormalParser from "./core/parser/normal-parser";
 import DpParser from "./core/parser/dp-parser";
-import {PDO, PDS, Queue} from "./core/utils";
+import {PDO, PDS, Queue, HaveNotSupport} from "./core/utils";
 
 let DSM: any = {} // Double State Manager
 
@@ -78,15 +78,15 @@ async function main(): Promise<void> {
 
   // Logic code
   setTimeout(async () => {
-    if(PDS('BOOLEAN', 'A1', 0)){
-      PDO('CONTROL_ROTATION', 'B1', 0)
+    if(DSM.humanBodySensor0.existStatus.getLocalValue()){
+      HaveNotSupport()
     }
   }, 0)
   
   DSM.humanBodySensor0.existStatus.addListener(async v => {
-    if(PDS('BOOLEAN_HAD', 'A1', 0)){
-      PDO('ROTATION_VALUE', 'B1', 0, 0)
-      PDO('ROTATION_TURNS_NUMBER', 'B1', 0, 0)
+    if(DSM.humanBodySensor0.existStatus.getLocalValue()){
+      HaveNotSupport()
+      HaveNotSupport()
     }
   })
   
@@ -98,7 +98,7 @@ async function main(): Promise<void> {
   
   DSM.humanBodySensor0.existStatus.addListener(async v => {
     if (v) {
-      if(PDS('COMPARE', 'A1', 0, 10)){
+      if(DSM.humanBodySensor0.existStatus.getLocalValue() > 10.0){
         
       }
     }
@@ -106,7 +106,7 @@ async function main(): Promise<void> {
   
   DSM.humanBodySensor0.existStatus.addListener(async v => {
     if (v > 10.0) {
-      if(PDS('COMPARE', 'A1', 0, 10)){
+      if(DSM.humanBodySensor0.existStatus.getLocalValue() > 10.0){
         
       }
     }
@@ -114,7 +114,7 @@ async function main(): Promise<void> {
   
   DSM.humanBodySensor0.existStatus.addListener(async v => {
     if (v == 'Hello') {
-      PDO('SET_VALUE', 'B2', 0, PDS('VALUE', 'A2', 0))
+      DSM.homeHumidifier2.settledHumidity.setRemoteValue(DSM.doorAndWindowSensor3.status.getLocalValue())
     }
   })
 
