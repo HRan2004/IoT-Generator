@@ -14,8 +14,8 @@ export const data = {
         }
       ],
       "disable": false,
-      "vn": "humanBodySensor3",
-      "index": 3,
+      "vn": "humanBodySensor0",
+      "index": 0,
       "name": "HumanMotionSensor",
       "tal": "HumanBodySensor",
       "model": ""
@@ -32,8 +32,8 @@ export const data = {
         }
       ],
       "disable": false,
-      "vn": "light4",
-      "index": 4,
+      "vn": "light1",
+      "index": 1,
       "name": "Lamp(Home)",
       "tal": "Light",
       "model": ""
@@ -45,13 +45,13 @@ export const data = {
       "source": {
         "cell": "N4",
         "port": "4-OUT-1",
-        "device": "humanBodySensor3",
+        "device": "humanBodySensor0",
         "property": "existStatus"
       },
       "target": {
         "cell": "N2",
         "port": "2-IN-1",
-        "device": "LOGIC",
+        "device": "Logic",
         "property": ""
       },
       "disable": false
@@ -61,13 +61,13 @@ export const data = {
       "source": {
         "cell": "N2",
         "port": "2-OUT-1",
-        "device": "LOGIC",
+        "device": "Logic",
         "property": ""
       },
       "target": {
         "cell": "N3",
         "port": "3-IN-1",
-        "device": "LOGIC",
+        "device": "Logic",
         "property": ""
       },
       "disable": false
@@ -77,13 +77,13 @@ export const data = {
       "source": {
         "cell": "N3",
         "port": "3-OUT-1",
-        "device": "LOGIC",
+        "device": "Logic",
         "property": ""
       },
       "target": {
         "cell": "N5",
         "port": "5-IN-1",
-        "device": "light4",
+        "device": "light1",
         "property": "switch"
       },
       "disable": false
@@ -143,7 +143,8 @@ export const data = {
         }
       ],
       "pdm": {
-        "A1": "humanBodySensor3.existStatus"
+        "A1": "humanBodySensor0.existStatus",
+        "B1": "logic1.B1"
       },
       "states": [
         "B1"
@@ -178,7 +179,7 @@ export const data = {
       ],
       "pdm": {
         "A1": "logic1.B1",
-        "B1": "light4.switch"
+        "B1": "light1.switch"
       },
       "states": []
     }
@@ -207,6 +208,6 @@ export const data = {
       "setFunctionName": "setSwitch"
     }
   ],
-  "counter": 5,
-  "logicCounter": 0
+  "counter": 2,
+  "logicCounter": 3
 }

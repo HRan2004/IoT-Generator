@@ -92,37 +92,46 @@ object LogicGenerate {
     }
 
     private fun makeEquip(isOutput: Boolean): String {
-        val ats = getArgTexts()
-        val type = ats[0].substring(1, ats[0].length - 1)
         val dp = getDpByI(1)
         if (dp.isEmpty()) return ""
+        val ats = getArgTexts()
+        val type = ats[0].substring(1, ats[0].length - 1)
+
+        var get = "getLocalValue"
+        var set = "setRemoteValue"
+        val isTargetLogic = dp.startsWith("logic")
+        if (isTargetLogic) {
+            get = "getValue"
+            set = "setValue"
+        }
+
         return if (type == "CONTROL") {
             val v1l = arrayOf("true", "false")
-            "DSM.$dp.setRemoteValue(${v1l[ats[2].toInt()]})"
+            "DSM.$dp.$set(${v1l[ats[2].toInt()]})"
         } else if (type == "BOOLEAN" || type == "BOOLEAN_HAD") {
-            "DSM.$dp.getLocalValue()"
+            "DSM.$dp.$get()"
         } else if (arrayOf("CONTROL_ROTATION", "ROTATION_VALUE", "ROTATION_TURNS_NUMBER").contains(type)) {
             "HaveNotSupport()"
         } else if (type == "VALUE") {
             val toType = arrayOf("number", "string", "time", "date", "boolean")[ats[2].toInt()]
-            "DSM.$dp.getLocalValue()"
+            "DSM.$dp.$get()"
         } else if (type == "COMPARE_TEXT") {
             val mode = ats[2].toInt()
             val text = "'${ats[3]}'"
             if (mode == 0) { // Equal
-                "DSM.$dp.getLocalValue() == $text"
+                "DSM.$dp.$get() == $text"
             } else if (mode == 1) { // Include
-                "DSM.$dp.getLocalValue().indexOf($text) >= 0"
+                "DSM.$dp.$get().indexOf($text) >= 0"
             } else { // Include by
                 "${text}.indexOf(DSM.$dp.getLocalValue()) >= 0"
             }
         } else if (type == "COMPARE") {
             val con = arrayOf<String>(">", "<", "==", "!=")[ats[2].toInt()]
             val num = ats[3].toDouble()
-            "DSM.$dp.getLocalValue() $con $num"
+            "DSM.$dp.$get() $con $num"
         } else if (type == "SET_VALUE") {
             val toType = arrayOf("number", "string", "time", "date", "boolean")[ats[2].toInt()]
-            "DSM.$dp.setRemoteValue(${ats[3]})"
+            "DSM.$dp.$set(${ats[3]})"
         } else {
             ""
         }

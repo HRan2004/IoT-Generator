@@ -69,6 +69,7 @@ object DoGenerate {
         var deviceVarCreate = emptyArray<String>()
         var deviceInit = emptyArray<String>()
         var dsmInit = emptyArray<String>()
+        var dsmLogicInit = emptyArray<String>()
         var initSetFunction = emptyArray<String>()
         var initProperties = emptyArray<String>()
         var initRemoteReceive = emptyArray<String>()
@@ -98,7 +99,9 @@ object DoGenerate {
                         "  })"
                 }
             }
-            dsmInit += "DSM.${device.vn} = {\n    ${dsmProperties.joinToString("\n    ")}\n  }"
+            if (dsmProperties.isNotEmpty()) {
+                dsmInit += "DSM.${device.vn} = {\n    ${dsmProperties.joinToString("\n    ")}\n  }"
+            }
         }
         for (logic in task.logics) {
             for (event in logic.events) {
@@ -109,10 +112,18 @@ object DoGenerate {
                     e.printStackTrace()
                 }
             }
+            var dsmProperties = emptyArray<String>()
+            for (state in logic.states) {
+                dsmProperties += "${state}: new LogicProperty('${logic.vn}', '${state}'),"
+            }
+            if (dsmProperties.isNotEmpty()) {
+                dsmLogicInit += "DSM.${logic.vn} = {\n    ${dsmProperties.joinToString("\n    ")}\n  }"
+            }
         }
         text = text.replace("/* GENERATE DEVICE VAR CREATE */", deviceVarCreate.joinToString("\n"))
         text = text.replace("/* GENERATE DEVICE INIT */", deviceInit.joinToString("\n"))
         text = text.replace("/* GENERATE DSM INIT */", dsmInit.joinToString("\n  "))
+        text = text.replace("/* GENERATE DSM LOGIC INIT */", dsmLogicInit.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT SET FUNCTION */", initSetFunction.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT PROPERTIES */", initProperties.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT REMOTE RECEIVE */", initRemoteReceive.joinToString("\n  "))

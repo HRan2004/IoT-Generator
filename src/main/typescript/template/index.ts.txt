@@ -1,4 +1,5 @@
 import Property, {From} from "./core/property";
+import LogicProperty from "./core/logic-property";
 import NormalParser from "./core/parser/normal-parser";
 import DpParser from "./core/parser/dp-parser";
 import {PDO, PDS, Queue, HaveNotSupport} from "./core/utils";
@@ -24,6 +25,9 @@ init().then(r => {
 async function init(): Promise<void> {
   // Init DSM states
   /* GENERATE DSM INIT */
+
+  // Init DSM Logic states
+  /* GENERATE DSM LOGIC INIT */
 
   // Init set function
   /* GENERATE INIT SET FUNCTION */

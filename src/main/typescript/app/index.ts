@@ -1,12 +1,13 @@
 import Property, {From} from "./core/property";
+import LogicProperty from "./core/logic-property";
 import NormalParser from "./core/parser/normal-parser";
 import DpParser from "./core/parser/dp-parser";
 import {PDO, PDS, Queue, HaveNotSupport} from "./core/utils";
 
 let DSM: any = {} // Double State Manager
 
-const humanBodySensor3 = DeviceManager.createHumanBodySensor('HumanMotionSensor_3')
-const light4 = DeviceManager.createLight('Lamp(Home)_4')
+const humanBodySensor0 = DeviceManager.createHumanBodySensor('HumanMotionSensor_0')
+const light1 = DeviceManager.createLight('Lamp(Home)_1')
 
 init().then(r => {
   console.log('Init Success.')
@@ -24,28 +25,33 @@ init().then(r => {
 // Init function
 async function init(): Promise<void> {
   // Init DSM states
-  DSM.humanBodySensor3 = {
-    existStatus: new Property('humanBodySensor3', 'existStatus'),
+  DSM.humanBodySensor0 = {
+    existStatus: new Property('humanBodySensor0', 'existStatus'),
   }
-  DSM.light4 = {
-    switch: new Property('light4', 'switch'),
+  DSM.light1 = {
+    switch: new Property('light1', 'switch'),
+  }
+
+  // Init DSM Logic states
+  DSM.logic1 = {
+    B1: new LogicProperty('logic1', 'B1'),
   }
 
   // Init set function
-  DSM.light4.switch.update = v => light4.setSwitch(NormalParser.to(v))
+  DSM.light1.switch.update = v => light1.setSwitch(NormalParser.to(v))
 
   // Init properties
-  DSM.humanBodySensor3.existStatus.setRemoteValue((await humanBodySensor3.getExistStatus()).value)
-  DSM.light4.switch.setRemoteValue((await light4.getSwitch()).value)
+  DSM.humanBodySensor0.existStatus.setRemoteValue((await humanBodySensor0.getExistStatus()).value)
+  DSM.light1.switch.setRemoteValue((await light1.getSwitch()).value)
 
   // Init remote receive
-  humanBodySensor3.subscribe(data => {
+  humanBodySensor0.subscribe(data => {
     data.existStatus = NormalParser.from(data.existStatus)
-    DSM.humanBodySensor3.existStatus.setRemoteValue(data.existStatus)
+    DSM.humanBodySensor0.existStatus.setRemoteValue(data.existStatus)
   })
-  light4.subscribe(data => {
+  light1.subscribe(data => {
     data.switch = NormalParser.from(data.switch)
-    DSM.light4.switch.setRemoteValue(data.switch)
+    DSM.light1.switch.setRemoteValue(data.switch)
   })
 }
 
@@ -55,12 +61,12 @@ async function main(): Promise<void> {
   
 
   // Logic code
-  DSM.humanBodySensor3.existStatus.addListener(async v => {
-    PDO('SET_VALUE', 'B1', 0, DSM.humanBodySensor3.existStatus.getLocalValue())
+  DSM.humanBodySensor0.existStatus.addListener(async v => {
+    DSM.logic1.B1.setValue(DSM.humanBodySensor0.existStatus.getLocalValue())
   })
   
   DSM.logic1.B1.addListener(async v => {
-    DSM.light4.switch.setRemoteValue(DSM.logic1.B1.getLocalValue())
+    DSM.light1.switch.setRemoteValue(DSM.logic1.B1.getValue())
   })
 
   // L2L bind code

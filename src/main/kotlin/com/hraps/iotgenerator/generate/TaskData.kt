@@ -59,7 +59,7 @@ class TaskData(json: JSONObject) {
                     }
                 } else if (shape == "logic-node") {
                     node = Logic()
-                    node.index = counter++
+                    node.index = logicCounter++
                     node.vn = "logic" + node.index
                     for (event in data.getJSONArray("events")) {
                         val e = event as JSONObject
@@ -134,6 +134,7 @@ class TaskData(json: JSONObject) {
                 } else if (sourceNode is Logic && targetNode is Logic) {
                     sourceNode.states += sourcePort.name
                     targetNode.pdm[targetPort.name] = sourceNode.vn + "." + sourcePort.name
+                    sourceNode.pdm[sourcePort.name] = sourceNode.vn + "." + sourcePort.name
                 }
             }
         }
@@ -143,7 +144,7 @@ class TaskData(json: JSONObject) {
         if (node is Device) {
             return node.vn
         } else if (node is Logic) {
-            return "LOGIC"
+            return "Logic"
         }
         return "UNKNOWN"
     }
