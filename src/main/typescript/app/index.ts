@@ -38,14 +38,17 @@ async function init(): Promise<void> {
   DSM.doorAndWindowSensor3 = {
     status: new Property('doorAndWindowSensor3', 'status'),
   }
+
   // Init set function
   DSM.light1.switch.update = v => light1.setSwitch(NormalParser.to(v))
   DSM.homeHumidifier2.settledHumidity.update = v => homeHumidifier2.setHumidity(NormalParser.to(v))
+
   // Init properties
   DSM.humanBodySensor0.existStatus.setRemoteValue((await humanBodySensor0.getExistStatus()).value)
   DSM.light1.switch.setRemoteValue((await light1.getSwitch()).value)
   DSM.homeHumidifier2.settledHumidity.setRemoteValue((await homeHumidifier2.getSettledHumidity()).value)
   DSM.doorAndWindowSensor3.status.setRemoteValue((await doorAndWindowSensor3.getStatus()).value)
+
   // Init remote receive
   humanBodySensor0.subscribe(data => {
     data.existStatus = NormalParser.from(data.existStatus)
@@ -100,8 +103,8 @@ async function main(): Promise<void> {
       }
     }
   })
-  
-  
-  
+
+  // L2L bind code
+  /* GENERATE L2L BIND CODE */
 }
 

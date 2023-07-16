@@ -42,5 +42,8 @@ async function main(): Promise<void> {
 
   // Logic code
   /* GENERATE LOGIC CODE */
+
+  // L2L bind code
+  /* GENERATE L2L BIND CODE */
 }
 

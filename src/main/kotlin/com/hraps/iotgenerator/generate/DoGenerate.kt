@@ -73,6 +73,7 @@ object DoGenerate {
         var initProperties = emptyArray<String>()
         var initRemoteReceive = emptyArray<String>()
         var logicCodes = emptyArray<String>()
+        var l2lCodes = emptyArray<String>()
 
         for (device in task.devices) {
             deviceVarCreate += "const ${device.vn}: ${device.tal}"
@@ -115,7 +116,8 @@ object DoGenerate {
         text = text.replace("/* GENERATE INIT SET FUNCTION */", initSetFunction.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT PROPERTIES */", initProperties.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT REMOTE RECEIVE */", initRemoteReceive.joinToString("\n  "))
-        text = text.replace("/* GENERATE LOGIC CODE */", logicCodes.joinToString("\n  "))
+        text = text.replace("/* GENERATE LOGIC CODE */", logicCodes.joinToString("\n  ").trim())
+        text = text.replace("/* GENERATE L2L BIND CODE */", l2lCodes.joinToString("\n  ").trim())
 
         var edgesPropertyBind = emptyArray<String>()
         for (edge in task.edges) {
@@ -128,7 +130,7 @@ object DoGenerate {
                 "    DSM.${targetDevice.vn}.${targetProperty.tal}.setLocalValue(value, From.Local)\n" +
                 "  })"
         }
-        text = text.replace("/* GENERATE EDGES PROPERTY BIND */", edgesPropertyBind.joinToString("\n  "))
+        text = text.replace("/* GENERATE EDGES PROPERTY BIND */", edgesPropertyBind.joinToString("\n  ").trim())
         return text
     }
 
