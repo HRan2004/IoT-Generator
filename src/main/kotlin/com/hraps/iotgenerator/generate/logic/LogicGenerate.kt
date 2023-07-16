@@ -24,7 +24,7 @@ object LogicGenerate {
         if (trigger == "START") {
             result = "setTimeout(async () => {\n${addIndent(code)}\n}, 0)\n"
         } else {
-            val pd = pdm[args[0]] ?: ""
+            val pd = pdm[args[1]] ?: ""
             if (trigger == "CHANGE") {
                 result = "DSM.$pd.addListener(async v => {\n${addIndent(code)}\n})\n"
             } else if (trigger == "EQUIP_STATE" || trigger == "EQUIP_EXIST_STATUS") {

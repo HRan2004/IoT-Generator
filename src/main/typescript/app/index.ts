@@ -38,17 +38,14 @@ async function init(): Promise<void> {
   DSM.doorAndWindowSensor3 = {
     status: new Property('doorAndWindowSensor3', 'status'),
   }
-  
   // Init set function
   DSM.light1.switch.update = v => light1.setSwitch(NormalParser.to(v))
   DSM.homeHumidifier2.settledHumidity.update = v => homeHumidifier2.setHumidity(NormalParser.to(v))
-  
   // Init properties
   DSM.humanBodySensor0.existStatus.setRemoteValue((await humanBodySensor0.getExistStatus()).value)
   DSM.light1.switch.setRemoteValue((await light1.getSwitch()).value)
   DSM.homeHumidifier2.settledHumidity.setRemoteValue((await homeHumidifier2.getSettledHumidity()).value)
   DSM.doorAndWindowSensor3.status.setRemoteValue((await doorAndWindowSensor3.getStatus()).value)
-  
   // Init remote receive
   humanBodySensor0.subscribe(data => {
     data.existStatus = NormalParser.from(data.existStatus)
@@ -83,26 +80,28 @@ async function main(): Promise<void> {
     }
   }, 0)
   
-  DSM..addListener(async v => {
+  DSM.humanBodySensor0.existStatus.addListener(async v => {
     if(PDS('BOOLEAN_HAD', 'A1', 0)){
       PDO('ROTATION_VALUE', 'B1', 0, 0)
       PDO('ROTATION_TURNS_NUMBER', 'B1', 0, 0)
     }
   })
   
-  DSM..addListener(async v => {
+  DSM.humanBodySensor0.existStatus.addListener(async v => {
     if (!v) {
       DSM.light1.switch.setRemoteValue(true)
     }
   })
   
-  DSM..addListener(async v => {
+  DSM.humanBodySensor0.existStatus.addListener(async v => {
     if (!v) {
       if(PDS('COMPARE', 'A1', 0, 10)){
-      
+        
       }
     }
   })
+  
+  
   
 }
 

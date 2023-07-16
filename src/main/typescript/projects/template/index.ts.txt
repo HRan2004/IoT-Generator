@@ -24,10 +24,13 @@ init().then(r => {
 async function init(): Promise<void> {
   // Init DSM states
   /* GENERATE DSM INIT */
+
   // Init set function
   /* GENERATE INIT SET FUNCTION */
+
   // Init properties
   /* GENERATE INIT PROPERTIES */
+
   // Init remote receive
   /* GENERATE INIT REMOTE RECEIVE */
 }
