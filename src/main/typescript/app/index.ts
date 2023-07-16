@@ -5,13 +5,16 @@ import DpParser from "./core/parser/dp-parser";
 import {PDO, PDS, Queue, HaveNotSupport, mlog} from "./core/utils";
 
 let DSM: any = {} // Double State Manager
+export let inited = false
 
 const humanBodySensor0 = DeviceManager.createHumanBodySensor('HumanMotionSensor_0')
 const light1 = DeviceManager.createLight('Lamp(Home)_1')
 
 init().then(r => {
   console.log('Init Success.')
+  inited = true
   main().then(r => {
+    console.log('')
     console.log('Running...')
   }, e => {
     console.error('Main Failed.')

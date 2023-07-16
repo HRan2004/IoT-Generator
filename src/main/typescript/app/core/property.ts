@@ -1,4 +1,5 @@
 import {UNKNOWN} from "./const";
+import {inited} from "../index";
 
 export default class Property {
   device: string
@@ -50,7 +51,9 @@ export default class Property {
         console.error(e)
       })
     } else if (from === From.Device) {
-      console.log('')
+      if (inited) {
+        console.log('')
+      }
       console.log(`Receive data: ${this.device}.${this.key} =`, value)
       this.setLocalValue(value, From.Remote)
     }
