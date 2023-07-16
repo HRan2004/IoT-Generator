@@ -15,8 +15,8 @@ object Options {
 
     const val USE_DATA_GENERATE = true
     const val USE_CODE_GENERATE = true
-    const val USE_COMPILE = false
-    const val USE_ZIP = false
+    const val USE_COMPILE = true
+    const val USE_ZIP = true
 }
 
 fun main() {

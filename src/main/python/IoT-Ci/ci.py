@@ -20,7 +20,7 @@ username = '10281991589'
 password = '2486vbnm'
 
 project_name = 'Test'
-pid = '01894ec8-76e9-4fab-62fb-d75447ba565e'
+pid = '01895f32-2956-8ebf-c27c-6bb7b487a23c'
 # C:\Projects\IoT-Generator\src\main\python\IoT-Ci\upload
 
 
@@ -34,7 +34,7 @@ fresh = './upload'
 
 running = False
 driver = None
-token = '01h57d5fjfkmmzy704s1ddw5nq'
+token = '01h5fk3jpsxvwnt0hhvmncahky'
 modified_time = -1
 
 

@@ -2,7 +2,7 @@ import Property, {From} from "./core/property";
 import LogicProperty from "./core/logic-property";
 import NormalParser from "./core/parser/normal-parser";
 import DpParser from "./core/parser/dp-parser";
-import {PDO, PDS, Queue, HaveNotSupport} from "./core/utils";
+import {PDO, PDS, Queue, HaveNotSupport, mlog} from "./core/utils";
 
 let DSM: any = {} // Double State Manager
 
@@ -62,11 +62,21 @@ async function main(): Promise<void> {
 
   // Logic code
   DSM.humanBodySensor0.existStatus.addListener(async v => {
-    DSM.logic1.B1.setValue(DSM.humanBodySensor0.existStatus.getLocalValue())
+    mlog(' ├ @EVENT CHANGE humanBodySensor0.existStatus changed-to', v)
+    mlog(' ├ @EQUIP-PDO SET_VALUE logic1.B1 set to number')
+    DSM.logic1.B1.setValue(
+      mlog(' ├ @EQUIP-PDS VALUE humanBodySensor0.existStatus to number')
+      || DSM.humanBodySensor0.existStatus.getLocalValue()
+    )
   })
   
   DSM.logic1.B1.addListener(async v => {
-    DSM.light1.switch.setRemoteValue(DSM.logic1.B1.getValue())
+    mlog(' ├ @EVENT CHANGE logic1.B1 changed-to', v)
+    mlog(' ├ @EQUIP-PDO SET_VALUE light1.switch set to number')
+    DSM.light1.switch.setLocalValue(
+      mlog(' ├ @EQUIP-PDS VALUE logic1.B1 to number')
+      || DSM.logic1.B1.getValue()
+    )
   })
 
   // L2L bind code

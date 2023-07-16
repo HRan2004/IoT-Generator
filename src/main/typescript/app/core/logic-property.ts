@@ -1,3 +1,4 @@
+import {From} from "./property";
 
 export default class LogicProperty {
   device: string
@@ -6,8 +7,12 @@ export default class LogicProperty {
   value: any = null
   
   setValue(value: any) {
-    if (this.value === value) return false
+    if (this.value === value) {
+      console.log("Logic value not changed")
+      return false
+    }
     this.value = value
+    console.log(`Update logic state: ${this.device}.${this.key} =`, value)
     this.listeners.forEach(l => l(value))
     return true
   }

@@ -12,20 +12,24 @@ object LogicGenerate {
     var args: JSONArray = JSONArray()
     private var pdm = mutableMapOf<String, String>()
     private const val DEBUG_MODE = false
+    private const val MORE_LOG = true // 开启后小应用将打印详细调用流程日志
 
     fun makeEvent(event: Event, logic: Logic, indent: Int = 0): String {
         val args = event.trigger.split(" ")
-        val code = makeEquipsCode(event.code.trim(), logic)
+        var code = makeEquipsCode(event.code.trim(), logic)
         if (DEBUG_MODE) println("\nTrigger: " + event.trigger)
         if (DEBUG_MODE) println(event.code)
 
         val trigger = args[0]
         var result = ""
         this.pdm = logic.pdm
+
         if (trigger == "START") {
+            if (MORE_LOG) code = "mlog(' ├ @EVENT $trigger')\n$code"
             result = "setTimeout(async () => {\n${addIndent(code)}\n}, 0)\n"
         } else {
             val pd = pdm[args[1]] ?: ""
+            if (MORE_LOG) code = "mlog(' ├ @EVENT $trigger $pd changed-to', v)\n$code"
             if (pd.isEmpty()) {
                 println("Port ${args[1]} in logic ${logic.id} can not matched")
                 return "// Port ${args[1]} in logic ${logic.id} can not matched"
@@ -72,7 +76,7 @@ object LogicGenerate {
             )
             var tc = ""
             if (name == "PDO" || name == "PDS") {
-                val result = makeEquip(name == "PDO")
+                val result = makeEquip(name == "PDS")
                 if (result.isEmpty()) {
                     println("Port ${getArgText(0)} in logic ${logic.id} for control can not matched")
                 }
@@ -98,43 +102,58 @@ object LogicGenerate {
         val type = ats[0].substring(1, ats[0].length - 1)
 
         var get = "getLocalValue"
-        var set = "setRemoteValue"
+        var set = "setLocalValue"
         val isTargetLogic = dp.startsWith("logic")
         if (isTargetLogic) {
             get = "getValue"
             set = "setValue"
         }
 
-        return if (type == "CONTROL") {
+        var logText = " ├ @EQUIP-${if (isOutput) "PDS" else "PDO"} $type $dp "
+        var code = if (type == "CONTROL") {
             val v1l = arrayOf("true", "false")
-            "DSM.$dp.$set(${v1l[ats[2].toInt()]})"
+            val v = v1l[ats[2].toInt()]
+            logText += "set($v)"
+            "DSM.$dp.$set($v)"
         } else if (type == "BOOLEAN" || type == "BOOLEAN_HAD") {
             "DSM.$dp.$get()"
         } else if (arrayOf("CONTROL_ROTATION", "ROTATION_VALUE", "ROTATION_TURNS_NUMBER").contains(type)) {
             "HaveNotSupport()"
         } else if (type == "VALUE") {
             val toType = arrayOf("number", "string", "time", "date", "boolean")[ats[2].toInt()]
+            logText += "to $toType"
             "DSM.$dp.$get()"
         } else if (type == "COMPARE_TEXT") {
             val mode = ats[2].toInt()
             val text = "'${ats[3]}'"
+            logText += "compare-$mode '$text'"
             if (mode == 0) { // Equal
                 "DSM.$dp.$get() == $text"
             } else if (mode == 1) { // Include
                 "DSM.$dp.$get().indexOf($text) >= 0"
             } else { // Include by
-                "${text}.indexOf(DSM.$dp.getLocalValue()) >= 0"
+                "${text}.indexOf(DSM.$dp.$get()) >= 0"
             }
         } else if (type == "COMPARE") {
-            val con = arrayOf<String>(">", "<", "==", "!=")[ats[2].toInt()]
+            val con = arrayOf(">", "<", "==", "!=")[ats[2].toInt()]
             val num = ats[3].toDouble()
+            logText += "$con $num"
             "DSM.$dp.$get() $con $num"
         } else if (type == "SET_VALUE") {
             val toType = arrayOf("number", "string", "time", "date", "boolean")[ats[2].toInt()]
+            logText += "set to $toType"
             "DSM.$dp.$set(${ats[3]})"
         } else {
             ""
         }
+        if (MORE_LOG && code.isNotEmpty()) {
+            if (isOutput) {
+                code = "\n  mlog('$logText')\n${addIndent("|| $code")}\n"
+            } else {
+                code = "mlog('$logText')\n$code"
+            }
+        }
+        return code
     }
 
     private fun getDpByI(i: Int): String {

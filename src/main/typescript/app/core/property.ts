@@ -36,7 +36,10 @@ export default class Property {
   }
   
   setRemoteValue(value: any, from: From = From.Device): boolean {
-    if (this.remoteValue === value) return false
+    if (this.remoteValue === value) {
+      console.log("Remote value not need to change again")
+      return false
+    }
     this.remoteValue = value
     if (from === From.Local) {
       console.log(`Update remote: ${this.device}.${this.key} =`, value)

@@ -21,3 +21,8 @@ export function HaveNotSupport(...args) {
   return null
 }
 
+export function mlog(...args) {
+  console.log(...args)
+  return false
+}
+
