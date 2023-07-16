@@ -91,20 +91,34 @@ async function main(): Promise<void> {
   })
   
   DSM.humanBodySensor0.existStatus.addListener(async v => {
-    if (!v) {
+    if (v) {
       DSM.light1.switch.setRemoteValue(true)
     }
   })
   
   DSM.humanBodySensor0.existStatus.addListener(async v => {
-    if (!v) {
+    if (v) {
       if(PDS('COMPARE', 'A1', 0, 10)){
         
       }
     }
   })
+  
+  DSM.humanBodySensor0.existStatus.addListener(async v => {
+    if (v > 10.0) {
+      if(PDS('COMPARE', 'A1', 0, 10)){
+        
+      }
+    }
+  })
+  
+  DSM.humanBodySensor0.existStatus.addListener(async v => {
+    if (v == 'Hello') {
+      PDO('SET_VALUE', 'B2', 0, PDS('VALUE', 'A2', 0))
+    }
+  })
 
   // L2L bind code
-  /* GENERATE L2L BIND CODE */
+  
 }
 

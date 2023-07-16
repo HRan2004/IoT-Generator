@@ -28,9 +28,20 @@ object LogicGenerate {
             if (trigger == "CHANGE") {
                 result = "DSM.$pd.addListener(async v => {\n${addIndent(code)}\n})\n"
             } else if (trigger == "EQUIP_STATE" || trigger == "EQUIP_EXIST_STATUS") {
-                val con = if (args[1] == "0") "v" else "!v"
+                val con = if (args[2] == "0") "v" else "!v"
                 result = "DSM.$pd.addListener(async v => {\n  " +
                     "if ($con) {\n${addIndent(code, 4)}\n  }" +
+                    "\n})\n"
+            } else if (trigger == "COMPARE") {
+                val con = arrayOf<String>(">", "<", "==", ">=", "<=", "!=")[args[2].toInt()]
+                val num = args[3].toDouble()
+                result = "DSM.$pd.addListener(async v => {\n  " +
+                    "if (v $con $num) {\n${addIndent(code, 4)}\n  }" +
+                    "\n})\n"
+            } else if (trigger == "COMPARE_TEXT") {
+                val text = args[2]
+                result = "DSM.$pd.addListener(async v => {\n  " +
+                    "if (v == '$text') {\n${addIndent(code, 4)}\n  }" +
                     "\n})\n"
             }
         }
