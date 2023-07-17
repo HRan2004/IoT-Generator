@@ -35,7 +35,7 @@ object DeviceAndPortMap {
             "HomeHumidifier",
             arrayOf(
                 Property("HomeHumidifier", "开关", "switch", TalType().fromText("boolean")),
-                Property("HomeHumidifier", "雾量档位", "sprayVolume", TalType().fromText("string:SMALL,MIDDLE,LARGE")),
+                Property("HomeHumidifier", "雾量档位", "sprayVolume", TalType().fromText("string:LOW,MIDDLE,HIGH")),
                 Property("HomeHumidifier", "当前湿度", "currentHumidity", TalType().fromText("int:0,100"), "rn"),
                 Property("HomeHumidifier", "目标湿度值", "settledHumidity", TalType().fromText("int:0,100"), setFunctionName = "setHumidity"),
                 Property("HomeHumidifier", "滤网寿命", "filterRemainTime", TalType().fromText("any"), "rn"),

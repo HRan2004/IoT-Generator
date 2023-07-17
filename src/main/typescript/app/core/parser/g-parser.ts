@@ -15,7 +15,9 @@ export default class GParser {
   
   convert(value: any): any {
     if (this.from.type === DataType.ANY || this.to.type == DataType.ANY) return value
-    if (this.from.type === this.to.type) return value
+    if (this.from.type === this.to.type) {
+      if (!(this.from.isNumber() || this.from.hadRange() || this.to.hadRange())) return value
+    }
     
     let sourceValue = value
     let batch = new DataBatch()
@@ -39,11 +41,11 @@ export default class GParser {
     } else if (this.from.type === DataType.STRING) {
       batch.string = value
       if (this.from.hadOptions()) {
-        batch.int = this.from.indexInOptions(value)
+        batch.int = this.from.indexInOptions(value) // 0 1 2
         batch.float = this.from.indexInOptions(value)
-        let len = this.from.options.length
+        let len = this.from.options.length // 3
         batch.boolean = batch.int >= len / 2
-        batch.percent = batch.int / len
+        batch.percent = batch.int / (len-1)
       } else {
         batch.int = Math.round(value)
         batch.float = parseFloat(value)
@@ -65,7 +67,7 @@ export default class GParser {
           value = this.to.range[0] + batch.percent * (this.to.range[1] - this.to.range[0])
         } else if (this.from.type === DataType.STRING && this.from.hadOptions()) {
           value = this.to.range[0] + batch.percent * this.to.range[2]
-          value = this.to.options[Math.round(value)]
+          value = this.to.range[0] + batch.percent * (this.to.range[1] - this.to.range[0])
         } else if (this.from.isNumber()) {
           value = Math.min(this.to.range[1], Math.max(this.to.range[0], value))
         } else if (this.from.type === DataType.STRING) {
@@ -103,10 +105,10 @@ export default class GParser {
       }
     }
     if (sourceValue !== value) {
-      mlog(
-        "GParser convert:", sourceValue, "->", value, "\n",
-        batch + "\nTalType:",
-        this.from.toCtText(), "->", this.to.toCtText()
+      console.log(
+        "GParser:", this.from.toCtText(), "->", this.to.toCtText(),
+        "\n", {"DataBatch": batch},
+        "\nConvert result:", sourceValue, "->", value
       )
     }
     return value

@@ -15,8 +15,8 @@ private object Options {
     const val DATA_PATH = "${DoGenerate.TEST_PATH}\\data.json"
 
     // 分步调试控制
-    const val USE_DATA_GENERATE = false
-    const val USE_CODE_GENERATE = false
+    const val USE_DATA_GENERATE = true
+    const val USE_CODE_GENERATE = true
     const val USE_COMPILE = true
     const val USE_ZIP = true
 }

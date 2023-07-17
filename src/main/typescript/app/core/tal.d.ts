@@ -90,7 +90,7 @@ declare class Light extends IotDevice {
 declare class HomeHumidifier extends IotDevice {
   setSwitch(value: boolean): TalPromise
   setSpraySwitch(value: boolean): TalPromise
-  setSprayVolume(volume: 'SMALL' | 'MIDDLE' | 'LARGE'): TalPromise
+  setSprayVolume(volume: 'LOW' | 'MIDDLE' | 'HIGH'): TalPromise
   setSprayMode(mode: 'CONTINUOUS' | 'INTERVAL' | 'AUTO'): TalPromise
   setSprayVolumePercentage(value: number): TalPromise // 0~100,1
   setHumidity(value: number): TalPromise // 0~100,1
@@ -104,7 +104,7 @@ declare class HomeHumidifier extends IotDevice {
   setWaterShortageThreshold(value: number): TalPromise // 0~100,1
   getSwitch(): TalPromise<boolean>
   getSpraySwitch(): TalPromise<boolean>
-  getSprayVolume(): TalPromise<'SMALL' | 'MIDDLE' | 'LARGE'>
+  getSprayVolume(): TalPromise<'LOW' | 'MIDDLE' | 'HIGH'>
   getWaterLevel(): TalPromise<number> // 0~100,1
   getSprayMode(): TalPromise<'CONTINUOUS' | 'INTERVAL' | 'AUTO'>
   getCurrentHumidity(): TalPromise<number> // 0~100,1

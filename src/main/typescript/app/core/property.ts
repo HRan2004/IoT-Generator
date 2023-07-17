@@ -38,7 +38,7 @@ export default class Property {
   
   setRemoteValue(value: any, from: From = From.Device): boolean {
     if (this.remoteValue === value) {
-      console.log("Remote value not need to change again")
+      // console.log("Remote value not need to change again")
       return false
     }
     this.remoteValue = value

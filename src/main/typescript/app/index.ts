@@ -76,7 +76,7 @@ async function init(): Promise<void> {
 // Main function
 async function main(): Promise<void> {
   // Edges property bind
-  let parser0 = new DpParser('STRING:SMALL,MIDDLE,LARGE', 'INT:0.0,100.0,1.0')
+  let parser0 = new DpParser('STRING:LOW,MIDDLE,HIGH', 'INT:0.0,100.0,1.0')
   DSM.homeHumidifier0.sprayVolume.addListener(value => {
     value = parser0.convert(value)
     mlog(' ├ @BIND light1.relativeBrightness changed-to', value)

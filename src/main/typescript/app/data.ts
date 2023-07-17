@@ -108,9 +108,9 @@ export const data = {
         "type": "STRING",
         "range": [],
         "options": [
-          "SMALL",
+          "LOW",
           "MIDDLE",
-          "LARGE"
+          "HIGH"
         ]
       },
       "permission": "rwn",
