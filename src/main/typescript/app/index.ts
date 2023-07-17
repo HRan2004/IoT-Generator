@@ -76,13 +76,16 @@ async function init(): Promise<void> {
 // Main function
 async function main(): Promise<void> {
   // Edges property bind
+  let parser0 = new DpParser('STRING:SMALL,MIDDLE,LARGE', 'INT:0.0,100.0,1.0')
   DSM.homeHumidifier0.sprayVolume.addListener(value => {
-    value = new DpParser(DSM.homeHumidifier0.sprayVolume, DSM.light1.relativeBrightness).convert(value)
+    value = parser0.convert(value)
     mlog(' ├ @BIND light1.relativeBrightness changed-to', value)
     DSM.light1.relativeBrightness.setLocalValue(value, From.Local)
   })
+
+  let parser1 = new DpParser('BOOLEAN', 'INT:1700.0,7000.0,1.0')
   DSM.doorAndWindowSensor2.status.addListener(value => {
-    value = new DpParser(DSM.doorAndWindowSensor2.status, DSM.light1.colorTemperature).convert(value)
+    value = parser1.convert(value)
     mlog(' ├ @BIND light1.colorTemperature changed-to', value)
     DSM.light1.colorTemperature.setLocalValue(value, From.Local)
   })

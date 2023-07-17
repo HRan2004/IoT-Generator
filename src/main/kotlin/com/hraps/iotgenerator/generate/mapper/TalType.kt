@@ -51,7 +51,16 @@ class TalType(
     }
 
     fun toCtText(): String {
-        return "${this.type.name}:${if (this.hadRange()) "${this.range[0]},${this.range[1]}" else ""}${if (this.hadOptions()) this.options.joinToString(",") else ""}"
+        var text = this.type.name
+        if (this.hadRange()) {
+            text += ":${this.range[0]},${this.range[1]}"
+            if (this.range.size >= 3) {
+                text += ",${this.range[2]}"
+            }
+        } else if (this.hadOptions()) {
+            text += ":${this.options.joinToString(",")}"
+        }
+        return text
     }
 }
 

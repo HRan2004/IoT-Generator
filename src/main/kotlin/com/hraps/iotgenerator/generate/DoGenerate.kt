@@ -131,16 +131,20 @@ object DoGenerate {
 //        text = text.replace("/* GENERATE L2L BIND CODE */", l2lCodes.joinToString("\n  ").trim())
 
         var edgesPropertyBind = emptyArray<String>()
+        var bindParserCounter = 0
         for (edge in task.edges) {
             val sourceDevice = task.devices.find { it.vn == edge.source.device } ?: continue
             val sourceProperty = task.properties.find { it.tal == edge.source.property && it.device == sourceDevice.tal } ?: continue
             val targetDevice = task.devices.find { it.vn == edge.target.device } ?: continue
             val targetProperty = task.properties.find { it.tal == edge.target.property && it.device == targetDevice.tal } ?: continue
-            edgesPropertyBind += "DSM.${sourceDevice.vn}.${sourceProperty.tal}.addListener(value => {\n" +
-                "    value = new DpParser(DSM.${sourceDevice.vn}.${sourceProperty.tal}, DSM.${targetDevice.vn}.${targetProperty.tal}).convert(value)\n" +
+
+            val pid = bindParserCounter++
+            edgesPropertyBind += "let parser$pid = new DpParser('${sourceProperty.type.toCtText()}', '${targetProperty.type.toCtText()}')\n" +
+                "  DSM.${sourceDevice.vn}.${sourceProperty.tal}.addListener(value => {\n" +
+                "    value = parser$pid.convert(value)\n" +
                 "    mlog(' ├ @BIND ${targetDevice.vn}.${targetProperty.tal} changed-to', value)\n" +
                 "    DSM.${targetDevice.vn}.${targetProperty.tal}.setLocalValue(value, From.Local)\n" +
-                "  })"
+                "  })\n"
         }
         text = text.replace("/* GENERATE EDGES PROPERTY BIND */", edgesPropertyBind.joinToString("\n  ").trim())
         return text
