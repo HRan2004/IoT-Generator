@@ -165,9 +165,9 @@ object DoGenerate {
             println("Work path not exists.")
             return
         }
-        FileUtils.copyFile("$TEMPLATE_PATH\\index.ts.txt", "$WORK_PATH\\index.ts")
-        FileUtils.copyFile("$TEMPLATE_PATH\\data.ts.txt", "$WORK_PATH\\data.ts")
-        FileUtils.copyFile("$TEMPLATE_PATH\\index.html.txt", "$WORK_PATH\\public\\index.html")
+        FileUtils.copyFileNew("$TEMPLATE_PATH\\index.ts.txt", "$WORK_PATH\\index.ts")
+        FileUtils.copyFileNew("$TEMPLATE_PATH\\data.ts.txt", "$WORK_PATH\\data.ts")
+        FileUtils.copyFileNew("$TEMPLATE_PATH\\index.html.txt", "$WORK_PATH\\public\\index.html")
     }
 
 }

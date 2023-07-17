@@ -7,9 +7,8 @@ import {PDO, PDS, Queue, HaveNotSupport, mlog} from "./core/utils";
 let DSM: any = {} // Double State Manager
 export let inited = false
 
-const homeHumidifier0 = DeviceManager.createHomeHumidifier('HouseholdHumidifier_0')
+const light0 = DeviceManager.createLight('Lamp(Home)_0')
 const light1 = DeviceManager.createLight('Lamp(Home)_1')
-const doorAndWindowSensor2 = DeviceManager.createDoorAndWindowSensor('DoorAndWindowSensor_2')
 
 init().then(r => {
   console.log('Init Success.')
@@ -29,65 +28,43 @@ init().then(r => {
 // Init function
 async function init(): Promise<void> {
   // Init DSM states
-  DSM.homeHumidifier0 = {
-    sprayVolume: new Property('homeHumidifier0', 'sprayVolume'),
+  DSM.light0 = {
+    switch: new Property('light0', 'switch'),
   }
   DSM.light1 = {
     relativeBrightness: new Property('light1', 'relativeBrightness'),
-    colorTemperature: new Property('light1', 'colorTemperature'),
-  }
-  DSM.doorAndWindowSensor2 = {
-    status: new Property('doorAndWindowSensor2', 'status'),
   }
 
   // Init DSM Logic states
   
 
   // Init set function
-  DSM.homeHumidifier0.sprayVolume.update = v => homeHumidifier0.setSprayVolume(NormalParser.to(v))
+  DSM.light0.switch.update = v => light0.setSwitch(NormalParser.to(v))
   DSM.light1.relativeBrightness.update = v => light1.setRelativeBrightness(NormalParser.to(v))
-  DSM.light1.colorTemperature.update = v => light1.setColorTemperature(NormalParser.to(v))
 
   // Init properties
-  DSM.homeHumidifier0.sprayVolume.setRemoteValue((await homeHumidifier0.getSprayVolume()).value)
+  DSM.light0.switch.setRemoteValue((await light0.getSwitch()).value)
   DSM.light1.relativeBrightness.setRemoteValue((await light1.getRelativeBrightness()).value)
-  DSM.light1.colorTemperature.setRemoteValue((await light1.getColorTemperature()).value)
-  DSM.doorAndWindowSensor2.status.setRemoteValue((await doorAndWindowSensor2.getStatus()).value)
 
   // Init remote receive
-  homeHumidifier0.subscribe(data => {
-    data.sprayVolume = NormalParser.from(data.sprayVolume)
-    DSM.homeHumidifier0.sprayVolume.setRemoteValue(data.sprayVolume)
+  light0.subscribe(data => {
+    data.switch = NormalParser.from(data.switch)
+    DSM.light0.switch.setRemoteValue(data.switch)
   })
   light1.subscribe(data => {
     data.relativeBrightness = NormalParser.from(data.relativeBrightness)
     DSM.light1.relativeBrightness.setRemoteValue(data.relativeBrightness)
-  })
-  light1.subscribe(data => {
-    data.colorTemperature = NormalParser.from(data.colorTemperature)
-    DSM.light1.colorTemperature.setRemoteValue(data.colorTemperature)
-  })
-  doorAndWindowSensor2.subscribe(data => {
-    data.status = NormalParser.from(data.status)
-    DSM.doorAndWindowSensor2.status.setRemoteValue(data.status)
   })
 }
 
 // Main function
 async function main(): Promise<void> {
   // Edges property bind
-  let parser0 = new DpParser('STRING:LOW,MIDDLE,HIGH', 'INT:0.0,100.0,1.0')
-  DSM.homeHumidifier0.sprayVolume.addListener(value => {
+  let parser0 = new DpParser('BOOLEAN', 'INT:0.0,100.0,1.0')
+  DSM.light0.switch.addListener(value => {
     value = parser0.convert(value)
     mlog(' ├ @BIND light1.relativeBrightness changed-to', value)
     DSM.light1.relativeBrightness.setLocalValue(value, From.Local)
-  })
-
-  let parser1 = new DpParser('BOOLEAN', 'INT:1700.0,7000.0,1.0')
-  DSM.doorAndWindowSensor2.status.addListener(value => {
-    value = parser1.convert(value)
-    mlog(' ├ @BIND light1.colorTemperature changed-to', value)
-    DSM.light1.colorTemperature.setLocalValue(value, From.Local)
   })
 
   // Logic code

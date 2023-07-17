@@ -1,7 +1,11 @@
 package com.hraps.iotgenerator.controller
 
 import com.alibaba.fastjson2.JSONObject
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.hraps.iotgenerator.generate.TaskData
 import com.hraps.iotgenerator.service.GenerateService
+import com.hraps.iotgenerator.utils.FileUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -22,8 +26,8 @@ class TaskController {
     ): String {
         println("\nStart task: ")
         return try {
-            val json = JSONObject.parseObject(jsonText)
-            val result = generateService.generate(json)
+            val data = JSONObject.parseObject(jsonText)
+            val result = generateService.generate(data)
             "Success"
         } catch (e: Exception) {
             e.printStackTrace()

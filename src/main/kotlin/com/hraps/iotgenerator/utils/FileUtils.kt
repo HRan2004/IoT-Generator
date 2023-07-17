@@ -4,17 +4,36 @@ import java.io.*
 
 object FileUtils {
 
-    fun copyFile(from: String, to: String) {
-        val fromFile = File(from)
-        val toFile = File(to)
-        if (!fromFile.exists()) {
-            println("File not exists: $from")
-            return
+    fun copyFile(from: String, to: String): Boolean {
+        try {
+            val fromFile = File(from)
+            val toFile = File(to)
+            if (!fromFile.exists()) {
+                println("File not exists: $from")
+                return false
+            }
+            while (toFile.exists()) {
+                toFile.delete()
+            }
+            fromFile.copyTo(toFile)
+            return true
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
         }
-        while (toFile.exists()) {
-            toFile.delete()
+        return false
+    }
+
+    fun copyFileNew(srcPath: String, dstPath: String) {
+        File(srcPath).runCatching {
+            takeIf { it.exists() }?.inputStream()?.use { inputStream ->
+                File(dstPath).outputStream().use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+        }.onFailure {
+            it.printStackTrace()
         }
-        fromFile.copyTo(toFile)
     }
 
     fun read(path: String): String {
