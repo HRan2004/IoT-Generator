@@ -13,18 +13,13 @@ import java.util.Date
 object DoGenerate {
 
     const val DEBUG_MODE = true
+    val BASE_PATH = "C:${File.separator}Projects${File.separator}IoT-Storage"
+//    const val BASE_PATH = "/root/iot/IoT-Storage"
 
-//    const val BASE_PATH = "C:\\Projects\\IoT-Generator\\src\\main"
-//    const val STORAGE_PATH = "C:\\Projects\\Iot-Storage\\projects"
-//    const val BASE_PATH = "C:\\Users\\21257\\Documents\\GitHub\\IoT-Generator\\src\\main"
-
-    const val BASE_PATH = "/root/iot/IoT-Generator/src/main"
-    const val STORAGE_PATH = "/root/iot/storage"
-
-    const val TEST_PATH = "$BASE_PATH\\kotlin\\com\\hraps\\iotgenerator\\generate\\test"
-    const val TEMPLATE_PATH = "$BASE_PATH\\typescript\\template"
-    const val COMPILE_PATH = "$BASE_PATH\\typescript"
-    const val WORK_PATH = "$BASE_PATH\\typescript\\app"
+    val STORAGE_PATH = "$BASE_PATH${File.separator}storage"
+    val COMPILE_PATH = "$BASE_PATH${File.separator}typescript"
+    val TEMPLATE_PATH = "$COMPILE_PATH${File.separator}template"
+    val WORK_PATH = "$COMPILE_PATH${File.separator}app"
 
     private val gsonPretty = GsonBuilder().setPrettyPrinting().create()
     private val gson = Gson()
@@ -35,28 +30,28 @@ object DoGenerate {
         println("Copy template...")
         copyTemplate()
         println("Make files...")
-        doMake(::makeDataFile, "$WORK_PATH\\data.ts")
-        doMake(::makeIndexFile, "$WORK_PATH\\index.ts")
-        doMake(::makeHtmlFile, "$WORK_PATH\\public\\index.html")
+        doMake(::makeDataFile, "$WORK_PATH${File.separator}data.ts")
+        doMake(::makeIndexFile, "$WORK_PATH${File.separator}index.ts")
+        doMake(::makeHtmlFile, "$WORK_PATH${File.separator}public${File.separator}index.html")
         // println(gsonPretty.toJson(task))
         return "Success"
     }
 
     fun compile(): String {
-        CommandUtils.runCommand(listOf("cmd.exe", "/c", "npx", "webpack"), File(COMPILE_PATH))
+        CommandUtils.runCommand(listOf("npx", "webpack"), File(COMPILE_PATH))
         return "Success"
     }
 
     fun zip(): String {
         if (DEBUG_MODE) {
-            FileUtils.copyFolder("$COMPILE_PATH\\app", "$COMPILE_PATH\\dist\\app")
+            FileUtils.copyFolder("$COMPILE_PATH${File.separator}app", "$COMPILE_PATH${File.separator}dist${File.separator}app")
         }
-        ZipUtils.zip("$COMPILE_PATH\\dist", "$BASE_PATH\\python\\IoT-Ci\\upload\\app.zip")
+        ZipUtils.zip("$COMPILE_PATH${File.separator}dist", "$BASE_PATH${File.separator}python${File.separator}IoT-Ci${File.separator}upload${File.separator}app.zip")
         val id = "P" + Date().time.toString().substring(2)
         if (DEBUG_MODE) {
             val folder = File(STORAGE_PATH)
             if (!folder.exists()) folder.mkdirs()
-            FileUtils.copyFile("$BASE_PATH\\python\\IoT-Ci\\upload\\app.zip", "$STORAGE_PATH\\$id.zip")
+            FileUtils.copyFile("$BASE_PATH${File.separator}python${File.separator}IoT-Ci${File.separator}upload${File.separator}app.zip", "$STORAGE_PATH${File.separator}$id.zip")
         }
         return id
     }
@@ -179,9 +174,9 @@ object DoGenerate {
             println("Work path not exists.")
             return
         }
-        FileUtils.copyFile("$TEMPLATE_PATH\\index.ts.txt", "$WORK_PATH\\index.ts")
-        FileUtils.copyFile("$TEMPLATE_PATH\\data.ts.txt", "$WORK_PATH\\data.ts")
-        FileUtils.copyFile("$TEMPLATE_PATH\\index.html.txt", "$WORK_PATH\\public\\index.html")
+        FileUtils.copyFile("$TEMPLATE_PATH${File.separator}index.ts.txt", "$WORK_PATH${File.separator}index.ts")
+        FileUtils.copyFile("$TEMPLATE_PATH${File.separator}data.ts.txt", "$WORK_PATH${File.separator}data.ts")
+        FileUtils.copyFile("$TEMPLATE_PATH${File.separator}index.html.txt", "$WORK_PATH${File.separator}public${File.separator}index.html")
     }
 
 }

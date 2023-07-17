@@ -10,9 +10,9 @@ import java.io.File
 
 private object Options {
     // 路径配置
-    const val TASK_FILE = "${DoGenerate.TEST_PATH}\\tasks\\project5.json"
-    const val OUTPUT_FILE = "${DoGenerate.TEST_PATH}\\result\\app.zip"
-    const val DATA_PATH = "${DoGenerate.TEST_PATH}\\data.json"
+    const val TASK_FILE = ".\\tasks\\project5.json"
+    const val OUTPUT_FILE = ".\\result\\app.zip"
+    const val DATA_PATH = ".\\data.json"
 
     // 分步调试控制
     const val USE_DATA_GENERATE = true
@@ -21,7 +21,7 @@ private object Options {
     const val USE_ZIP = true
 }
 
-fun main() {
+fun test() {
     if (Options.USE_DATA_GENERATE) {
         val jsonText = FileUtils.read(Options.TASK_FILE)
         val data = TaskData(JSONObject.parseObject(jsonText))

@@ -49,7 +49,7 @@ class TaskController {
 
     @GetMapping("/api/download/{id}.zip", produces = [MediaType.APPLICATION_OCTET_STREAM_VALUE])
     fun getFile(@PathVariable id: String): ResponseEntity<FileSystemResource> {
-        val file = File("${DoGenerate.STORAGE_PATH}\\$id.zip")
+        val file = File("${DoGenerate.STORAGE_PATH}${File.separator}$id.zip")
         if (!file.exists()) {
             return ResponseEntity.notFound().build()
         }

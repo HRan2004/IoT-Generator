@@ -3,6 +3,7 @@ package com.hraps.iotgenerator.utils
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
+import java.nio.charset.Charset
 import java.util.concurrent.TimeUnit
 
 object CommandUtils {
@@ -13,11 +14,21 @@ object CommandUtils {
         timeoutAmount: Long = 60L,
         timeUnit: TimeUnit = TimeUnit.SECONDS
     ): String? = runCatching {
-        val process: Process = ProcessBuilder(cmd)
-            .directory(workingDir)
-            .redirectErrorStream(true)
-            .start()
-        val reader = BufferedReader(InputStreamReader(process.inputStream, "GBK"), 1)
+        val processBuilder = if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            ProcessBuilder("cmd.exe", "/c").apply {
+                command().addAll(cmd)
+                redirectErrorStream(true)
+                directory(workingDir)
+            }
+        } else {
+            ProcessBuilder(cmd).apply {
+                redirectErrorStream(true)
+                directory(workingDir)
+            }
+        }
+
+        val process: Process = processBuilder.start()
+        val reader = BufferedReader(InputStreamReader(process.inputStream, Charset.defaultCharset()))
         var line: String?
         while (reader.readLine().also { line = it } != null) {
             println(line)
@@ -25,11 +36,12 @@ object CommandUtils {
         "Run command finish."
     }.onFailure { it.printStackTrace() }.getOrNull()
 
+
     fun runPython(
         environmentPath: String,
         filePath: String,
     ) {
-        val command = listOf("cmd.exe", "/c", "python", filePath)
+        val command = listOf("python", filePath)
         println(runCommand(command, File(environmentPath)))
     }
 

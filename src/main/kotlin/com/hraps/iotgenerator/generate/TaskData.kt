@@ -61,11 +61,13 @@ class TaskData(json: JSONObject) {
                     node = Logic()
                     node.index = logicCounter++
                     node.vn = "logic" + node.index
-                    for (event in data.getJSONArray("events")) {
-                        val e = event as JSONObject
-                        val trigger = e.getString("key")
-                        val code = e.getString("code")
-                        node.events += Event(trigger, code)
+                    if (data.containsKey("events")) {
+                        for (event in data.getJSONArray("events")) {
+                            val e = event as JSONObject
+                            val trigger = e.getString("key")
+                            val code = e.getString("code")
+                            node.events += Event(trigger, code)
+                        }
                     }
                     logics += node
                 } else {
