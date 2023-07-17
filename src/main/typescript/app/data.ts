@@ -189,8 +189,16 @@ export const data = {
       "device": "HumanBodySensor",
       "name": "是否有人",
       "tal": "existStatus",
+      "type": {
+        "type": "BOOLEAN",
+        "range": [
+          -1.0,
+          -1.0,
+          1.0
+        ],
+        "options": []
+      },
       "permission": "rn",
-      "talType": "ANY",
       "range": [],
       "options": [],
       "getFunctionName": "getExistStatus",
@@ -200,8 +208,16 @@ export const data = {
       "device": "Light",
       "name": "开关",
       "tal": "switch",
+      "type": {
+        "type": "BOOLEAN",
+        "range": [
+          -1.0,
+          -1.0,
+          1.0
+        ],
+        "options": []
+      },
       "permission": "rwn",
-      "talType": "ANY",
       "range": [],
       "options": [],
       "getFunctionName": "getSwitch",

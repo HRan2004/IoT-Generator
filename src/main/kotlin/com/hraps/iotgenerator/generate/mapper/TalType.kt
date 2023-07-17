@@ -1,17 +1,17 @@
 package com.hraps.iotgenerator.generate.mapper
 
+import java.util.*
+
 
 class TalType(
-    private var ct: String = ""
+    var type: DataType = DataType.ANY,
+    var range: DoubleArray = doubleArrayOf(-1.0, -1.0, 1.0),
+    var options: Array<String> = arrayOf(),
 ) {
-    var type: DataType = DataType.ANY
-    var range: DoubleArray = doubleArrayOf(-1.0, -1.0, 1.0)
-    var options: Array<String> = arrayOf()
 
-    init {
-        // Ct Example  int:0,100,1  string:OPEN,CLOSE  boolean  any
+    fun fromText(ct: String): TalType {
         val args = ct.split(':')
-        this.type = DataType.valueOf(args[0])
+        this.type = DataType.valueOf(args[0].uppercase(Locale.getDefault()))
         if (args.size > 1) {
             val arg = args[1]
             if (this.isNumber()) {
@@ -27,6 +27,7 @@ class TalType(
                 this.options = arg.split(',').toTypedArray()
             }
         }
+        return this
     }
 
     fun isNumber(): Boolean {
@@ -50,8 +51,7 @@ class TalType(
     }
 
     fun toCtText(): String {
-        this.ct = "${this.type.name}:${if (this.hadRange()) "${this.range[0]},${this.range[1]}" else ""}${if (this.hadOptions()) this.options.joinToString(",") else ""}"
-        return this.ct
+        return "${this.type.name}:${if (this.hadRange()) "${this.range[0]},${this.range[1]}" else ""}${if (this.hadOptions()) this.options.joinToString(",") else ""}"
     }
 }
 
