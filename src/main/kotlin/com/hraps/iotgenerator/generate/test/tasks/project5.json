@@ -1,0 +1,328 @@
+{
+  "name": "test",
+  "cells": [
+    {
+      "id": "cdf2f06b-ebe1-4f8e-b75d-c0ba180485e8",
+      "source": {
+        "cell": "N2",
+        "port": "2-IN-1"
+      },
+      "target": {
+        "cell": "N1",
+        "port": "1-OUT-1"
+      }
+    },
+    {
+      "id": "89239893-dbb6-45a2-aca1-324141eba6af",
+      "source": {
+        "cell": "N3",
+        "port": "3-OUT-1"
+      },
+      "target": {
+        "cell": "N2",
+        "port": "2-IN-2"
+      }
+    },
+    {
+      "position": {
+        "x": 286,
+        "y": 400
+      },
+      "size": {
+        "width": 208,
+        "height": 112
+      },
+      "view": "react-shape-view",
+      "shape": "device-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "1-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "1-OUT-1",
+            "group": "right",
+            "text": "雾量档位",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(179, 117, 224)"
+              }
+            }
+          },
+          {
+            "id": "1-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N1",
+      "data": {
+        "device": "HouseholdHumidifier",
+        "update": 7,
+        "connecting": null
+      },
+      "zIndex": 1
+    },
+    {
+      "position": {
+        "x": 750,
+        "y": 560
+      },
+      "size": {
+        "width": 208,
+        "height": 112
+      },
+      "view": "react-shape-view",
+      "shape": "device-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "2-IN-1",
+            "group": "left",
+            "text": "光照强度",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "2-IN-2",
+            "group": "left",
+            "text": "色温",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "2-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(82, 155, 241)"
+              }
+            }
+          },
+          {
+            "id": "2-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N2",
+      "data": {
+        "device": "Lamp(Home)",
+        "update": 6,
+        "connecting": null
+      },
+      "zIndex": 2
+    },
+    {
+      "position": {
+        "x": 290,
+        "y": 750
+      },
+      "size": {
+        "width": 208,
+        "height": 112
+      },
+      "view": "react-shape-view",
+      "shape": "device-node",
+      "component": {
+        "key": null,
+        "ref": null,
+        "props": {},
+        "_owner": null,
+        "_store": {}
+      },
+      "ports": {
+        "groups": {
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 10,
+                "magnet": true,
+                "stroke": "#ffffff00",
+                "strokeWidth": 0,
+                "fill": "#ffffff00"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "3-IN-ADD",
+            "group": "left",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "3-OUT-1",
+            "group": "right",
+            "text": "门窗状态",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
+                "disable": true,
+                "originColor": "rgb(179, 117, 224)"
+              }
+            }
+          },
+          {
+            "id": "3-OUT-ADD",
+            "group": "right",
+            "text": "+",
+            "attrs": {
+              "circle": {
+                "r": 0
+              },
+              "data": {
+                "disable": true
+              }
+            }
+          }
+        ]
+      },
+      "id": "N3",
+      "data": {
+        "device": "DoorAndWindowSensor",
+        "update": 3,
+        "connecting": null
+      },
+      "zIndex": 3
+    }
+  ]
+}

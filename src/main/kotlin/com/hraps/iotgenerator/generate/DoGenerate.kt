@@ -137,7 +137,7 @@ object DoGenerate {
             val targetDevice = task.devices.find { it.vn == edge.target.device } ?: continue
             val targetProperty = task.properties.find { it.tal == edge.target.property && it.device == targetDevice.tal } ?: continue
             edgesPropertyBind += "DSM.${sourceDevice.vn}.${sourceProperty.tal}.addListener(value => {\n" +
-                "    value = new DpParser(DSM.${sourceDevice.vn}.${sourceProperty.tal}, DSM.${targetDevice.vn}.${targetProperty.tal}).parse(value)\n" +
+                "    value = new DpParser(DSM.${sourceDevice.vn}.${sourceProperty.tal}, DSM.${targetDevice.vn}.${targetProperty.tal}).convert(value)\n" +
                 "    mlog(' ├ @BIND ${targetDevice.vn}.${targetProperty.tal} changed-to', value)\n" +
                 "    DSM.${targetDevice.vn}.${targetProperty.tal}.setLocalValue(value, From.Local)\n" +
                 "  })"

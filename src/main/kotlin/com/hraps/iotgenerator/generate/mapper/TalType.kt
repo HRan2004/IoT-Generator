@@ -5,7 +5,7 @@ import java.util.*
 
 class TalType(
     var type: DataType = DataType.ANY,
-    var range: DoubleArray = doubleArrayOf(-1.0, -1.0, 1.0),
+    var range: DoubleArray = doubleArrayOf(),
     var options: Array<String> = arrayOf(),
 ) {
 
@@ -35,7 +35,7 @@ class TalType(
     }
 
     fun hadRange(): Boolean {
-        return this.range[0] != -1.0 && this.range[1] != -1.0
+        return this.range.size >= 2 && this.range[0] != -1.0 && this.range[1] != -1.0
     }
 
     fun isInRange(value: Double): Boolean {
@@ -56,11 +56,11 @@ class TalType(
 }
 
 enum class DataType(value: String) {
-    INT("int"),
-    FLOAT("float"),
-    BOOLEAN("bool"),
-    STRING("string"),
-    OBJECT("object"),
-    ANY("any"),
-    NONE("none"),
+    INT("INT"),
+    FLOAT("FLOAT"),
+    BOOLEAN("BOOLEAN"),
+    STRING("STRING"),
+    OBJECT("OBJECT"),
+    ANY("ANY"),
+    NONE("NONE"),
 }

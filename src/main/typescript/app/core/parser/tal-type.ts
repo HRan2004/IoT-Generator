@@ -1,18 +1,21 @@
 
 export default class TalType {
   type: DataType = DataType.ANY
-  range: [number, number, number] = [-1, -1, 1]
+  range: number[] = []
   options: string[] = []
   
   // Example  int:0,100,1  string:OPEN,CLOSE  boolean  any
   constructor(ct: String) {
-    let args = ct.split(':')
+    let args = ct.trim().split(':')
     this.type = DataType.make(args[0])
     if (args.length > 1) {
       let arg = args[1]
       if (this.isNumber()) {
-        let range = arg.split(',')
-        this.range = [parseFloat(range[0]), parseFloat(range[1]), parseFloat(range[2])]
+        let range = arg.trim().split(',')
+        if (range.length >= 2) {
+          let step = range.length >= 3 ? parseFloat(range[2]) : 1
+          this.range = [parseFloat(range[0]), parseFloat(range[1]), step]
+        }
       } else if (this.type === DataType.STRING) {
         this.options = arg.split(',')
       }
@@ -42,7 +45,7 @@ export default class TalType {
 
 export class DataType {
   static make(text: String): DataType {
-    switch (text) {
+    switch (text.toLowerCase()) {
       case 'int':
         return DataType.INT
       case 'float':
@@ -62,11 +65,11 @@ export class DataType {
     }
   }
   
-  static INT = 'int'
-  static FLOAT = 'float'
-  static BOOLEAN = 'bool'
-  static STRING = 'string'
-  static OBJECT = 'object'
-  static ANY = 'any'
-  static NONE = 'none'
+  static INT = 'INT'
+  static FLOAT = 'FLOAT'
+  static BOOLEAN = 'BOOLEAN'
+  static STRING = 'STRING'
+  static OBJECT = 'OBJECT'
+  static ANY = 'ANY'
+  static NONE = 'NONE'
 }

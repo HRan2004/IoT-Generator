@@ -8,9 +8,6 @@ class Property (
 
     val permission: String = "rwn",
 
-    var range: FloatArray = floatArrayOf(),
-    var options: Array<String> = arrayOf(),
-
     val getFunctionName : String = "get" + tal.capitalize(),
     val setFunctionName : String = "set" + tal.capitalize(),
 ) {

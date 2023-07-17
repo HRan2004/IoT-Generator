@@ -7,8 +7,9 @@ import {PDO, PDS, Queue, HaveNotSupport, mlog} from "./core/utils";
 let DSM: any = {} // Double State Manager
 export let inited = false
 
-const humanBodySensor0 = DeviceManager.createHumanBodySensor('HumanMotionSensor_0')
+const homeHumidifier0 = DeviceManager.createHomeHumidifier('HouseholdHumidifier_0')
 const light1 = DeviceManager.createLight('Lamp(Home)_1')
+const doorAndWindowSensor2 = DeviceManager.createDoorAndWindowSensor('DoorAndWindowSensor_2')
 
 init().then(r => {
   console.log('Init Success.')
@@ -28,58 +29,65 @@ init().then(r => {
 // Init function
 async function init(): Promise<void> {
   // Init DSM states
-  DSM.humanBodySensor0 = {
-    existStatus: new Property('humanBodySensor0', 'existStatus'),
+  DSM.homeHumidifier0 = {
+    sprayVolume: new Property('homeHumidifier0', 'sprayVolume'),
   }
   DSM.light1 = {
-    switch: new Property('light1', 'switch'),
+    relativeBrightness: new Property('light1', 'relativeBrightness'),
+    colorTemperature: new Property('light1', 'colorTemperature'),
+  }
+  DSM.doorAndWindowSensor2 = {
+    status: new Property('doorAndWindowSensor2', 'status'),
   }
 
   // Init DSM Logic states
-  DSM.logic1 = {
-    B1: new LogicProperty('logic1', 'B1'),
-  }
+  
 
   // Init set function
-  DSM.light1.switch.update = v => light1.setSwitch(NormalParser.to(v))
+  DSM.homeHumidifier0.sprayVolume.update = v => homeHumidifier0.setSprayVolume(NormalParser.to(v))
+  DSM.light1.relativeBrightness.update = v => light1.setRelativeBrightness(NormalParser.to(v))
+  DSM.light1.colorTemperature.update = v => light1.setColorTemperature(NormalParser.to(v))
 
   // Init properties
-  DSM.humanBodySensor0.existStatus.setRemoteValue((await humanBodySensor0.getExistStatus()).value)
-  DSM.light1.switch.setRemoteValue((await light1.getSwitch()).value)
+  DSM.homeHumidifier0.sprayVolume.setRemoteValue((await homeHumidifier0.getSprayVolume()).value)
+  DSM.light1.relativeBrightness.setRemoteValue((await light1.getRelativeBrightness()).value)
+  DSM.light1.colorTemperature.setRemoteValue((await light1.getColorTemperature()).value)
+  DSM.doorAndWindowSensor2.status.setRemoteValue((await doorAndWindowSensor2.getStatus()).value)
 
   // Init remote receive
-  humanBodySensor0.subscribe(data => {
-    data.existStatus = NormalParser.from(data.existStatus)
-    DSM.humanBodySensor0.existStatus.setRemoteValue(data.existStatus)
+  homeHumidifier0.subscribe(data => {
+    data.sprayVolume = NormalParser.from(data.sprayVolume)
+    DSM.homeHumidifier0.sprayVolume.setRemoteValue(data.sprayVolume)
   })
   light1.subscribe(data => {
-    data.switch = NormalParser.from(data.switch)
-    DSM.light1.switch.setRemoteValue(data.switch)
+    data.relativeBrightness = NormalParser.from(data.relativeBrightness)
+    DSM.light1.relativeBrightness.setRemoteValue(data.relativeBrightness)
+  })
+  light1.subscribe(data => {
+    data.colorTemperature = NormalParser.from(data.colorTemperature)
+    DSM.light1.colorTemperature.setRemoteValue(data.colorTemperature)
+  })
+  doorAndWindowSensor2.subscribe(data => {
+    data.status = NormalParser.from(data.status)
+    DSM.doorAndWindowSensor2.status.setRemoteValue(data.status)
   })
 }
 
 // Main function
 async function main(): Promise<void> {
   // Edges property bind
-  
+  DSM.homeHumidifier0.sprayVolume.addListener(value => {
+    value = new DpParser(DSM.homeHumidifier0.sprayVolume, DSM.light1.relativeBrightness).convert(value)
+    mlog(' ├ @BIND light1.relativeBrightness changed-to', value)
+    DSM.light1.relativeBrightness.setLocalValue(value, From.Local)
+  })
+  DSM.doorAndWindowSensor2.status.addListener(value => {
+    value = new DpParser(DSM.doorAndWindowSensor2.status, DSM.light1.colorTemperature).convert(value)
+    mlog(' ├ @BIND light1.colorTemperature changed-to', value)
+    DSM.light1.colorTemperature.setLocalValue(value, From.Local)
+  })
 
   // Logic code
-  DSM.humanBodySensor0.existStatus.addListener(async v => {
-    mlog(' ├ @EVENT CHANGE humanBodySensor0.existStatus changed-to', v)
-    mlog(' ├ @EQUIP-PDO SET_VALUE logic1.B1 set as number')
-    DSM.logic1.B1.setValue(
-      mlog(' ├ @EQUIP-PDS VALUE humanBodySensor0.existStatus as number')
-      || DSM.humanBodySensor0.existStatus.getLocalValue()
-    )
-  })
   
-  DSM.logic1.B1.addListener(async v => {
-    mlog(' ├ @EVENT CHANGE logic1.B1 changed-to', v)
-    mlog(' ├ @EQUIP-PDO SET_VALUE light1.switch set as number')
-    DSM.light1.switch.setLocalValue(
-      mlog(' ├ @EQUIP-PDS VALUE logic1.B1 as number')
-      || DSM.logic1.B1.getValue()
-    )
-  })
 }
 
