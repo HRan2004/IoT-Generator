@@ -9,25 +9,39 @@ import java.util.zip.ZipOutputStream
 
 object ZipUtils {
 
-    fun zip(fromDirPath: String, outputPath: String) {
-        val files = listAllFiles(File(fromDirPath))
-        val fos = FileOutputStream(outputPath)
+    fun zip(folderPath: String, zipFilePath: String) {
+        val sourceFolder = File(folderPath)
+        val zipFile = File(zipFilePath)
+
+        val fos = FileOutputStream(zipFile)
         val zos = ZipOutputStream(fos)
-        for (file in files) {
-            val fis = FileInputStream(file)
-            val bis = BufferedInputStream(fis)
-            val entry = ZipEntry(file.name)
-            zos.putNextEntry(entry)
-            val buffer = ByteArray(1024)
-            var read = 0
-            while (bis.read(buffer).also { read = it } != -1) {
-                zos.write(buffer, 0, read)
-            }
-            bis.close()
-            fis.close()
-        }
+
+        compressFolder(sourceFolder, "", zos)
+
         zos.close()
         fos.close()
+    }
+
+    private fun compressFolder(folder: File, parentEntryPath: String, zos: ZipOutputStream) {
+        val files = folder.listFiles() ?: return
+
+        for (file in files) {
+            if (file.isDirectory) {
+                compressFolder(file, "$parentEntryPath${file.name}/", zos)
+            } else {
+                val buffer = ByteArray(1024)
+                val fis = FileInputStream(file)
+                zos.putNextEntry(ZipEntry("$parentEntryPath${file.name}"))
+
+                var length: Int
+                while (fis.read(buffer).also { length = it } > 0) {
+                    zos.write(buffer, 0, length)
+                }
+
+                zos.closeEntry()
+                fis.close()
+            }
+        }
     }
 
     fun listAllFiles(dir: File): List<File> {

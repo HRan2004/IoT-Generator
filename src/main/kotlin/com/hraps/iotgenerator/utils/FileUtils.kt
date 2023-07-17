@@ -1,6 +1,8 @@
 package com.hraps.iotgenerator.utils
 
 import java.io.*
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
 
 object FileUtils {
 
@@ -16,36 +18,36 @@ object FileUtils {
         }
     }
 
-    fun copyFolder(sourcePath: String, destinationPath: String): Boolean {
-        val source = File(sourcePath)
-        val destination = File(destinationPath)
+    fun copyFolder(sourcePath: String, destinationPath: String) {
+        val sourceFile = File(sourcePath)
+        val destinationFile = File(destinationPath)
 
-        if (!source.exists() || !source.isDirectory) {
-            return false
+        if (!sourceFile.exists()) {
+            return
+        }
+        if (destinationFile.exists()) {
+            destinationFile.deleteRecursively()
         }
 
-        if (destination.exists()) {
-            destination.deleteRecursively()
-        }
+        copyFolderRecursive(sourceFile, destinationFile)
+    }
 
-        try {
+    fun copyFolderRecursive(source: File, destination: File) {
+        if (source.isDirectory) {
             if (!destination.exists()) {
-                destination.mkdirs()
+                destination.mkdir()
             }
 
-            val files = source.list() ?: return false
-
-            for (file in files) {
-                val srcFile = File(source, file)
-                val destFile = File(destination, file)
-                copyFolder(srcFile.path, destFile.path)
+            val files = source.listFiles()
+            if (files != null) {
+                for (file in files) {
+                    val newDestination = File(destination, file.name)
+                    copyFolderRecursive(file, newDestination)
+                }
             }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            return false
+        } else {
+            Files.copy(source.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING)
         }
-
-        return true
     }
 
     fun read(path: String): String {

@@ -3,6 +3,7 @@ package com.hraps.iotgenerator.controller
 import com.alibaba.fastjson2.JSONObject
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.hraps.iotgenerator.generate.DoGenerate
 import com.hraps.iotgenerator.generate.TaskData
 import com.hraps.iotgenerator.service.GenerateService
 import com.hraps.iotgenerator.utils.FileUtils
@@ -48,7 +49,7 @@ class TaskController {
 
     @GetMapping("/api/download/{id}.zip", produces = [MediaType.APPLICATION_OCTET_STREAM_VALUE])
     fun getFile(@PathVariable id: String): ResponseEntity<FileSystemResource> {
-        val file = File("$id.zip")
+        val file = File("${DoGenerate.STORAGE_PATH}\\$id.zip")
         if (!file.exists()) {
             return ResponseEntity.notFound().build()
         }

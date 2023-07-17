@@ -16,7 +16,7 @@ object DoGenerate {
 
     const val BASE_PATH = "C:\\Projects\\IoT-Generator\\src\\main"
 //    const val BASE_PATH = "C:\\Users\\21257\\Documents\\GitHub\\IoT-Generator\\src\\main"
-    const val STORAGE_PATH = "C:\\Projects\\Iot-Storage"
+    const val STORAGE_PATH = "C:\\Projects\\Iot-Storage\\projects"
 
     const val TEST_PATH = "$BASE_PATH\\kotlin\\com\\hraps\\iotgenerator\\generate\\test"
     const val TEMPLATE_PATH = "$BASE_PATH\\typescript\\template"
@@ -51,6 +51,8 @@ object DoGenerate {
         ZipUtils.zip("$COMPILE_PATH\\dist", "$BASE_PATH\\python\\IoT-Ci\\upload\\app.zip")
         val id = "P" + Date().time.toString().substring(2)
         if (DEBUG_MODE) {
+            val folder = File(STORAGE_PATH)
+            if (!folder.exists()) folder.mkdirs()
             FileUtils.copyFile("$BASE_PATH\\python\\IoT-Ci\\upload\\app.zip", "$STORAGE_PATH\\$id.zip")
         }
         return id
