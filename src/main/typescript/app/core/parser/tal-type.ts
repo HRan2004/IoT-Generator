@@ -41,6 +41,17 @@ export default class TalType {
   indexInOptions(value: string): number {
     return this.options.indexOf(value)
   }
+  
+  toCtText(): string {
+    let text = this.type.toString()
+    if (this.isNumber() && this.hadRange()) {
+      text += `:${this.range[0]},${this.range[1]}`
+      if (this.range[2] !== 1) text += `,${this.range[2]}`
+    } else if (this.type === DataType.STRING && this.hadOptions()) {
+      text += `:${this.options.join(',')}`
+    }
+    return text
+  }
 }
 
 export class DataType {
