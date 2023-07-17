@@ -8,15 +8,17 @@ import com.hraps.iotgenerator.generate.TaskData
 import com.hraps.iotgenerator.utils.FileUtils
 import java.io.File
 
-object Options {
+private object Options {
+    // 路径配置
     const val TASK_FILE = "${DoGenerate.TEST_PATH}\\tasks\\project4.json"
     const val OUTPUT_FILE = "${DoGenerate.TEST_PATH}\\result\\app.zip"
     const val DATA_PATH = "${DoGenerate.TEST_PATH}\\data.json"
 
+    // 分步调试控制
     const val USE_DATA_GENERATE = true
     const val USE_CODE_GENERATE = true
-    const val USE_COMPILE = true
-    const val USE_ZIP = true
+    const val USE_COMPILE = false
+    const val USE_ZIP = false
 }
 
 fun main() {

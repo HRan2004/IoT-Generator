@@ -1,7 +1,7 @@
 import Property, {From} from "./core/property";
 import LogicProperty from "./core/logic-property";
 import NormalParser from "./core/parser/normal-parser";
-import DpParser from "./core/parser/dp-parser";
+import DpParser from "./core/parser/g-parser";
 import {PDO, PDS, Queue, HaveNotSupport, mlog} from "./core/utils";
 
 let DSM: any = {} // Double State Manager

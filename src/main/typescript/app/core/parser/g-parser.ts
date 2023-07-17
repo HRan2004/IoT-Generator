@@ -1,6 +1,6 @@
 import Property from "../property";
 
-export default class DpParser {
+export default class GParser {
   from: Property
   to: Property
   
@@ -9,7 +9,7 @@ export default class DpParser {
     this.to = to
   }
   
-  parse(value: any): any {
+  convert(value: any): any {
     return value
   }
 }
