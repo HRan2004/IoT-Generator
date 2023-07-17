@@ -61,7 +61,7 @@ export class DataType {
         return DataType.INT
       case 'float':
         return DataType.FLOAT
-      case 'bool':
+      case 'boolean':
         return DataType.BOOLEAN
       case 'string':
         return DataType.STRING

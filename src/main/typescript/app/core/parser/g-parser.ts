@@ -76,6 +76,8 @@ export default class GParser {
           } else {
             value = value.toString().length > 0 ? this.to.range[1] : this.to.range[0]
           }
+        } else if (this.from.type === DataType.BOOLEAN) {
+          value = value ? this.to.range[1] : this.to.range[0]
         }
       } else {
         if (this.from.isNumber()) {
