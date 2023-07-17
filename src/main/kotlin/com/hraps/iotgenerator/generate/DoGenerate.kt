@@ -8,6 +8,7 @@ import com.hraps.iotgenerator.utils.FileUtils
 import com.hraps.iotgenerator.utils.CommandUtils
 import com.hraps.iotgenerator.utils.ZipUtils
 import java.io.File
+import java.util.Date
 
 object DoGenerate {
 
@@ -15,8 +16,9 @@ object DoGenerate {
 
     const val BASE_PATH = "C:\\Projects\\IoT-Generator\\src\\main"
 //    const val BASE_PATH = "C:\\Users\\21257\\Documents\\GitHub\\IoT-Generator\\src\\main"
-    const val TEST_PATH = "$BASE_PATH\\kotlin\\com\\hraps\\iotgenerator\\generate\\test"
+    const val STORAGE_PATH = "C:\\Projects\\Iot-Storage"
 
+    const val TEST_PATH = "$BASE_PATH\\kotlin\\com\\hraps\\iotgenerator\\generate\\test"
     const val TEMPLATE_PATH = "$BASE_PATH\\typescript\\template"
     const val COMPILE_PATH = "$BASE_PATH\\typescript"
     const val WORK_PATH = "$BASE_PATH\\typescript\\app"
@@ -43,8 +45,15 @@ object DoGenerate {
     }
 
     fun zip(): String {
+        if (DEBUG_MODE) {
+            FileUtils.copyFolder("$COMPILE_PATH\\app", "$COMPILE_PATH\\dist\\app")
+        }
         ZipUtils.zip("$COMPILE_PATH\\dist", "$BASE_PATH\\python\\IoT-Ci\\upload\\app.zip")
-        return "Success"
+        val id = "P" + Date().time.toString().substring(2)
+        if (DEBUG_MODE) {
+            FileUtils.copyFile("$BASE_PATH\\python\\IoT-Ci\\upload\\app.zip", "$STORAGE_PATH\\$id.zip")
+        }
+        return id
     }
 
     fun compileAndZipByPython() {
@@ -165,9 +174,9 @@ object DoGenerate {
             println("Work path not exists.")
             return
         }
-        FileUtils.copyFileNew("$TEMPLATE_PATH\\index.ts.txt", "$WORK_PATH\\index.ts")
-        FileUtils.copyFileNew("$TEMPLATE_PATH\\data.ts.txt", "$WORK_PATH\\data.ts")
-        FileUtils.copyFileNew("$TEMPLATE_PATH\\index.html.txt", "$WORK_PATH\\public\\index.html")
+        FileUtils.copyFile("$TEMPLATE_PATH\\index.ts.txt", "$WORK_PATH\\index.ts")
+        FileUtils.copyFile("$TEMPLATE_PATH\\data.ts.txt", "$WORK_PATH\\data.ts")
+        FileUtils.copyFile("$TEMPLATE_PATH\\index.html.txt", "$WORK_PATH\\public\\index.html")
     }
 
 }

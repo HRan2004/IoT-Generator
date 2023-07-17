@@ -4,27 +4,7 @@ import java.io.*
 
 object FileUtils {
 
-    fun copyFile(from: String, to: String): Boolean {
-        try {
-            val fromFile = File(from)
-            val toFile = File(to)
-            if (!fromFile.exists()) {
-                println("File not exists: $from")
-                return false
-            }
-            while (toFile.exists()) {
-                toFile.delete()
-            }
-            fromFile.copyTo(toFile)
-            return true
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-        }
-        return false
-    }
-
-    fun copyFileNew(srcPath: String, dstPath: String) {
+    fun copyFile(srcPath: String, dstPath: String) {
         File(srcPath).runCatching {
             takeIf { it.exists() }?.inputStream()?.use { inputStream ->
                 File(dstPath).outputStream().use { outputStream ->
@@ -34,6 +14,38 @@ object FileUtils {
         }.onFailure {
             it.printStackTrace()
         }
+    }
+
+    fun copyFolder(sourcePath: String, destinationPath: String): Boolean {
+        val source = File(sourcePath)
+        val destination = File(destinationPath)
+
+        if (!source.exists() || !source.isDirectory) {
+            return false
+        }
+
+        if (destination.exists()) {
+            destination.deleteRecursively()
+        }
+
+        try {
+            if (!destination.exists()) {
+                destination.mkdirs()
+            }
+
+            val files = source.list() ?: return false
+
+            for (file in files) {
+                val srcFile = File(source, file)
+                val destFile = File(destination, file)
+                copyFolder(srcFile.path, destFile.path)
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return false
+        }
+
+        return true
     }
 
     fun read(path: String): String {

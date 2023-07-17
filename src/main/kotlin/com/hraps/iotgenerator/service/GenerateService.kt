@@ -18,8 +18,8 @@ class GenerateService {
         result = DoGenerate.compile()
         println("Compile result: $result")
         result = DoGenerate.zip()
-        println("Zip result: $result")
-        return "Success"
+        println("Zip result: Success $result")
+        return result
     }
 
 }
