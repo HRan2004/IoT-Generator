@@ -74,7 +74,7 @@ object DoGenerate {
         var initProperties = emptyArray<String>()
         var initRemoteReceive = emptyArray<String>()
         var logicCodes = emptyArray<String>()
-        var l2lCodes = emptyArray<String>()
+//        var l2lCodes = emptyArray<String>()
 
         for (device in task.devices) {
             deviceVarCreate += "const ${device.vn}: ${device.tal}"
@@ -128,7 +128,7 @@ object DoGenerate {
         text = text.replace("/* GENERATE INIT PROPERTIES */", initProperties.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT REMOTE RECEIVE */", initRemoteReceive.joinToString("\n  "))
         text = text.replace("/* GENERATE LOGIC CODE */", logicCodes.joinToString("\n  ").trim())
-        text = text.replace("/* GENERATE L2L BIND CODE */", l2lCodes.joinToString("\n  ").trim())
+//        text = text.replace("/* GENERATE L2L BIND CODE */", l2lCodes.joinToString("\n  ").trim())
 
         var edgesPropertyBind = emptyArray<String>()
         for (edge in task.edges) {
@@ -138,6 +138,7 @@ object DoGenerate {
             val targetProperty = task.properties.find { it.tal == edge.target.property && it.device == targetDevice.tal } ?: continue
             edgesPropertyBind += "DSM.${sourceDevice.vn}.${sourceProperty.tal}.addListener(value => {\n" +
                 "    value = new DpParser(DSM.${sourceDevice.vn}.${sourceProperty.tal}, DSM.${targetDevice.vn}.${targetProperty.tal}).parse(value)\n" +
+                "    mlog(' ├ @BIND ${targetDevice.vn}.${targetProperty.tal} changed-to', value)\n" +
                 "    DSM.${targetDevice.vn}.${targetProperty.tal}.setLocalValue(value, From.Local)\n" +
                 "  })"
         }

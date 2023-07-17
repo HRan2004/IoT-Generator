@@ -81,8 +81,5 @@ async function main(): Promise<void> {
       || DSM.logic1.B1.getValue()
     )
   })
-
-  // L2L bind code
-  
 }
 
