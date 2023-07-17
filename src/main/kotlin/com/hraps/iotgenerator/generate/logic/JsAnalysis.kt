@@ -12,9 +12,10 @@ object JsAnalysis {
 
     fun analysis(code: String): JSONObject {
         val engine = ScriptEngineManager().getEngineByName("JavaScript")
-        engine.eval(FileReader(DoGenerate.BASE_PATH + "${File.separator}analysis${File.separator}analysis.js"))
+        val ANALYSIS_PATH = "${DoGenerate.BASE_PATH}${File.separator}analysis${File.separator}"
+        engine.eval(FileReader("${ANALYSIS_PATH}analysis.js"))
         val invocable = engine as Invocable
-        return JSONObject.parseObject(invocable.invokeFunction("parseJs", code).toString())
+        return JSONObject.parseObject(invocable.invokeFunction("parseJs", "${ANALYSIS_PATH}esprima.js", code).toString())
     }
 
     fun recursionGetCalls(obj: JSONObject, calls: MutableList<JSONObject> = mutableListOf(), level: Int = 0): MutableList<JSONObject> {

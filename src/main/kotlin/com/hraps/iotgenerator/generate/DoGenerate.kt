@@ -13,8 +13,8 @@ import java.util.Date
 object DoGenerate {
 
     const val DEBUG_MODE = true
-    val BASE_PATH = "C:${File.separator}Projects${File.separator}IoT-Storage"
-//    const val BASE_PATH = "/root/iot/IoT-Storage"
+//    val BASE_PATH = "C:${File.separator}Projects${File.separator}IoT-Storage"
+    val BASE_PATH = "/root/iot/IoT-Storage"
 
     val STORAGE_PATH = "$BASE_PATH${File.separator}storage"
     val COMPILE_PATH = "$BASE_PATH${File.separator}typescript"
@@ -43,9 +43,9 @@ object DoGenerate {
     }
 
     fun zip(): String {
-        if (DEBUG_MODE) {
-            FileUtils.copyFolder("$COMPILE_PATH${File.separator}app", "$COMPILE_PATH${File.separator}dist${File.separator}app")
-        }
+        // if (DEBUG_MODE) {
+        //     FileUtils.copyFolder("$COMPILE_PATH${File.separator}app", "$COMPILE_PATH${File.separator}dist${File.separator}app")
+        // }
         ZipUtils.zip("$COMPILE_PATH${File.separator}dist", "$BASE_PATH${File.separator}python${File.separator}IoT-Ci${File.separator}upload${File.separator}app.zip")
         val id = "P" + Date().time.toString().substring(2)
         if (DEBUG_MODE) {
