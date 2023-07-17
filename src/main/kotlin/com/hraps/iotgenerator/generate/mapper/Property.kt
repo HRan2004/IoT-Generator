@@ -1,14 +1,12 @@
 package com.hraps.iotgenerator.generate.mapper
 
-import com.jeejio.xiaomi.general.tal.input.TalInputType
-
 class Property (
     val device: String = "",
     val name: String = "",
     val tal: String = "",
+    val type: TalType = TalType(),
 
     val permission: String = "rwn",
-    val talType: TalInputType = TalInputType.ANY,
 
     var range: FloatArray = floatArrayOf(),
     var options: Array<String> = arrayOf(),
