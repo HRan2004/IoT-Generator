@@ -17,9 +17,9 @@ object DeviceAndPortMap {
                 Property("Light", "夜间模式", "nightMode", TalType().fromText("boolean")),
                 Property("Light", "护眼模式", "eyeProtectionMode", TalType().fromText("boolean")),
                 Property("Light", "RGB值", "RGB", TalType().fromText("object")),
-                Property("Light", "额定功率", "ratedPower", TalType().fromText(""), "rn"),
+                Property("Light", "额定功率", "ratedPower", TalType().fromText("float:0,1000,0.1"), "rn"),
                 Property("Light", "呼吸灯模式", "breathingLightMode", TalType().fromText("boolean"), "rwn"),
-                Property("Light", "断电记忆是否开启", "powerOffMemory", TalType().fromText(""), "rwn"),
+                Property("Light", "断电记忆开关", "powerOffMemory", TalType().fromText("boolean"), "rwn"),
 
 //                Property("Light", "开关渐变", "", TalType().fromText(""), "rwn"),
 //                Property("Light", "场景模式", "", TalType().fromText(""), "rwn"),
@@ -61,13 +61,15 @@ object DeviceAndPortMap {
             arrayOf(
                 Property("HumanBodySensor", "存在状态", "existStatus", TalType().fromText("boolean"), "rn"),
                 Property("HumanBodySensor", "指示灯开关", "indicatorSwitch", TalType().fromText("boolean"), "rwn"),
-                Property("HumanBodySensor", "报警条件", "alarmSwitch", TalType().fromText("boolean"), "rwn"),
-                Property("HumanBodySensor", "报警状态", "", TalType().fromText("boolean"), "rn"),
+                Property("HumanBodySensor", "报警条件", "alarmCondition", TalType().fromText("boolean"), "rn"),
+                Property("HumanBodySensor", "报警开关", "alarmSwitch", TalType().fromText("boolean"), "rwn"),
                 Property("HumanBodySensor", "蜂鸣器开关", "buzzerSwitch", TalType().fromText("boolean"), "rwn"),
-                Property("HumanBodySensor", "触发延时（有人）", "", TalType().fromText(""), "rwn"),
-                Property("HumanBodySensor", "触发延时（无人）", "", TalType().fromText(""), "rwn"),
-                Property("HumanBodySensor", "最小触发距离", "", TalType().fromText(""), "rwn"),
-                Property("HumanBodySensor", "最大触发距离", "", TalType().fromText(""), "rwn"),
+                Property("HumanBodySensor", "触发延时（有人）", "existDelayedTime",    TalType().fromText("int:0,3600"), "rwn"),
+                Property("HumanBodySensor", "触发延时（无人）", "notExistDelayedTime", TalType().fromText("int:0,3600"), "rwn"),
+                Property("HumanBodySensor", "最小触发距离", "minTriggerDistance", TalType().fromText("int:0,1000"), "rwn"),
+                Property("HumanBodySensor", "最大触发距离", "maxTriggerDistance", TalType().fromText("int:0,1000"), "rwn"),
+                Property("HumanBodySensor", "光照度", "illuminationStrength", TalType().fromText("int:0,10000"), "rn"),
+                Property("HumanBodySensor", "当前距离", "distance", TalType().fromText("int:0,1000"), "rn"),
             ),
         )
         data += DapmItem(
@@ -75,11 +77,11 @@ object DeviceAndPortMap {
             "DoorAndWindowSensor",
             arrayOf(
                 Property("DoorAndWindowSensor", "门窗状态", "status", TalType().fromText("boolean"), "rn"),
-                Property("DoorAndWindowSensor", "灵敏度", "", TalType().fromText(""), "rwn"),
-                Property("DoorAndWindowSensor", "超时未关报警开关", "", TalType().fromText(""), "rwn"),
-                Property("DoorAndWindowSensor", "超时时间", "", TalType().fromText(""), "rwn"),
-                Property("DoorAndWindowSensor", "解除防拆报警", "", TalType().fromText(""), "rwn"),
-                Property("DoorAndWindowSensor", "防拆报警", "", TalType().fromText(""), "rn"),
+                Property("DoorAndWindowSensor", "灵敏度", "sensitivity", TalType().fromText("string:HIGH,MIDDLE,LOW"), "rwn"),
+                Property("DoorAndWindowSensor", "超时未关报警开关", "timeoutAlarmSwitch", TalType().fromText("boolean"), "rwn"),
+                Property("DoorAndWindowSensor", "超时时间", "timeoutTime", TalType().fromText("int:0,86400"), "rwn"),
+                Property("DoorAndWindowSensor", "解除防拆报警", "preventRemoveAlarm", TalType().fromText("none"), "wn"),
+                Property("DoorAndWindowSensor", "防拆报警", "preventRemoveAlarm", TalType().fromText("boolean"), "rn"),
             ),
         )
     }
