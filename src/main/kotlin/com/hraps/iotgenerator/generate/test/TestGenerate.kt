@@ -21,7 +21,7 @@ private object Options {
     const val USE_ZIP = true
 }
 
-fun test() {
+fun main() {
     if (Options.USE_DATA_GENERATE) {
         val jsonText = FileUtils.read(Options.TASK_FILE)
         val data = TaskData(JSONObject.parseObject(jsonText))
