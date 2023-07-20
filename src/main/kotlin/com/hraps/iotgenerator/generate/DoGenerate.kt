@@ -59,7 +59,7 @@ object DoGenerate {
             val p = File.separator
             FileUtils.copyFile("$BASE_PATH${p}python${p}IoT-Ci${p}upload${p}app.zip", "$STORAGE_PATH${p}$id.zip")
             FileUtils.copyFile("$BASE_PATH${p}typescript${p}dist${p}index.js", "$STORAGE_PATH${p}$id.js")
-            FileUtils.copyFile("$BASE_PATH${p}typescript${p}app${p}index.js", "$STORAGE_PATH${p}$id.ts")
+            FileUtils.copyFile("$BASE_PATH${p}typescript${p}app${p}index.ts", "$STORAGE_PATH${p}$id.ts")
         }
         return id
     }

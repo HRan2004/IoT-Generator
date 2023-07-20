@@ -59,6 +59,20 @@ class TaskController {
             .body(resource)
     }
 
+    @GetMapping("/api/download/{id}.js")
+    fun getJsFile(@PathVariable id: String): String {
+        val file = File("${DoGenerate.STORAGE_PATH}${File.separator}$id.js")
+        if (!file.exists()) return ""
+        return file.readText()
+    }
+
+    @GetMapping("/api/download/{id}.ts")
+    fun getTsFile(@PathVariable id: String): String {
+        val file = File("${DoGenerate.STORAGE_PATH}${File.separator}$id.ts")
+        if (!file.exists()) return ""
+        return file.readText()
+    }
+
     @RequestMapping("/ping", method = [RequestMethod.GET])
     fun ping(): Map<String, Any> {
         return mapOf("result" to "Success")

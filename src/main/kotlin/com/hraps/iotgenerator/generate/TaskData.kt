@@ -25,7 +25,7 @@ class TaskData(json: JSONObject) {
             val cell = it as JSONObject
             if (!cell.containsKey("id")) return@map
             val id = cell.getString("id")
-            if (cell.containsKey("shape")) {
+            if (cell.containsKey("shape") && cell.containsKey("ports")) {
                 val shape = cell.getString("shape")
                 val ports = cell.getJSONObject("ports").getJSONArray("items")
                 val data = cell.getJSONObject("data")
