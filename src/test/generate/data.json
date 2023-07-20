@@ -1,0 +1,42 @@
+{
+  "name": "test",
+  "devices": [
+    {
+      "id": "N3",
+      "ports": [
+        {
+          "id": "3-OUT-1",
+          "name": "门窗状态",
+          "left": false,
+          "disable": true,
+          "property": "status"
+        }
+      ],
+      "disable": false,
+      "vn": "doorAndWindowSensor2",
+      "index": 2,
+      "name": "DoorAndWindowSensor",
+      "tal": "DoorAndWindowSensor",
+      "model": ""
+    }
+  ],
+  "edges": [],
+  "logics": [],
+  "properties": [
+    {
+      "device": "DoorAndWindowSensor",
+      "name": "门窗状态",
+      "tal": "status",
+      "type": {
+        "type": "BOOLEAN",
+        "range": [],
+        "options": []
+      },
+      "permission": "rn",
+      "getFunctionName": "getStatus",
+      "setFunctionName": "setStatus"
+    }
+  ],
+  "counter": 3,
+  "logicCounter": 0
+}

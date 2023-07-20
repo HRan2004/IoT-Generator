@@ -12,14 +12,19 @@ import java.util.Date
 
 object DoGenerate {
 
-    const val DEBUG_MODE = true
-//    val BASE_PATH = "C:${File.separator}Projects${File.separator}IoT-Storage"
-    val BASE_PATH = "/root/iot/IoT-Storage"
+    var DEBUG_MODE = true
+//    var BASE_PATH = "C:\\Projects\\IoT-Storage"
+    var BASE_PATH = "/root/iot/IoT-Storage"
 
-    val STORAGE_PATH = "$BASE_PATH${File.separator}storage"
-    val COMPILE_PATH = "$BASE_PATH${File.separator}typescript"
-    val TEMPLATE_PATH = "$COMPILE_PATH${File.separator}template"
-    val WORK_PATH = "$COMPILE_PATH${File.separator}app"
+    val STORAGE_PATH
+        get() = "$BASE_PATH${File.separator}storage"
+    private val COMPILE_PATH
+        get() = "$BASE_PATH${File.separator}typescript"
+    private val TEMPLATE_PATH
+        get() = "$COMPILE_PATH${File.separator}template"
+    private val WORK_PATH
+        get() = "$COMPILE_PATH${File.separator}app"
+
 
     private val gsonPretty = GsonBuilder().setPrettyPrinting().create()
     private val gson = Gson()
@@ -51,7 +56,10 @@ object DoGenerate {
         if (DEBUG_MODE) {
             val folder = File(STORAGE_PATH)
             if (!folder.exists()) folder.mkdirs()
-            FileUtils.copyFile("$BASE_PATH${File.separator}python${File.separator}IoT-Ci${File.separator}upload${File.separator}app.zip", "$STORAGE_PATH${File.separator}$id.zip")
+            val p = File.separator
+            FileUtils.copyFile("$BASE_PATH${p}python${p}IoT-Ci${p}upload${p}app.zip", "$STORAGE_PATH${p}$id.zip")
+            FileUtils.copyFile("$BASE_PATH${p}typescript${p}dist${p}index.js", "$STORAGE_PATH${p}$id.js")
+            FileUtils.copyFile("$BASE_PATH${p}typescript${p}app${p}index.js", "$STORAGE_PATH${p}$id.ts")
         }
         return id
     }
