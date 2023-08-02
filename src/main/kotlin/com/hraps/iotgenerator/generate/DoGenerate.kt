@@ -13,8 +13,8 @@ import java.util.Date
 object DoGenerate {
 
     var DEBUG_MODE = true
-//    var BASE_PATH = "C:\\Projects\\IoT-Storage"
-    var BASE_PATH = "/root/iot/IoT-Storage"
+    var BASE_PATH = "C:\\Projects\\IoT-Storage"
+//    var BASE_PATH = "/root/iot/IoT-Storage"
 
     val STORAGE_PATH
         get() = "$BASE_PATH${File.separator}storage"
@@ -56,10 +56,10 @@ object DoGenerate {
         if (DEBUG_MODE) {
             val folder = File(STORAGE_PATH)
             if (!folder.exists()) folder.mkdirs()
-            val p = File.separator
-            FileUtils.copyFile("$BASE_PATH${p}python${p}IoT-Ci${p}upload${p}app.zip", "$STORAGE_PATH${p}$id.zip")
-            FileUtils.copyFile("$BASE_PATH${p}typescript${p}dist${p}index.js", "$STORAGE_PATH${p}$id.js")
-            FileUtils.copyFile("$BASE_PATH${p}typescript${p}app${p}index.ts", "$STORAGE_PATH${p}$id.ts")
+            val fp = File.separator
+            FileUtils.copyFile("$BASE_PATH${fp}python${fp}IoT-Ci${fp}upload${fp}app.zip", "$STORAGE_PATH${fp}$id.zip")
+            FileUtils.copyFile("$BASE_PATH${fp}typescript${fp}dist${fp}index.js", "$STORAGE_PATH${fp}$id.js")
+            FileUtils.copyFile("$BASE_PATH${fp}typescript${fp}app${fp}index.ts", "$STORAGE_PATH${fp}$id.ts")
         }
         return id
     }

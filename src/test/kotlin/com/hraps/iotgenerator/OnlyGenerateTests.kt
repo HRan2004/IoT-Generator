@@ -11,8 +11,10 @@ import java.io.File
 
 class OnlyGenerateTests {
 
+    val fp = File.separator
+
     private object Options {
-        const val BASE_DEBUG_PATH = ".\\src\\test\\generate"
+        const val BASE_DEBUG_PATH = "src\\test\\generate"
         // 路径配置
         const val TASK_FILE = "${BASE_DEBUG_PATH}\\tasks\\project5.json"
         const val OUTPUT_FILE = "${BASE_DEBUG_PATH}\\result\\app.zip"
