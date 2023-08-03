@@ -22,4 +22,8 @@ class Property (
     fun canNotify(): Boolean {
         return permission.contains("n")
     }
+
+    fun isAction(): Boolean {
+        return permission.contains("a")
+    }
 }

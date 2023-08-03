@@ -80,7 +80,7 @@ object DeviceAndPortMap {
                 Property("DoorAndWindowSensor", "灵敏度", "sensitivity", TalType().fromText("string:HIGH,MIDDLE,LOW"), "rwn"),
                 Property("DoorAndWindowSensor", "超时未关报警开关", "timeoutAlarmSwitch", TalType().fromText("boolean"), "rwn"),
                 Property("DoorAndWindowSensor", "超时时间", "timeoutTime", TalType().fromText("int:0,86400"), "rwn"),
-                Property("DoorAndWindowSensor", "解除防拆报警", "preventRemoveAlarm", TalType().fromText("none"), "wn"),
+                Property("DoorAndWindowSensor", "解除防拆报警", "preventRemoveAlarm", TalType().fromText("none"), "wa"),
                 Property("DoorAndWindowSensor", "防拆报警", "preventRemoveAlarm", TalType().fromText("boolean"), "rn"),
             ),
         )
