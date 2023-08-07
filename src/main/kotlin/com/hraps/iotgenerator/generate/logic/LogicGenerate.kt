@@ -113,7 +113,7 @@ object LogicGenerate {
         var code = if (type == "CONTROL") {
             val v1l = arrayOf("true", "false")
             val v = v1l[ats[2].toInt()]
-            logText += "set as boolean: $v"
+            logText += "set as boolean: ${v.replace("'", "\"")}"
             "DSM.$dp.$set($v)"
         } else if (type == "BOOLEAN" || type == "BOOLEAN_HAD") {
             "DSM.$dp.$get()"
@@ -126,7 +126,7 @@ object LogicGenerate {
         } else if (type == "COMPARE_TEXT") {
             val mode = ats[2].toInt()
             val text = "'${ats[3]}'"
-            logText += "compare-$mode '$text'"
+            logText += "compare-$mode ${text.replace("'", "\"")}"
             if (mode == 0) { // Equal
                 "DSM.$dp.$get() == $text"
             } else if (mode == 1) { // Include
@@ -141,7 +141,7 @@ object LogicGenerate {
             "DSM.$dp.$get() $con $num"
         } else if (type == "SET_VALUE") {
             val toType = arrayOf("number", "string", "time", "date", "boolean")[ats[2].toInt()]
-            logText += "set as $toType: ${ats[3]}"
+            logText += "set as $toType: ${ats[3].replace("'", "\"")}"
             "DSM.$dp.$set(${ats[3]})"
         } else {
             ""
