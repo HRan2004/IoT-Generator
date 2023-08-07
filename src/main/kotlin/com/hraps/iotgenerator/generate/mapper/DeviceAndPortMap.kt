@@ -61,7 +61,7 @@ object DeviceAndPortMap {
             arrayOf(
                 Property("HumanBodySensor", "存在状态", "existStatus", TalType().fromText("boolean"), "rn"),
                 Property("HumanBodySensor", "指示灯开关", "indicatorSwitch", TalType().fromText("boolean"), "rwn"),
-                Property("HumanBodySensor", "报警条件", "alarmCondition", TalType().fromText("boolean"), "rn"),
+                Property("HumanBodySensor", "报警条件", "alarmCondition", TalType().fromText("string:NO_MAN,OCCUPIED"), "rwn"),
                 Property("HumanBodySensor", "报警开关", "alarmSwitch", TalType().fromText("boolean"), "rwn"),
                 Property("HumanBodySensor", "蜂鸣器开关", "buzzerSwitch", TalType().fromText("boolean"), "rwn"),
                 Property("HumanBodySensor", "触发延时（有人）", "existDelayedTime",    TalType().fromText("int:0,3600"), "rwn"),
@@ -78,7 +78,7 @@ object DeviceAndPortMap {
             arrayOf(
                 Property("DoorAndWindowSensor", "门窗状态", "status", TalType().fromText("boolean"), "rn"),
                 Property("DoorAndWindowSensor", "灵敏度", "sensitivity", TalType().fromText("string:HIGH,MIDDLE,LOW"), "rwn"),
-                Property("DoorAndWindowSensor", "超时未关报警开关", "timeoutAlarmSwitch", TalType().fromText("boolean"), "rwn"),
+                Property("DoorAndWindowSensor", "超时未关报警", "timeoutAlarmSwitch", TalType().fromText("boolean"), "rwn"),
                 Property("DoorAndWindowSensor", "超时时间", "timeoutTime", TalType().fromText("int:0,86400"), "rwn"),
                 Property("DoorAndWindowSensor", "解除防拆报警", "preventRemoveAlarm", TalType().fromText("none"), "wa"),
                 Property("DoorAndWindowSensor", "防拆报警", "preventRemoveAlarm", TalType().fromText("boolean"), "rn"),

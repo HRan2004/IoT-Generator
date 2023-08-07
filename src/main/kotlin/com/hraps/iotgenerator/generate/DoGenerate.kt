@@ -13,8 +13,8 @@ import java.util.Date
 object DoGenerate {
 
     var DEBUG_MODE = true
-    var BASE_PATH = "C:\\Projects\\IoT-Storage"
-//    var BASE_PATH = "/root/iot/IoT-Storage"
+//    var BASE_PATH = "C:\\Projects\\IoT-Storage"
+    var BASE_PATH = "/root/iot/IoT-Storage"
 
     val STORAGE_PATH
         get() = "$BASE_PATH${File.separator}storage"
@@ -108,7 +108,7 @@ object DoGenerate {
                     initSetFunction += "DSM.${device.vn}.${port.property}.update = v => ${device.vn}.${property.setFunctionName}(${input})"
                 }
                 if (property.canRead()) {
-                    initProperties += "DSM.${device.vn}.${port.property}.setRemoteValue((await ${device.vn}.${property.getFunctionName}()).value)"
+                    initProperties += "await DSM.${device.vn}.${port.property}.initCurrentValue(${device.vn}.${property.getFunctionName}())"
                 }
                 if (property.canNotify()) {
                     initRemoteReceive += "${device.vn}.subscribe(data => {\n" +
