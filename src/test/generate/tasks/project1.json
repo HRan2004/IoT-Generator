@@ -1,8 +1,9 @@
 {
-  "name": "测试项目",
+  "name": "test",
   "cells": [
     {
-      "id": "c3fd5597-7af7-4eed-a700-89f4ce3db508",
+      "id": "22b3a042-4bef-4c76-89fe-180b54c52596",
+      "shape": "device-edge",
       "source": {
         "cell": "N2",
         "port": "2-OUT-1"
@@ -13,7 +14,8 @@
       }
     },
     {
-      "id": "a171051c-c32c-44d4-843b-9956058c2aca",
+      "id": "465ae7e7-5dc0-450c-9fb4-eda55bc590b0",
+      "shape": "device-edge",
       "source": {
         "cell": "N1",
         "port": "1-OUT-1"
@@ -25,20 +27,21 @@
     },
     {
       "position": {
-        "x": 330,
-        "y": 400
+        "x": 449,
+        "y": 300.9422607421875
       },
       "size": {
-        "width": 208,
-        "height": 112
+        "width": 336,
+        "height": 280
       },
       "view": "react-shape-view",
-      "shape": "device-node",
+      "shape": "logic-node",
       "component": {
         "key": null,
         "ref": null,
         "props": {},
-        "_owner": null
+        "_owner": null,
+        "_store": {}
       },
       "ports": {
         "groups": {
@@ -71,11 +74,8 @@
           {
             "id": "1-IN-1",
             "group": "left",
-            "text": "开关",
+            "text": "A1",
             "attrs": {
-              "circle": {
-                "r": 10
-              },
               "data": {
                 "disable": true
               }
@@ -86,23 +86,20 @@
             "group": "left",
             "text": "+",
             "attrs": {
-              "circle": {
-                "r": 0
+              "rect": {
+                "w": 34,
+                "h": 20
               },
               "data": {
-                "disable": true,
-                "originColor": "rgb(82, 155, 241)"
+                "disable": true
               }
             }
           },
           {
             "id": "1-OUT-1",
             "group": "right",
-            "text": "开关",
+            "text": "B1",
             "attrs": {
-              "circle": {
-                "r": 10
-              },
               "data": {
                 "disable": true,
                 "originColor": "rgb(179, 117, 224)"
@@ -114,8 +111,9 @@
             "group": "right",
             "text": "+",
             "attrs": {
-              "circle": {
-                "r": 0
+              "rect": {
+                "w": 34,
+                "h": 20
               },
               "data": {
                 "disable": true
@@ -126,7 +124,36 @@
       },
       "id": "N1",
       "data": {
-        "device": "Lamp(Home)",
+        "blocks": [
+          {
+            "block": "event_change",
+            "args": [
+              0,
+              {
+                "block": "equipment_control",
+                "args": [
+                  0,
+                  0
+                ],
+                "isSelected": true,
+                "next": true
+              }
+            ],
+            "x": 25,
+            "y": 25
+          }
+        ],
+        "events": [
+          {
+            "key": "CHANGE A1",
+            "code": "PDO('CONTROL', 'B1', 0)\n"
+          }
+        ],
+        "graph": {
+          "isToolbox": false,
+          "isDisable": false,
+          "blocksLength": 1
+        },
         "connecting": null,
         "update": 6
       },
@@ -134,8 +161,8 @@
     },
     {
       "position": {
-        "x": 40,
-        "y": 210
+        "x": 84,
+        "y": 282
       },
       "size": {
         "width": 208,
@@ -147,7 +174,8 @@
         "key": null,
         "ref": null,
         "props": {},
-        "_owner": null
+        "_owner": null,
+        "_store": {}
       },
       "ports": {
         "groups": {
@@ -199,8 +227,7 @@
                 "r": 10
               },
               "data": {
-                "disable": true,
-                "originColor": "rgb(179, 117, 224)"
+                "disable": true
               }
             }
           },
@@ -221,7 +248,7 @@
       },
       "id": "N2",
       "data": {
-        "device": "HumanMotionSensor",
+        "device": "Light",
         "update": 5,
         "connecting": null
       },
@@ -229,8 +256,8 @@
     },
     {
       "position": {
-        "x": 680,
-        "y": 590
+        "x": 902,
+        "y": 302
       },
       "size": {
         "width": 208,
@@ -242,7 +269,8 @@
         "key": null,
         "ref": null,
         "props": {},
-        "_owner": null
+        "_owner": null,
+        "_store": {}
       },
       "ports": {
         "groups": {
@@ -316,7 +344,7 @@
       },
       "id": "N3",
       "data": {
-        "device": "HouseholdHumidifier",
+        "device": "Light",
         "connecting": null,
         "update": 5
       },

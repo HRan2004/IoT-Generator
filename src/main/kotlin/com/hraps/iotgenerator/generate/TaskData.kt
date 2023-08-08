@@ -9,10 +9,10 @@ import com.hraps.iotgenerator.generate.mapper.Property
 class TaskData(json: JSONObject) {
     var name: String = ""
 
-    var devices: Array<Device> = emptyArray()
-    var edges: Array<Edge> = emptyArray()
-    var logics: Array<Logic> = emptyArray()
-    var properties: Array<Property> = emptyArray()
+    var devices: List<Device> = emptyList()
+    var edges: List<Edge> = emptyList()
+    var logics: List<Logic> = emptyList()
+    var properties: List<Property> = emptyList()
 
     // private var counter: HashMap<String, Int> = hashMapOf()
     private var counter = 0
@@ -31,7 +31,7 @@ class TaskData(json: JSONObject) {
                 val data = cell.getJSONObject("data")
                 var disable = false
                 try {
-                    disable = data.getBoolean("disable")
+                    disable = data.getBoolean("isDisable")
                 } catch (_: Exception) {}
                 lateinit var node: Node
                 var talItem: DapmItem? = null
@@ -128,16 +128,47 @@ class TaskData(json: JSONObject) {
                     EdgePoint(targetCell, targetPortKey, getNodeVn(targetNode), targetPort.property),
                     disable
                 )
+            }
+        }
 
-                if (sourceNode is Device && targetNode is Logic) {
-                    targetNode.pdm[targetPort.name] = sourceNode.vn + "." + sourcePort.property
-                } else if (sourceNode is Logic && targetNode is Device) {
-                    sourceNode.pdm[sourcePort.name] = targetNode.vn + "." + targetPort.property
-                } else if (sourceNode is Logic && targetNode is Logic) {
-                    sourceNode.states += sourcePort.name
-                    targetNode.pdm[targetPort.name] = sourceNode.vn + "." + sourcePort.name
-                    sourceNode.pdm[sourcePort.name] = sourceNode.vn + "." + sourcePort.name
+        var ddl = emptyArray<String>()
+        var dpl = emptyArray<String>()
+        devices.map {
+            if (it.disable) {
+                ddl += it.id
+            }
+            it.ports.map {itt ->
+                if (!itt.disable) {
+                    dpl += itt.id
                 }
+            }
+        }
+        edges = edges.filter { !it.disable }
+        edges = edges.filter { !ddl.contains(it.source.cell) && !ddl.contains(it.target.cell) }
+        edges = edges.filter { !dpl.contains(it.source.port) && !dpl.contains(it.target.port) }
+        devices = devices.filter { !it.disable }
+
+        edges.map {eit ->
+            val sourceCellId = eit.source.cell
+            val sourcePortId = eit.source.port
+            val targetCellId = eit.target.cell
+            val targetPortId = eit.target.port
+
+            var sourceCell: Node? = devices.find { it.id == sourceCellId }
+            var targetCell: Node? = devices.find { it.id == targetCellId }
+            if (sourceCell == null) sourceCell = logics.find { it.id == sourceCellId } ?: return@map
+            if (targetCell == null) targetCell = logics.find { it.id == targetCellId } ?: return@map
+            val sourcePort = sourceCell.ports.find { it.id == sourcePortId } ?: return@map
+            val targetPort = targetCell.ports.find { it.id == targetPortId } ?: return@map
+
+            if (sourceCell is Device && targetCell is Logic) {
+                targetCell.pdm[targetPort.name] = sourceCell.vn + "." + sourcePort.property
+            } else if (sourceCell is Logic && targetCell is Device) {
+                sourceCell.pdm[sourcePort.name] = targetCell.vn + "." + targetPort.property
+            } else if (sourceCell is Logic && targetCell is Logic) {
+                sourceCell.states += sourcePort.name
+                targetCell.pdm[targetPort.name] = sourceCell.vn + "." + sourcePort.name
+                sourceCell.pdm[sourcePort.name] = sourceCell.vn + "." + sourcePort.name
             }
         }
     }

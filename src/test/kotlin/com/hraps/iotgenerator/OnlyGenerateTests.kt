@@ -16,7 +16,7 @@ class OnlyGenerateTests {
     private object Options {
         const val BASE_DEBUG_PATH = "src\\test\\generate"
         // 路径配置
-        const val TASK_FILE = "${BASE_DEBUG_PATH}\\tasks\\project5.json"
+        const val TASK_FILE = "${BASE_DEBUG_PATH}\\tasks\\project1.json"
         const val OUTPUT_FILE = "${BASE_DEBUG_PATH}\\result\\app.zip"
         const val DATA_PATH = "${BASE_DEBUG_PATH}\\data.json"
 
@@ -45,7 +45,7 @@ class OnlyGenerateTests {
 
     @Test
     fun testDataGenerate() {
-        if (JUMP_TEST) return
+//        if (JUMP_TEST) return
         println(File(Options.TASK_FILE).absoluteFile)
         val jsonText = FileUtils.read(Options.TASK_FILE)
         val data = TaskData(JSONObject.parseObject(jsonText))

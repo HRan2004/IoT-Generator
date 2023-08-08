@@ -2,41 +2,126 @@
   "name": "test",
   "devices": [
     {
-      "id": "N3",
+      "id": "N2",
       "ports": [
         {
-          "id": "3-OUT-1",
-          "name": "门窗状态",
+          "id": "2-OUT-1",
+          "name": "开关",
           "left": false,
           "disable": true,
-          "property": "status"
+          "property": "switch"
         }
       ],
       "disable": false,
-      "vn": "doorAndWindowSensor2",
-      "index": 2,
-      "name": "DoorAndWindowSensor",
-      "tal": "DoorAndWindowSensor",
+      "vn": "light0",
+      "index": 0,
+      "name": "Light",
+      "tal": "Light",
+      "model": ""
+    },
+    {
+      "id": "N3",
+      "ports": [
+        {
+          "id": "3-IN-1",
+          "name": "开关",
+          "left": true,
+          "disable": true,
+          "property": "switch"
+        }
+      ],
+      "disable": false,
+      "vn": "light1",
+      "index": 1,
+      "name": "Light",
+      "tal": "Light",
       "model": ""
     }
   ],
-  "edges": [],
-  "logics": [],
+  "edges": [
+    {
+      "id": "22b3a042-4bef-4c76-89fe-180b54c52596",
+      "source": {
+        "cell": "N2",
+        "port": "2-OUT-1",
+        "device": "light0",
+        "property": "switch"
+      },
+      "target": {
+        "cell": "N1",
+        "port": "1-IN-1",
+        "device": "Logic",
+        "property": ""
+      },
+      "disable": false
+    },
+    {
+      "id": "465ae7e7-5dc0-450c-9fb4-eda55bc590b0",
+      "source": {
+        "cell": "N1",
+        "port": "1-OUT-1",
+        "device": "Logic",
+        "property": ""
+      },
+      "target": {
+        "cell": "N3",
+        "port": "3-IN-1",
+        "device": "light1",
+        "property": "switch"
+      },
+      "disable": false
+    }
+  ],
+  "logics": [
+    {
+      "id": "N1",
+      "ports": [
+        {
+          "id": "1-IN-1",
+          "name": "A1",
+          "left": true,
+          "disable": true,
+          "property": ""
+        },
+        {
+          "id": "1-OUT-1",
+          "name": "B1",
+          "left": false,
+          "disable": true,
+          "property": ""
+        }
+      ],
+      "disable": false,
+      "vn": "logic0",
+      "index": 0,
+      "events": [
+        {
+          "trigger": "CHANGE A1",
+          "code": "PDO(\u0027CONTROL\u0027, \u0027B1\u0027, 0)\n"
+        }
+      ],
+      "pdm": {
+        "A1": "light0.switch",
+        "B1": "light1.switch"
+      },
+      "states": []
+    }
+  ],
   "properties": [
     {
-      "device": "DoorAndWindowSensor",
-      "name": "门窗状态",
-      "tal": "status",
+      "device": "Light",
+      "name": "开关",
+      "tal": "switch",
       "type": {
         "type": "BOOLEAN",
         "range": [],
         "options": []
       },
-      "permission": "rn",
-      "getFunctionName": "getStatus",
-      "setFunctionName": "setStatus"
+      "permission": "rwn",
+      "getFunctionName": "getSwitch",
+      "setFunctionName": "setSwitch"
     }
   ],
-  "counter": 3,
-  "logicCounter": 0
+  "counter": 2,
+  "logicCounter": 1
 }

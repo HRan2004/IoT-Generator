@@ -2,20 +2,21 @@
   "name": "test",
   "cells": [
     {
-      "id": "d86b9843-9174-42e7-9c55-5ca0b75a4e91",
+      "id": "5672ca86-f3c0-42d0-a16c-662fc9810154",
+      "shape": "device-edge",
       "source": {
-        "cell": "N2",
-        "port": "2-OUT-1"
+        "cell": "N1",
+        "port": "1-OUT-1"
       },
       "target": {
-        "cell": "N1",
-        "port": "1-IN-1"
+        "cell": "N2",
+        "port": "2-IN-1"
       }
     },
     {
       "position": {
-        "x": 900,
-        "y": 540
+        "x": 150,
+        "y": 433
       },
       "size": {
         "width": 208,
@@ -59,19 +60,6 @@
         },
         "items": [
           {
-            "id": "1-IN-1",
-            "group": "left",
-            "text": "开关",
-            "attrs": {
-              "circle": {
-                "r": 10
-              },
-              "data": {
-                "disable": true
-              }
-            }
-          },
-          {
             "id": "1-IN-ADD",
             "group": "left",
             "text": "+",
@@ -80,8 +68,21 @@
                 "r": 0
               },
               "data": {
+                "disable": true
+              }
+            }
+          },
+          {
+            "id": "1-OUT-1",
+            "group": "right",
+            "text": "开关",
+            "attrs": {
+              "circle": {
+                "r": 10
+              },
+              "data": {
                 "disable": true,
-                "originColor": "rgb(82, 155, 241)"
+                "originColor": "rgb(179, 117, 224)"
               }
             }
           },
@@ -102,23 +103,24 @@
       },
       "id": "N1",
       "data": {
-        "device": "Lamp(Home)",
+        "device": "Light",
+        "update": 5,
         "connecting": null,
-        "update": 3
+        "isDisable": false
       },
       "zIndex": 1
     },
     {
       "position": {
-        "x": 130,
-        "y": 290
+        "x": 682,
+        "y": 573
       },
       "size": {
-        "width": 468,
-        "height": 521
+        "width": 208,
+        "height": 112
       },
       "view": "react-shape-view",
-      "shape": "logic-node",
+      "shape": "device-node",
       "component": {
         "key": null,
         "ref": null,
@@ -157,10 +159,14 @@
           {
             "id": "2-IN-1",
             "group": "left",
-            "text": "A1",
+            "text": "开关",
             "attrs": {
+              "circle": {
+                "r": 10
+              },
               "data": {
-                "disable": true
+                "disable": true,
+                "originColor": "rgb(82, 155, 241)"
               }
             }
           },
@@ -169,23 +175,12 @@
             "group": "left",
             "text": "+",
             "attrs": {
-              "rect": {
-                "w": 34,
-                "h": 20
+              "circle": {
+                "r": 0
               },
               "data": {
-                "disable": true
-              }
-            }
-          },
-          {
-            "id": "2-OUT-1",
-            "group": "right",
-            "text": "B1",
-            "attrs": {
-              "data": {
                 "disable": true,
-                "originColor": "rgb(179, 117, 224)"
+                "originColor": "rgb(82, 155, 241)"
               }
             }
           },
@@ -194,9 +189,8 @@
             "group": "right",
             "text": "+",
             "attrs": {
-              "rect": {
-                "w": 34,
-                "h": 20
+              "circle": {
+                "r": 0
               },
               "data": {
                 "disable": true
@@ -207,66 +201,9 @@
       },
       "id": "N2",
       "data": {
-        "blocks": [
-          {
-            "block": "event_start",
-            "args": [
-              {
-                "block": "loop_times",
-                "args": [
-                  "3",
-                  {
-                    "block": "equipment_control",
-                    "args": [
-                      0,
-                      0,
-                      {
-                        "block": "console_sleep",
-                        "args": [
-                          "1",
-                          0,
-                          {
-                            "block": "equipment_control",
-                            "args": [
-                              0,
-                              1,
-                              {
-                                "block": "console_sleep",
-                                "args": [
-                                  "1",
-                                  0
-                                ],
-                                "next": true
-                              }
-                            ],
-                            "next": true
-                          }
-                        ],
-                        "next": true
-                      }
-                    ]
-                  }
-                ],
-                "next": true
-              }
-            ],
-            "x": 71,
-            "y": 65.8267822265625
-          }
-        ],
-        "events": [
-          {
-            "key": "EQUIP_STATE A1 0",
-            "code": "for(let i=0;i<3;i++){\n  PDO('CONTROL', 'B1', 0)\n  sleep(1 * 1000)\n  PDO('CONTROL', 'B1', 1)\n  sleep(1 * 1000)\n}\n"
-          }
-        ],
-        "graph": {
-          "isToolbox": false,
-          "isDisable": false,
-          "blocksLength": 1
-        },
+        "device": "Light",
         "connecting": null,
-        "update": 13
+        "update": 3
       },
       "zIndex": 2
     }

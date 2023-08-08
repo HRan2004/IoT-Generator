@@ -93,7 +93,7 @@ object DoGenerate {
         var dsmLogicInit = emptyArray<String>()
         var initSetFunction = emptyArray<String>()
         var initProperties = emptyArray<String>()
-        var initRemoteReceive = emptyArray<String>()
+        var initRemoteReceive = mutableMapOf<String, Array<String>>()
         var logicCodes = emptyArray<String>()
 //        var l2lCodes = emptyArray<String>()
 
@@ -115,11 +115,13 @@ object DoGenerate {
                     initProperties += "await DSM.${device.vn}.${port.property}.initCurrentValue(${device.vn}.${property.getFunctionName}())"
                 }
                 if (property.canNotify()) {
-                    initRemoteReceive += "${device.vn}.subscribe(data => {\n" +
-                        "    mlog('\\nSubscribe', data)\n" +
-                        "    data.${port.property} = NormalParser.from(data.${port.property})\n" +
-                        "    DSM.${device.vn}.${port.property}.setRemoteValue(data.${port.property})\n" +
-                        "  })"
+                    val v = "    data.${port.property} = NormalParser.from(data.${port.property})\n" +
+                            "    DSM.${device.vn}.${port.property}.setRemoteValue(data.${port.property})\n"
+                    if (initRemoteReceive.containsKey(device.vn)) {
+                        initRemoteReceive[device.vn] = initRemoteReceive[device.vn]!!.plus(v)
+                    } else {
+                        initRemoteReceive[device.vn] = arrayOf(v)
+                    }
                 }
             }
             if (dsmProperties.isNotEmpty()) {
@@ -143,13 +145,21 @@ object DoGenerate {
                 dsmLogicInit += "DSM.${logic.vn} = {\n    ${dsmProperties.joinToString("\n    ")}\n  }"
             }
         }
+        var initRemoteReceiveFinal = emptyArray<String>()
+        initRemoteReceive.map { (k, v) ->
+            var rr = "$k.subscribe(data => {\n" +
+                    "    subscribeLog('$k', data)\n"
+            v.map {rr += it }
+            rr += "  })"
+            initRemoteReceiveFinal += rr
+        }
         text = text.replace("/* GENERATE DEVICE VAR CREATE */", deviceVarCreate.joinToString("\n"))
         text = text.replace("/* GENERATE DEVICE INIT */", deviceInit.joinToString("\n"))
         text = text.replace("/* GENERATE DSM INIT */", dsmInit.joinToString("\n  "))
         text = text.replace("/* GENERATE DSM LOGIC INIT */", dsmLogicInit.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT SET FUNCTION */", initSetFunction.joinToString("\n  "))
         text = text.replace("/* GENERATE INIT PROPERTIES */", initProperties.joinToString("\n  "))
-        text = text.replace("/* GENERATE INIT REMOTE RECEIVE */", initRemoteReceive.joinToString("\n  "))
+        text = text.replace("/* GENERATE INIT REMOTE RECEIVE */", initRemoteReceiveFinal.joinToString("\n  "))
         text = text.replace("/* GENERATE LOGIC CODE */", logicCodes.joinToString("\n  ").trim())
 //        text = text.replace("/* GENERATE L2L BIND CODE */", l2lCodes.joinToString("\n  ").trim())
 
