@@ -13,8 +13,12 @@ import java.util.Date
 object DoGenerate {
 
     var DEBUG_MODE = true
-//    var BASE_PATH = "C:\\Projects\\IoT-Storage"
-    var BASE_PATH = "/root/iot/IoT-Storage"
+
+    var BASE_PATH = if (System.getProperty("os.name").contains("Windows")) {
+        "C:\\Projects\\IoT-Storage"
+    } else {
+        "/root/iot/IoT-Storage"
+    }
 
     val STORAGE_PATH
         get() = "$BASE_PATH${File.separator}storage"
@@ -112,6 +116,7 @@ object DoGenerate {
                 }
                 if (property.canNotify()) {
                     initRemoteReceive += "${device.vn}.subscribe(data => {\n" +
+                        "    mlog('\\nSubscribe', data)\n" +
                         "    data.${port.property} = NormalParser.from(data.${port.property})\n" +
                         "    DSM.${device.vn}.${port.property}.setRemoteValue(data.${port.property})\n" +
                         "  })"

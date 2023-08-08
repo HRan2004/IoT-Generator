@@ -99,6 +99,7 @@ object LogicGenerate {
         val dp = getDpByI(1)
         if (dp.isEmpty()) return ""
         val ats = getArgTexts()
+        println(ats)
         val type = ats[0].substring(1, ats[0].length - 1)
 
         var get = "getLocalValue"
@@ -140,7 +141,7 @@ object LogicGenerate {
             logText += "$con $num"
             "DSM.$dp.$get() $con $num"
         } else if (type == "SET_VALUE") {
-            val toType = arrayOf("number", "string", "time", "date", "boolean")[ats[2].toInt()]
+            val toType = arrayOf("number", "string", "time", "date", "object")[ats[2].toInt()]
             logText += "set as $toType: ${ats[3].replace("'", "\"")}"
             "DSM.$dp.$set(${ats[3]})"
         } else {

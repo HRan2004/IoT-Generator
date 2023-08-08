@@ -32,8 +32,11 @@ class OnlyGenerateTests {
         DoGenerate.BASE_PATH = "C:\\Projects\\IoT-Storage"
     }
 
+    private val JUMP_TEST = true
+
     @Test
     fun testAll() {
+        if (JUMP_TEST) return
         if (Options.USE_DATA_GENERATE) testDataGenerate()
         if (Options.USE_CODE_GENERATE) testCodeGenerate()
         if (Options.USE_COMPILE) testCompile()
@@ -42,6 +45,7 @@ class OnlyGenerateTests {
 
     @Test
     fun testDataGenerate() {
+        if (JUMP_TEST) return
         println(File(Options.TASK_FILE).absoluteFile)
         val jsonText = FileUtils.read(Options.TASK_FILE)
         val data = TaskData(JSONObject.parseObject(jsonText))
@@ -52,6 +56,7 @@ class OnlyGenerateTests {
 
     @Test
     fun testCodeGenerate() {
+        if (JUMP_TEST) return
         val data = Gson().fromJson(FileUtils.read(Options.DATA_PATH), TaskData::class.java)
         val result = DoGenerate.generate(data)
         println("Code generate: $result")
@@ -59,12 +64,14 @@ class OnlyGenerateTests {
 
     @Test
     fun testCompile() {
+        if (JUMP_TEST) return
         val result = DoGenerate.compile()
         println("Compile result: $result")
     }
 
     @Test
     fun testZip() {
+        if (JUMP_TEST) return
         val result = DoGenerate.zip()
         println("Zip result: $result")
     }

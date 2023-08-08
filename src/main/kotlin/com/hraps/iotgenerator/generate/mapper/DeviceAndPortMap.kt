@@ -20,6 +20,7 @@ object DeviceAndPortMap {
                 Property("Light", "额定功率", "ratedPower", TalType().fromText("float:0,1000,0.1"), "rn"),
                 Property("Light", "呼吸灯模式", "breathingLightMode", TalType().fromText("boolean"), "rwn"),
                 Property("Light", "断电记忆开关", "powerOffMemory", TalType().fromText("boolean"), "rwn"),
+                Property("Light", "渐变开关", "switchingGradient", TalType().fromText("boolean"), "rwn"),
 
 //                Property("Light", "开关渐变", "", TalType().fromText(""), "rwn"),
 //                Property("Light", "场景模式", "", TalType().fromText(""), "rwn"),
