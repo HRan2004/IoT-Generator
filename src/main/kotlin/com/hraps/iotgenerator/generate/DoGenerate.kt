@@ -173,6 +173,7 @@ object DoGenerate {
 
             val pid = bindParserCounter++
             edgesPropertyBind += "let parser$pid = new DpParser('${sourceProperty.type.toCtText()}', '${targetProperty.type.toCtText()}')\n" +
+                "  parser$pid.setForce('${sourceProperty.device}', '${sourceProperty.tal}', '${targetProperty.device}', '${targetProperty.tal}')\n" +
                 "  DSM.${sourceDevice.vn}.${sourceProperty.tal}.addListener(value => {\n" +
                 "    value = parser$pid.convert(value)\n" +
                 "    mlog(' ├ @BIND ${targetDevice.vn}.${targetProperty.tal} changed-to', value)\n" +
