@@ -45,12 +45,13 @@ object DeviceAndPortMap {
                 Property("HomeHumidifier", "背光亮度", "backlightBrightness", TalType().fromText("int:0,100"), "rwn"),
                 Property("HomeHumidifier", "提示音", "warningToneSwitch", TalType().fromText("boolean"), "rwn"),
                 Property("HomeHumidifier", "除菌开关", "sterilizationSwitch", TalType().fromText("boolean"), "rwn"),
+                Property("HomeHumidifier", "喷雾量（百分比）", "sprayVolumePercentage", TalType().fromText("int:0,100"), "wn"),
 
-//                Property("HomeHumidifier", "喷雾量（百分比）", "", TalType().fromText(""), "rwn"),
 //                Property("HomeHumidifier", "童锁开关", "", TalType().fromText(""), "rwn"),
+//                Property("HomeHumidifier", "缺水告警", "", TalType().fromText(""), "rn"),
+
 //                Property("HomeHumidifier", "滤芯复位", "", TalType().fromText(""), "wn"),
 //                Property("HomeHumidifier", "缺水阈值", "", TalType().fromText(""), "wn"),
-//                Property("HomeHumidifier", "缺水告警", "", TalType().fromText(""), "rn"),
 //                Property("HomeHumidifier", "分离告警", "", TalType().fromText(""), "rn"),
 //                Property("HomeHumidifier", "滤芯剩余可用时间", "filterRemainTime", TalType().fromText("any"), "rn"),
 //                Property("HomeHumidifier", "是否达到目标湿度", "", TalType().fromText(""), "rn"),
