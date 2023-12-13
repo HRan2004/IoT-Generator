@@ -122,6 +122,7 @@ object DoGenerate {
                     } else {
                         initRemoteReceive[device.vn] = arrayOf(v)
                     }
+
                 }
             }
             if (dsmProperties.isNotEmpty()) {
